@@ -8,8 +8,8 @@ Background: Podcasts have been added to the database
   | title                 |  
   | Hello Internet        |  
   | Stuff You Should Know |  
-  And I am on the PonyPod home page
 
 Scenario: See the list of podcasts
+  Given I am on the PonyPod home page
   Then I should see "Hello Internet"
   And I should see "Stuff You Should Know"
