@@ -1,14 +1,17 @@
 
 # Populate the podcasts table
 Given /the following podcasts exist/ do |podcasts_table|
-  # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
+	podcasts_table.hashes.each do |podcast|
+		Podcast.create! podcast
+	end
 end
 
 # Populate the episodes table
 Given /the following episodes exist/ do |episodes_table|
-  # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
+	episodes_table.hashes.each do |episode|
+		episode[:podcast] = Podcast.find_by_title episode[:podcast]
+		Episode.create! episode
+	end
 end
 
 Given /I am on the PonyPod home page/ do

@@ -9,11 +9,11 @@ Background: Podcasts have been added to the database
   | Hello Internet        |  
   | Stuff You Should Know |  
   And the following episodes exist:
-  | title                       | podcast               |  
-  | 2 Dudes Talking             | Hello Internet        |  
-  | Star Wars Christmas Special | Hello Internet        |  
-  | How puberty works           | Stuff You Should Know |  
-  | How blind rabbits work      | Stuff You Should Know |  
+  | title                       | podcast               | mp3_link             |  
+  | 2 Dudes Talking             | Hello Internet        | http://google.com/1/ |  
+  | Star Wars Christmas Special | Hello Internet        | http://google.com/2/ |  
+  | How puberty works           | Stuff You Should Know | http://google.com/3/ |  
+  | How blind rabbits work      | Stuff You Should Know | http://google.com/4/ |  
 
 Scenario: See the list of episodes for Hello Internet
   Given I am on the PonyPod home page
