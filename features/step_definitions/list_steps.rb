@@ -14,8 +14,12 @@ Given /the following episodes exist/ do |episodes_table|
 	end
 end
 
-Given /I am on the PonyPod home page/ do
-  pending # express the regexp above with the code you wish you had
+Given /^(?:|I )am on (.+)$/ do |page_name|
+  visit path_to(page_name)
+end
+
+When /^(?:|I )go to (.+)$/ do |page_name|
+  visit path_to(page_name)
 end
 
 Given /I click on "(.*?)"/ do |arg1|
