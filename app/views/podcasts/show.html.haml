@@ -1,0 +1,5 @@
+%h1= @podcast.title
+%ul
+  -@podcast.episodes.each do |episode|
+    %li
+      =link_to episode.title, episode_path(episode)
