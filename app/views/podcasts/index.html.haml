@@ -1,1 +1,4 @@
-=@podcasts.inspect
+%ul
+  -@podcasts.each do |podcast|
+    %li
+      =link_to podcast.title, podcast_path(podcast)

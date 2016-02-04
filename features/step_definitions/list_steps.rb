@@ -30,43 +30,22 @@ Given /I click on "(.*?)"/ do |link|
     click_link(link)
 end
 
-Then /^(?:|I )should see "([^"]*)"$/ do |text|
+Then /^(?:|I )should see "([^\"]*)"$/ do |text|
 	expect(page).to have_content(text)
-  # if page.respond_to? :should
-  #   page.should have_content(text)
-  # else
-  #   assert page.has_content?(text)
-  # end
 end
 
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   expect(page).to have_xpath('//*', :text => regexp)
-  # if page.respond_to? :should
-  #   page.should have_xpath('//*', :text => regexp)
-  # else
-  #   assert page.has_xpath?('//*', :text => regexp)
-  # end
 end
 
-Then /^(?:|I )should not see "([^"]*)"$/ do |text|
+Then /^(?:|I )should not see "([^\"]*)"$/ do |text|
 	expect(page).to have_no_content(text)
-  # if page.respond_to? :should
-  #   page.should have_no_content(text)
-  # else
-  #   assert page.has_no_content?(text)
-  # end
 end
 
 Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   expect(page).to have_no_xpath('//*', :text => regexp)
-
-  # if page.respond_to? :should
-  #   page.should have_no_xpath('//*', :text => regexp)
-  # else
-  #   assert page.has_no_xpath?('//*', :text => regexp)
-  # end
 end
 
 Then /I should see the audio player for "(.*?)"/ do |arg1|
