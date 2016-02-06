@@ -1,4 +1,5 @@
 class EpisodesController < ApplicationController
-	def index
-	end
+  def show
+    @episode = Episode.find_by_id params[:id]
+  end
 end
