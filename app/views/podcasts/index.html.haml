@@ -1,0 +1,5 @@
+%h1 Ponypod Podcasts
+%ul
+  -@podcasts.each do |podcast|
+    %li
+      =link_to podcast.title, podcast_path(podcast)
