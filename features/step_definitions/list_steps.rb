@@ -49,5 +49,5 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
 end
 
 Then /I should see the audio player for "(.*?)"/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_xpath("//audio[@src = '#{arg1}']")
 end
