@@ -1,0 +1,10 @@
+= form_for @podcast do |f|
+  - if @podcast.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@podcast.errors.count, "error")} prohibited this podcast from being saved:"
+      %ul
+        - @podcast.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'
