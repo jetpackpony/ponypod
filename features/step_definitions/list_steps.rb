@@ -53,10 +53,11 @@ Then /I should see the audio player for "(.*?)"/ do |arg1|
 end
 
 When(/^(?:|I )add a podcast "(.*?)" with rss link "(.*?)"$/) do |title, rss_link|
-  fill_in(:title, :with => title)
-  fill_in(:rss_link, :with => rss_link)
+  fill_in(:podcast_title, :with => title)
+  fill_in(:podcast_rss_link, :with => rss_link)
+  click_button("Save")
 end
 
-Then(/^I should be on a podcast page for "(.*?)"$/) do |arg1|
+Then(/^I should be on (.*?)$/) do |page_name|
   expect(URI.parse(current_url).path).to eq(path_to(page_name))
 end
