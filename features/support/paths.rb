@@ -15,6 +15,9 @@ module NavigationHelpers
 
     when /^the .+ home\s?page$/
       '/'
+    when /^the podcast page for "(.*?)"$/i
+      podcast_path(Podcast.find_by_title($1))
+
     # when /^an add (.+) page$/
     #   ''
 

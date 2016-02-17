@@ -6,5 +6,10 @@
         - @podcast.errors.full_messages.each do |msg|
           %li= msg
 
+  = label_tag :title, "Podcast Title: "
+  = f.text_field :title
+  %br
+  = label_tag :rss_link, "RSS Link: "
+  = f.text_field :rss_link
   .actions
     = f.submit 'Save'
