@@ -1,3 +1,12 @@
+%p#notice= notice
+
 %h1= @episode.podcast.title
 %h2= @episode.title
-%audio{ src: @episode.mp3_link, controls: "controls" }
+
+= link_to 'Edit', edit_episode_path(@episode)
+\|
+= link_to 'Back', episodes_path
+
+%p
+  %audio{ :controls => 'controls' }
+    %source{ src: @episode.mp3_link }
