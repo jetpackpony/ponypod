@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217001237) do
+ActiveRecord::Schema.define(version: 20160304023740) do
 
   create_table "episodes", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160217001237) do
     t.string   "mp3_link",   limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "guid",       limit: 255
   end
 
   add_index "episodes", ["podcast_id"], name: "index_episodes_on_podcast_id", using: :btree

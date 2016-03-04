@@ -28,6 +28,9 @@ gem 'haml'
 
 gem "haml-rails", "~> 0.9"
 
+# Use feedjira for RSS parsing and fetching
+gem 'feedjira'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
