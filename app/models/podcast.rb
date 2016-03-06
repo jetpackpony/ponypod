@@ -8,8 +8,6 @@ class Podcast < ActiveRecord::Base
       podcast.rss_link.to_s != ""
     end
     .each do |podcast|
-      feed = Feedjira::Feed.fetch_and_parse podcast.rss_link
-      byebug
       podcast.sync Feedjira::Feed.fetch_and_parse podcast.rss_link
     end
   end
