@@ -1,6 +1,8 @@
 class Podcast < ActiveRecord::Base
   has_many :episodes, dependent: :destroy
 
+=begin
+  # The feed syncronization stuff
   def self.syncronize
     self.all
     .select do |podcast|
@@ -23,4 +25,6 @@ class Podcast < ActiveRecord::Base
     end
     self.save!
   end
+=end
+
 end
