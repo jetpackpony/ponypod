@@ -1,7 +1,6 @@
 class Podcast < ActiveRecord::Base
   has_many :episodes, dependent: :destroy
 
-=begin
   # The feed syncronization stuff
   def self.syncronize
     self.all
@@ -11,7 +10,7 @@ class Podcast < ActiveRecord::Base
     .each do |podcast|
       feed = Feedjira::Feed.fetch_and_parse podcast.rss_link
       byebug
-      # podcast.sync Feedjira::Feed.fetch_and_parse podcast.rss_link
+      podcast.sync Feedjira::Feed.fetch_and_parse podcast.rss_link
     end
   end
 
@@ -20,11 +19,17 @@ class Podcast < ActiveRecord::Base
     feed.entries.each do |entry|
       episode = self.episodes.find_or_create_by(guid: entry.entry_id)
       episode.title = entry.title
-      episode.mp3_link = entry.enclosure_url
+      episode.mp3_link = Podcast.get_mp3_url entry
       episode.save!
     end
     self.save!
   end
-=end
 
+  def self.get_mp3_url(entry)
+    entry[ 
+      [:image, :enclosure_url].find do |method|
+        entry.respond_to? method
+      end
+    ]
+  end
 end
