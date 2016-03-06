@@ -1,5 +1,19 @@
-%h1 Ponypod Podcasts
-%ul
-  -@podcasts.each do |podcast|
-    %li
-      =link_to podcast.title, podcast_path(podcast)
+%h1 Listing podcasts
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @podcasts.each do |podcast|
+      %tr
+        %td= link_to podcast.title, podcast
+        %td= link_to 'Edit', edit_podcast_path(podcast)
+        %td= link_to 'Destroy', podcast, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Podcast', new_podcast_path
