@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160304023740) do
+ActiveRecord::Schema.define(version: 20160309041256) do
 
   create_table "episodes", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160304023740) do
     t.string   "guid",       limit: 255
   end
 
+  add_index "episodes", ["guid"], name: "index_episodes_on_guid", unique: true, using: :btree
   add_index "episodes", ["podcast_id"], name: "index_episodes_on_podcast_id", using: :btree
 
   create_table "podcasts", force: :cascade do |t|
@@ -30,6 +31,8 @@ ActiveRecord::Schema.define(version: 20160304023740) do
     t.datetime "updated_at",             null: false
     t.string   "rss_link",   limit: 255
   end
+
+  add_index "podcasts", ["rss_link"], name: "index_podcasts_on_rss_link", unique: true, using: :btree
 
   add_foreign_key "episodes", "podcasts"
 end
