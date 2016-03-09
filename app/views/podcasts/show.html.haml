@@ -1,0 +1,10 @@
+%p#notice= notice
+
+%h1= @podcast.title
+= link_to 'Edit', edit_podcast_path(@podcast)
+\|
+= link_to 'Back', podcasts_path
+
+%ul
+  -@podcast.episodes.each do |episode|
+    %li= link_to episode.title, episode
