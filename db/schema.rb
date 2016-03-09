@@ -12,7 +12,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20160309041256) do
-
   create_table "episodes", force: :cascade do |t|
     t.string   "title",      limit: 255
     t.integer  "podcast_id", limit: 4
