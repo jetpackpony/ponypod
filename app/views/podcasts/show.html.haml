@@ -5,6 +5,8 @@
 \|
 = link_to 'Back', podcasts_path
 
+%p= @podcast.description
+
 %ul
   -@podcast.episodes.each do |episode|
     %li= link_to episode.title, episode
