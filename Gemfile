@@ -32,6 +32,10 @@ gem "haml-rails", "~> 0.9"
 # Use feedjira for RSS parsing and fetching
 gem 'feedjira'
 
+# Use sanitize gem for cleaning up HTML in the models
+gem "sanitize"
+gem "htmlentities"
+
 # Some gem for Heroku platform logs stuff
 gem 'rails_12factor'
 

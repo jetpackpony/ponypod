@@ -1,6 +1,4 @@
 class Podcast < ActiveRecord::Base
-  include ActionView::Helpers
-
   has_many :episodes, dependent: :destroy
 
   # The feed syncronization stuff
@@ -34,7 +32,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def self.cleanup_text(text)
-    strip_tags(text.strip)
+    HTMLEntities.new.decode(Sanitize.fragment(text)).strip
   end
 
   def self.get_mp3_url(entry)
