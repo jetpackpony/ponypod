@@ -11,25 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309041256) do
+ActiveRecord::Schema.define(version: 20160311003629) do
 
   create_table "episodes", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.integer  "podcast_id", limit: 4
-    t.string   "mp3_link",   limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "guid",       limit: 255
+    t.string   "title",            limit: 255
+    t.integer  "podcast_id",       limit: 4
+    t.string   "mp3_link",         limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "guid",             limit: 255
+    t.text     "full_description", limit: 65535
+    t.text     "summary",          limit: 65535
   end
 
   add_index "episodes", ["guid"], name: "index_episodes_on_guid", unique: true, using: :btree
   add_index "episodes", ["podcast_id"], name: "index_episodes_on_podcast_id", using: :btree
 
   create_table "podcasts", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "rss_link",   limit: 255
+    t.string   "title",       limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "rss_link",    limit: 255
+    t.text     "description", limit: 65535
   end
 
   add_index "podcasts", ["rss_link"], name: "index_podcasts_on_rss_link", unique: true, using: :btree
