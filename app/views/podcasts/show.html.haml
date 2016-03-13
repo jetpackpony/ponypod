@@ -7,6 +7,11 @@
 
 %p= @podcast.description
 
+= form_tag podcast_path(@podcast), method: "get" do
+  = label_tag :query, "Search episodes:"
+  = search_field_tag :query
+  = submit_tag "Search"
+
 %ul
-  -@podcast.episodes.each do |episode|
+  -@episodes.each do |episode|
     %li= link_to episode.title, episode
