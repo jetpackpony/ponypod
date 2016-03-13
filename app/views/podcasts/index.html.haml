@@ -1,5 +1,10 @@
 %h1 Listing podcasts
 
+= form_tag podcasts_path, method: "get" do
+  = label_tag :query, "Search podcasts: "
+  = search_field_tag :query
+  = submit_tag "Search"
+
 %table
   %thead
     %tr
