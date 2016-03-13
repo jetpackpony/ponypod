@@ -3,7 +3,7 @@ class Podcast < ActiveRecord::Base
 
   def self.search(query)
     if query
-      where "title LIKE :query OR description LIKE :query", query: "%#{query}%"
+      where "LOWER(title) LIKE LOWER(:query) OR LOWER(description) LIKE LOWER(:query)", query: "%#{query}%"
     else
       all
     end    
@@ -11,7 +11,7 @@ class Podcast < ActiveRecord::Base
 
   def search_episodes(query)
     if query
-      episodes.where "title LIKE :query OR summary LIKE :query", query: "%#{query}%"
+      episodes.where "LOWER(title) LIKE LOWER(:query) OR LOWER(summary) LIKE LOWER(:query)", query: "%#{query}%"
     else
       episodes
     end    
