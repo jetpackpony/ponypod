@@ -4,12 +4,13 @@ class PodcastsController < ApplicationController
   # GET /podcasts
   # GET /podcasts.json
   def index
-    @podcasts = Podcast.all
+    @podcasts = Podcast.search params[:query]
   end
 
   # GET /podcasts/1
   # GET /podcasts/1.json
   def show
+    @episodes = @podcast.search_episodes params[:query]
   end
 
   # GET /podcasts/new

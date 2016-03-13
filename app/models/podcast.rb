@@ -1,6 +1,23 @@
 class Podcast < ActiveRecord::Base
   has_many :episodes, dependent: :destroy
 
+  def self.search(query)
+    if query
+      where "title LIKE :query OR description LIKE :query", query: "%#{query}%"
+    else
+      all
+    end    
+  end
+
+  def search_episodes(query)
+    if query
+      episodes.where "title LIKE :query OR summary LIKE :query", query: "%#{query}%"
+    else
+      episodes
+    end    
+  end
+
+
   # The feed syncronization stuff
   def self.syncronize
     self.all
