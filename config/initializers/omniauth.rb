@@ -4,3 +4,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       :name => "google"
     }
 end
+
+# Forses redirect to failure on all environments
+OmniAuth.config.on_failure = Proc.new { |env|
+  OmniAuth::FailureEndpoint.new(env).redirect_to_failure
+}
