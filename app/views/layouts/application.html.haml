@@ -1,0 +1,17 @@
+!!! 5
+%html
+  %head
+    %title Ponypod - test
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    - flash.each do |key, value|
+      %div.alert= value
+    %div#login
+      - if current_user
+        Hi, #{current_user.name} #{link_to "Logout", "/logout"}
+      - else
+        = link_to "Login with google","auth/google" 
+
+    = yield

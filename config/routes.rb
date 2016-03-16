@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get '/auth/:provider/callback' => 'sessions#create'
+  get '/auth/failure' => 'sessions#failure'
+  get '/logout' => 'sessions#destroy'
+
   resources :episodes
   resources :episodes
   # The priority is based upon order of creation: first created -> highest priority.
