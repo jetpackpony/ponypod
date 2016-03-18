@@ -18,6 +18,9 @@
         %td= link_to podcast.title, podcast
         %td= link_to 'Edit', edit_podcast_path(podcast)
         %td= link_to 'Destroy', podcast, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        - if current_user
+          %td= link_to 'Subscribe', { controller: "subscriptions", action: "create", id: podcast }
+
 
 %br
 

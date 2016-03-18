@@ -1,5 +1,6 @@
 class PodcastsController < ApplicationController
   before_action :set_podcast, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, only: [:subscribe]
 
   # GET /podcasts
   # GET /podcasts.json
@@ -72,5 +73,11 @@ class PodcastsController < ApplicationController
     def podcast_params
       params.require(:podcast).permit(:title, :rss_link)
       # params[:podcast]
+    end
+
+    def require_login
+      if !current_user
+        redirect_to podcasts_path, alert: 'You need to login to subscribe to podcasts'
+      end
     end
 end

@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def create
     user = User.get_from_omniauth request.env["omniauth.auth"]
-    session[:user_id] = user.id
+    session[:current_user_id] = user.id
     redirect_to root_url, notice: "Logged in as " + user.name
   end
 
@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.delete(:user_id)
+    @_current_user = session[:current_user_id] = nil
     redirect_to root_url, notice: "Logged out"
   end
 end
