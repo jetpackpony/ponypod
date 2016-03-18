@@ -16,12 +16,12 @@
     - @podcasts.each do |podcast|
       %tr
         %td= link_to podcast.title, podcast
-        %td= link_to 'Edit', edit_podcast_path(podcast)
-        %td= link_to 'Destroy', podcast, :method => :delete, :data => { :confirm => 'Are you sure?' }
         - if current_user
-          %td= link_to 'Subscribe', { controller: "subscriptions", action: "create", id: podcast }
+          - if @user_podcasts.include? podcast.id
+            %td= link_to 'Unsubscribe', { controller: "subscriptions", action: "destroy", id: podcast }, :method => :delete
+          - else
+            %td= link_to 'Subscribe', { controller: "subscriptions", action: "create", id: podcast }
 
 
 %br
-
 = link_to 'New Podcast', new_podcast_path

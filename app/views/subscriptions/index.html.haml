@@ -11,6 +11,4 @@
     - @podcasts.each do |podcast|
       %tr
         %td= link_to podcast.title, podcast
-        %td= link_to 'Edit', edit_podcast_path(podcast)
-        %td= link_to 'Destroy', podcast, :method => :delete, :data => { :confirm => 'Are you sure?' }
-        %td= link_to 'Unsubscribe', { controller: "subscriptions", action: "destroy", id: podcast }, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to 'Unsubscribe', { controller: "subscriptions", action: "destroy", id: podcast }, :method => :delete

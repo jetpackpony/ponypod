@@ -1,6 +1,6 @@
 class PodcastsController < ApplicationController
   before_action :set_podcast, only: [:show, :edit, :update, :destroy]
-  before_action :require_login, only: [:subscribe]
+  before_action :get_user_podcasts, only: [:index, :show]
 
   # GET /podcasts
   # GET /podcasts.json
@@ -75,9 +75,8 @@ class PodcastsController < ApplicationController
       # params[:podcast]
     end
 
-    def require_login
-      if !current_user
-        redirect_to podcasts_path, alert: 'You need to login to subscribe to podcasts'
-      end
+    def get_user_podcasts
+      @user_podcasts = []
+      @user_podcasts = Subscription.get_for_user current_user.id if current_user
     end
 end
