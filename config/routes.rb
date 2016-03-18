@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get '/subscribe/:id' => 'subscriptions#create'
+  get '/subscriptions' => 'subscriptions#index'
+  delete '/subscribe/:id' => 'subscriptions#destroy'
+
   get '/auth/:provider/callback' => 'sessions#create'
   get '/auth/failure' => 'sessions#failure'
   get '/logout' => 'sessions#destroy'

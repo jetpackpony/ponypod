@@ -1,5 +1,6 @@
 class PodcastsController < ApplicationController
   before_action :set_podcast, only: [:show, :edit, :update, :destroy]
+  before_action :get_user_podcasts, only: [:index, :show]
 
   # GET /podcasts
   # GET /podcasts.json
@@ -72,5 +73,10 @@ class PodcastsController < ApplicationController
     def podcast_params
       params.require(:podcast).permit(:title, :rss_link)
       # params[:podcast]
+    end
+
+    def get_user_podcasts
+      @user_podcasts = []
+      @user_podcasts = Subscription.get_for_user current_user.id if current_user
     end
 end

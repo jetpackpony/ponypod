@@ -1,0 +1,14 @@
+%h1 Podcasts I subscribe to
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @podcasts.each do |podcast|
+      %tr
+        %td= link_to podcast.title, podcast
+        %td= link_to 'Unsubscribe', { controller: "subscriptions", action: "destroy", id: podcast }, :method => :delete
