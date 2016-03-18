@@ -6,7 +6,13 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    @_current_user ||= session[:current_user_id] && User.find_by(id: session[:current_user_id])
+  end
+
+  def require_login
+    if !current_user
+      redirect_to podcasts_path, alert: 'You need to login to subscribe to podcasts'
+    end
   end
 
   helper_method :current_user
