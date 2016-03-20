@@ -18,4 +18,7 @@
 
 %ul
   -@episodes.each do |episode|
-    %li= link_to episode.title, episode
+    %li
+      = link_to(episode.title, episode)
+      = link_to("Mark as viewed", { controller: "episodes", action: "viewed_status", id: episode, status: "viewed"}, :method => 'post')
+
