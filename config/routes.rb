@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get '/subscriptions' => 'subscriptions#index'
   delete '/subscribe/:id' => 'subscriptions#destroy'
 
+  post '/episodes/:id/viewed_status' => 'episodes#viewed_status'
+
   get '/auth/:provider/callback' => 'sessions#create'
   get '/auth/failure' => 'sessions#failure'
   get '/logout' => 'sessions#destroy'

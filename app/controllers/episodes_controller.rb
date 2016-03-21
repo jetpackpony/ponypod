@@ -1,5 +1,7 @@
 class EpisodesController < ApplicationController
-  before_action :set_episode, only: [:show, :edit, :update, :destroy]
+  before_action :set_episode, only: [:show, :edit, :update, :destroy, :viewed_status]
+  before_action :require_login, only: [:viewed_status]
+  before_action :set_is_viewed, only: [:show]
 
   # GET /episodes
   # GET /episodes.json
@@ -61,6 +63,16 @@ class EpisodesController < ApplicationController
     end
   end
 
+  # POST /episodes/1/viewed_status
+  def viewed_status
+    if viewed_param == 'viewed'
+      @episode.mark_viewed_by current_user.id
+    else
+      @episode.mark_new_by current_user.id
+    end
+    redirect_to :back, notice: 'Episode marked as ' + viewed_param
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_episode
@@ -70,5 +82,21 @@ class EpisodesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def episode_params
       params[:episode]
+    end
+
+    def viewed_param
+      case params[:status]
+      when 'viewed'
+        'viewed'
+      when 'new'
+        'new'
+      else
+        raise "Wrong argument format of viewed_status: " + params[:viewed_status]
+      end
+    end
+
+    def set_is_viewed
+      @episode_is_viewed = false
+      @episode_is_viewed = @episode.is_viewed_by current_user.id if current_user
     end
 end

@@ -3,6 +3,11 @@
 %h1= @episode.podcast.title
 %h2= @episode.title
 
+- if current_user
+  - if @episode_is_viewed
+    = link_to("Mark as new", { controller: "episodes", action: "viewed_status", id: @episode, status: "new"}, :method => 'post')
+  - else
+    = link_to("Mark as viewed", { controller: "episodes", action: "viewed_status", id: @episode, status: "viewed"}, :method => 'post')
 = link_to 'Back', podcast_path(@episode.podcast_id)
 
 %p.description
