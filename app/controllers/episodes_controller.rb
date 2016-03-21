@@ -1,6 +1,7 @@
 class EpisodesController < ApplicationController
   before_action :set_episode, only: [:show, :edit, :update, :destroy, :viewed_status]
   before_action :require_login, only: [:viewed_status]
+  before_action :set_is_viewed, only: [:show]
 
   # GET /episodes
   # GET /episodes.json
@@ -64,8 +65,12 @@ class EpisodesController < ApplicationController
 
   # POST /episodes/1/viewed_status
   def viewed_status
-    
-    redirect_to :back, notice: 'Episode Viewed'
+    if viewed_param == 'viewed'
+      @episode.mark_viewed_by current_user.id
+    else
+      @episode.mark_new_by current_user.id
+    end
+    redirect_to :back, notice: 'Episode marked as ' + viewed_param
   end
 
   private
@@ -88,5 +93,10 @@ class EpisodesController < ApplicationController
       else
         raise "Wrong argument format of viewed_status: " + params[:viewed_status]
       end
+    end
+
+    def set_is_viewed
+      @episode_is_viewed = false
+      @episode_is_viewed = @episode.is_viewed_by current_user.id if current_user
     end
 end

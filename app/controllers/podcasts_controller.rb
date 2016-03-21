@@ -1,6 +1,7 @@
 class PodcastsController < ApplicationController
   before_action :set_podcast, only: [:show, :edit, :update, :destroy]
   before_action :get_user_podcasts, only: [:index, :show]
+  before_action :get_viewed_episodes, only: [:show]
 
   # GET /podcasts
   # GET /podcasts.json
@@ -78,5 +79,10 @@ class PodcastsController < ApplicationController
     def get_user_podcasts
       @user_podcasts = []
       @user_podcasts = Subscription.get_for_user current_user.id if current_user
+    end
+
+    def get_viewed_episodes
+      @viewed_episodes = []
+      @viewed_episodes = ViewedEpisode.get_for_user_and_podcast current_user.id, @podcast.id if current_user
     end
 end
