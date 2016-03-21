@@ -18,4 +18,10 @@
 
 %ul
   -@episodes.each do |episode|
-    %li= link_to episode.title, episode
+    %li
+      = link_to(episode.title, episode)
+      - if current_user
+        - if @viewed_episodes.include? episode.id
+          = link_to("Mark as new", { controller: "episodes", action: "viewed_status", id: episode, status: "new"}, :method => 'post')
+        - else
+          = link_to("Mark as viewed", { controller: "episodes", action: "viewed_status", id: episode, status: "viewed"}, :method => 'post')
