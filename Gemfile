@@ -33,6 +33,9 @@ gem 'haml'
 
 gem "haml-rails", "~> 0.9"
 
+# Use Bootstrap for HTML template
+gem 'bootstrap', '~> 4.0.0.alpha3'
+
 # Use feedjira for RSS parsing and fetching
 gem 'feedjira'
 
