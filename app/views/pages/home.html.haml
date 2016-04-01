@@ -1,37 +1,94 @@
-%nav.navbar.navbar-fixed-top.navbar-dark.bg-inverse
-  %a.navbar-brand{ href: "#" }
-    Pony Pod
-  %ul.nav.navbar-nav
-    %li.nav-item.active
-      %a.nav-link{ href: "#" }
-        All Podcasts
-        %span.sr-only
-          (current)
-    %li.nav-item
-      %a.nav-link{ href: "#" } My Subscriptions
+%nav.navbar.navbar-light.bg-faded
+  %a.navbar-brand{ href: "#" } Pony Pod
+  %button.navbar-toggler.hidden-lg-up.pull-xs-right{"data-target" => "#exCollapsingNavbar2", "data-toggle" => "collapse", :type => "button"}
+    ☰
+  #exCollapsingNavbar2.collapse.navbar-toggleable-md
+    %ul.nav.navbar-nav
+      %li.nav-item.active
+        %a.nav-link{ href: "#" }
+          All Podcasts
+          %span.sr-only
+            (current)
+      %li.nav-item
+        %a.nav-link{ href: "#" } My Subscriptions
+    %ul.nav.navbar-nav.pull-xsright
+      %li.nav-item.pull-xs-left
+        %form.form-inline.search-form
+          .input-group
+            %input#search.form-control{ type: "search", placeholder: "Search" }
+            %span.input-group-btn
+              %button.btn.btn-default{ type: "button" } Search
+      %li.nav-item.pull-xs-right
+        %a.google-login{ href: "#" }
+          %img{ src: asset_path("btn_google_signin_light_normal_web.png") }
 
+/ %nav.navbar.navbar-light.bd-faded
+/   %a.navbar-brand{ href: "#" }
+/     Pony Pod
+/   %ul.nav.navbar-nav
+/     %li.nav-item.active
+/       %a.nav-link{ href: "#" }
+/         All Podcasts
+/         %span.sr-only
+/           (current)
+/     %li.nav-item
+/       %a.nav-link{ href: "#" } My Subscriptions
+/   %ul.nav.navbar-nav.pull-xsright
+/     %li.nav-item.pull-xs-left
+/       %form.form-inline.search-form
+/         .input-group
+/           %input.form-control{ type: "search", placeholder: "Search" }
+/           %span.input-group-btn
+/             %button.btn.btn-default{ type: "button" } Search
+/     %li.nav-item.pull-xs-right
+/       %a.google-login{ href: "#" }
+/         %img{ src: asset_path("btn_google_signin_light_normal_web.png") }
 
 .container-fluid.cont
   .row
-    .col-xs-12
+    .podcast
       .media
         %a.media-left
-          %img.media-object{ src: "http://placehold.it/100.png", alt: "Test" }
+          %img.media-object{ src: "http://placehold.it/128.png", alt: "Test" }
         .media-body
-          %h4.media-heading Testme Test
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+          %h5.media-heading Hello Internet
+          CGP Grey and Brady Haran talk about YouTube, life, work, whatever.
+    .podcast
+      .media
+        %a.media-left
+          %img.media-object{ src: "http://placehold.it/128.png", alt: "Test" }
+        .media-body
+          %h5.media-heading Stuff You Should Know
+          How do landfills work? How do mosquitos work? Join Josh and Chuck as they explore the Stuff You Should 
+          %a{ href: "#" } ...
+    .podcast
+      .media
+        %a.media-left
+          %img.media-object{ src: "http://placehold.it/128.png", alt: "Test" }
+        .media-body
+          %h5.media-heading Cortex
+          CGP Grey and Myke Hurley are both independent content creators. Each episode, they discuss the methods 
+          %a{ href: "#" } ...
+    .podcast
+      .media
+        %a.media-left
+          %img.media-object{ src: "http://placehold.it/128.png", alt: "Test" }
+        .media-body
+          %h5.media-heading Freakonomics Radio
+          In their books "Freakonomics," "SuperFreakonomics" and "Think Like a Freak", Steven D. Levitt and
+          %a{ href: "#" } ...
+    .podcast
+      .media
+        %a.media-left
+          %img.media-object{ src: "http://placehold.it/128.png", alt: "Test" }
+        .media-body
+          %h5.media-heading Разгадки вселенной
+          «Разгадки вселенной» — научно-познавательная программа, ведущие которой отвечают на вопрос: «Почему?»
+          %a{ href: "#" } ...
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  .test-size
+    %span Layout:
 
-    .col-xs-12
-      .media
-        %a.media-left
-          %img.media-object{ src: "http://placehold.it/100.png", alt: "Test" }
-        .media-body
-          %h4.media-heading Testme Test
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-    .col-xs-12
-      .media
-        %a.media-left
-          %img.media-object{ src: "http://placehold.it/100.png", alt: "Test" }
-        .media-body
-          %h4.media-heading Testme Test
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
