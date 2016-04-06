@@ -2,6 +2,8 @@
 @import ie10-viewport-bug-workaround
 
 $enable-flex: true
+$card-width: 384px
+$card-height: 384px
 
 +media-breakpoint-up(xs)
   .test-size:after
@@ -36,22 +38,62 @@ nav
   background-color: #f1f1f1
   +make-container
 
-.row
-  +make-row
-  padding: 0.3rem
-
-.podcast
-  +make-col
-  +media-breakpoint-up(sm)
-    +make-col-span(12)
-  +media-breakpoint-up(md)
-    +make-col-span(6)
-  +media-breakpoint-up(xl)
-    +make-col-span(4)
-  padding: 0.3rem
-
-  .media
-    background: #ffffff
+  .row
+    +make-row
     padding: 0.3rem
-    max-height: 138px
+
+  .podcast
+    +make-col
+    +media-breakpoint-up(sm)
+      +make-col-span(12)
+    +media-breakpoint-up(md)
+      +make-col-span(6)
+    +media-breakpoint-up(xl)
+      +make-col-span(4)
+    padding: 0.3rem
+    .card
+      max-height: $card-height
+      max-width: $card-width
+      min-height: $card-height
+      min-width: $card-width
+
+      img
+        width: $card-width
+        height: $card-height
+      .podcast-overlay
+        padding: 0
+        bottom: 0
+        top: 85%
+        transition: all 0.3s ease 0s
+        .podcast-info
+          background: white
+          opacity: 0.9
+          height: 100%
+          padding: 10px
+          .card-text
+            display: none
+            transition: all 0.1s ease 0.3s
+
+      .podcast-overlay
+        &:hover
+          top: 30%
+          .card-text
+            display: block
+
+      .subscribe-icon
+        a
+          color: #60FA28
+          font-size: 3rem
+          font-weight: bolder
+          text-decoration: none
+          &:hover
+            color: #A2FA82
+
+
+
+
+    .media
+      background: #ffffff
+      padding: 0.3rem
+      max-height: 138px
 
