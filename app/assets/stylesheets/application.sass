@@ -4,6 +4,7 @@
 $enable-flex: true
 $card-width: 384px
 $card-height: 384px
+$navbar-height: 4rem
 
 +media-breakpoint-up(xs)
   .test-size:after
@@ -35,6 +36,7 @@ nav
     width: 30em
 
 .container-fluid
+  margin-top: $navbar-height
   background-color: #f1f1f1
   +make-container
 
@@ -95,7 +97,7 @@ nav
             display: none
           a.unsubscribe
             display: block
-            
+
 
 
 
@@ -105,3 +107,8 @@ nav
       padding: 0.3rem
       max-height: 138px
 
+.alert
+  position: fixed
+  z-index: 1000
+  width: 100%
+  margin: 0

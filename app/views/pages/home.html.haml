@@ -1,80 +1,47 @@
-%nav.navbar.navbar-light
-  %a.navbar-brand{ href: "#" } Pony Pod
-  %button.navbar-toggler.hidden-lg-up.pull-xs-right{"data-target" => "#exCollapsingNavbar2", "data-toggle" => "collapse", :type => "button"}
-    ☰
-  #exCollapsingNavbar2.collapse.navbar-toggleable-md
-    %ul.nav.navbar-nav
-      %li.nav-item.active
-        %a.nav-link{ href: "#" }
-          All Podcasts
-          %span.sr-only
-            (current)
-      %li.nav-item
-        %a.nav-link{ href: "#" } My Subscriptions
-    %ul.nav.navbar-nav.pull-xsright
-      %li.nav-item.pull-xs-left
-        %form.form-inline.search-form
-          .input-group
-            %input#search.form-control{ type: "search", placeholder: "Search" }
-            %span.input-group-btn
-              %button.btn.btn-default{ type: "button" } Search
-      %li.nav-item.pull-xs-right
-        %a.google-login{ href: "#" }
-          %img{ src: asset_path("btn_google_signin_light_normal_web.png") }
+.podcast
+  .card.center-block
+    %img.card-img{ src: "http://podcasts.howstuffworks.com/hsw/podcasts/sysk/sysk-audio-1600.jpg" }
+    .card-img-overlay
+      %span.subscribe-icon.pull-xs-right 
+        %a.subscribe{ href: "#" } &#10133;
+    .card-img-overlay.podcast-overlay
+      .podcast-info
+        %h4.card-title Stuff You Should Know
+        %p.card-text How do landfills work? How do mosquitos work? Join Josh and Chuck as they explore the Stuff You Should Know about everything from genes to the Galapagos in this podcast from HowStuffWorks.com.
 
-.container-fluid.cont
-  .row
-    .podcast
-      .card.center-block
-        %img.card-img{ src: "http://podcasts.howstuffworks.com/hsw/podcasts/sysk/sysk-audio-1600.jpg" }
-        .card-img-overlay
-          %span.subscribe-icon.pull-xs-right 
-            %a.subscribe{ href: "#" } &#10133;
-        .card-img-overlay.podcast-overlay
-          .podcast-info
-            %h4.card-title Stuff You Should Know
-            %p.card-text How do landfills work? How do mosquitos work? Join Josh and Chuck as they explore the Stuff You Should Know about everything from genes to the Galapagos in this podcast from HowStuffWorks.com.
+.podcast
+  .card.center-block
+    %img.card-img{ src: "http://static1.squarespace.com/static/52d66949e4b0a8cec3bcdd46/t/52ebf67fe4b0f4af2a4502d8/1391195777839/1500w/Hello+Internet.003.png" }
+    .card-img-overlay
+      %span.subscribe-icon.pull-xs-right 
+        %a.subscribed{ href: "#" } &#10003;
+        %a.unsubscribe{ href: "#" } &times;
+    .card-img-overlay.podcast-overlay
+      .podcast-info
+        %h4.card-title Hello Internet
+        %p.card-text CGP Grey and Brady Haran talk about YouTube, life, work, whatever.
 
-    .podcast
-      .card.center-block
-        %img.card-img{ src: "http://static1.squarespace.com/static/52d66949e4b0a8cec3bcdd46/t/52ebf67fe4b0f4af2a4502d8/1391195777839/1500w/Hello+Internet.003.png" }
-        .card-img-overlay
-          %span.subscribe-icon.pull-xs-right 
-            %a.subscribed{ href: "#" } &#10003;
-            %a.unsubscribe{ href: "#" } &#10060;
-        .card-img-overlay.podcast-overlay
-          .podcast-info
-            %h4.card-title Hello Internet
-            %p.card-text CGP Grey and Brady Haran talk about YouTube, life, work, whatever.
+.podcast
+  .card.center-block
+    %img.card-img{ src: "https://media2.wnyc.org/i/1400/1400/l/80/1/wn16_wnycstudios_freakonomics-rev3.png" }
+    .card-img-overlay
+      %span.subscribe-icon.pull-xs-right 
+        %a{ href: "#" } &#10133;
+    .card-img-overlay.podcast-overlay
+      .podcast-info
+        %h4.card-title Freakonomics Radio
+        %p.card-text 
+          In their books "Freakonomics," "SuperFreakonomics" and "Think Like a Freak", Steven D. Levitt and Stephen J. Dubner  explore "the hidden side of everything," telling stories about cheating
+          %a{ href: "#" } ...
 
-    .podcast
-      .card.center-block
-        %img.card-img{ src: "https://media2.wnyc.org/i/1400/1400/l/80/1/wn16_wnycstudios_freakonomics-rev3.png" }
-        .card-img-overlay
-          %span.subscribe-icon.pull-xs-right 
-            %a{ href: "#" } &#10133;
-        .card-img-overlay.podcast-overlay
-          .podcast-info
-            %h4.card-title Freakonomics Radio
-            %p.card-text 
-              In their books "Freakonomics," "SuperFreakonomics" and "Think Like a Freak", Steven D. Levitt and Stephen J. Dubner  explore "the hidden side of everything," telling stories about cheating
-              %a{ href: "#" } ...
-
-    .podcast
-      .card.center-block
-        %img.card-img{ src: "http://i.podster.fm/img/8436/crop/yes/size/default/8436-1.jpg" }
-        .card-img-overlay
-          %span.subscribe-icon.pull-xs-right 
-            %a{ href: "#" } &#10133;
-        .card-img-overlay.podcast-overlay
-          .podcast-info
-            %h4.card-title Разгадки вселенной
-            .podcast-description
-              %p.card-text «Разгадки вселенной» — научно-познавательная программа, ведущие которой отвечают на вопрос: «Почему?», которым задаются взрослые и дети всего мира.
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  .test-size
-    %span Layout:
-
+.podcast
+  .card.center-block
+    %img.card-img{ src: "http://i.podster.fm/img/8436/crop/yes/size/default/8436-1.jpg" }
+    .card-img-overlay
+      %span.subscribe-icon.pull-xs-right 
+        %a{ href: "#" } &#10133;
+    .card-img-overlay.podcast-overlay
+      .podcast-info
+        %h4.card-title Разгадки вселенной
+        .podcast-description
+          %p.card-text «Разгадки вселенной» — научно-познавательная программа, ведущие которой отвечают на вопрос: «Почему?», которым задаются взрослые и дети всего мира.
