@@ -6,28 +6,6 @@ $card-width: 384px
 $card-height: 384px
 $navbar-height: 4rem
 
-+media-breakpoint-up(xs)
-  .test-size:after
-    content: " xs "
-+media-breakpoint-up(sm)
-  .test-size:after
-    content: " sm "
-+media-breakpoint-up(md)
-  .test-size:after
-    content: " md "
-+media-breakpoint-up(lg)
-  .test-size:after
-    content: " lg "
-+media-breakpoint-up(xl)
-  .test-size:after
-    content: " xl "
-
-.test-size
-  margin-top: 3rem
-
-
-// Actual styles
-
 nav
   background-color: #ffffff
   .search-form
@@ -36,76 +14,99 @@ nav
     width: 30em
 
 .container-fluid
-  margin-top: $navbar-height
   background-color: #f1f1f1
   +make-container
 
-  .row
+  .row.podcast
+    +make-row
+    .col-left
+      height: 500px
+      background-color: red
+      +make-col
+      +media-breakpoint-up(sm)
+        +make-col-span(3)
+    .col-center
+      background-color: blue
+      +make-col
+      +media-breakpoint-up(sm)
+        +make-col-span(6)
+    .col-right
+      background-color: green
+      +make-col
+      +media-breakpoint-up(sm)
+        +make-col-span(3)
+
+    .content-wrapper
+      padding-top: $navbar-height
+
+
+  .row.podcasts-list
+    margin-top: $navbar-height
     +make-row
     padding: 0.3rem
 
-  .podcast
-    +make-col
-    +media-breakpoint-up(sm)
-      +make-col-span(12)
-    +media-breakpoint-up(md)
-      +make-col-span(6)
-    +media-breakpoint-up(xl)
-      +make-col-span(4)
-    padding: 0.3rem
-    .card
-      max-height: $card-height
-      max-width: $card-width
-      min-height: $card-height
-      min-width: $card-width
-
-      img
-        width: $card-width
-        height: $card-height
-      .podcast-overlay
-        padding: 0
-        bottom: 0
-        top: 85%
-        transition: all 0.3s ease 0s
-        .podcast-info
-          background: white
-          opacity: 0.9
-          height: 100%
-          padding: 10px
-          .card-text
-            display: none
-            transition: all 0.1s ease 0.3s
-
-      .podcast-overlay
-        &:hover
-          top: 30%
-          .card-text
-            display: block
-
-      .subscribe-icon
-        a
-          color: #60FA28
-          font-size: 3rem
-          font-weight: bolder
-          text-decoration: none
-          &:hover
-            color: #A2FA82
-        a.unsubscribe
-          display: none
-        &:hover
-          a.subscribed
-            display: none
-          a.unsubscribe
-            display: block
-
-
-
-
-
-    .media
-      background: #ffffff
+    .podcast
+      +make-col
+      +media-breakpoint-up(sm)
+        +make-col-span(12)
+      +media-breakpoint-up(md)
+        +make-col-span(6)
+      +media-breakpoint-up(xl)
+        +make-col-span(4)
       padding: 0.3rem
-      max-height: 138px
+      .card
+        max-height: $card-height
+        max-width: $card-width
+        min-height: $card-height
+        min-width: $card-width
+
+        img
+          width: $card-width
+          height: $card-height
+        .podcast-overlay
+          padding: 0
+          bottom: 0
+          top: 85%
+          transition: all 0.3s ease 0s
+          .podcast-info
+            background: white
+            opacity: 0.9
+            height: 100%
+            padding: 10px
+            .card-text
+              display: none
+              transition: all 0.1s ease 0.3s
+
+        .podcast-overlay
+          &:hover
+            top: 30%
+            .card-text
+              display: block
+
+        .subscribe-icon
+          a
+            color: #60FA28
+            font-size: 3rem
+            font-weight: bolder
+            text-decoration: none
+            &:hover
+              color: #A2FA82
+          a.unsubscribe
+            display: none
+          &:hover
+            a.subscribed
+              display: none
+            a.unsubscribe
+              display: block
+
+
+
+
+
+      .media
+        background: #ffffff
+        padding: 0.3rem
+        max-height: 138px
 
 .alert
   position: fixed
