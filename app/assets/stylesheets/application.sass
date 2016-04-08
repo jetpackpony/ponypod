@@ -6,12 +6,31 @@ $card-width: 384px
 $card-height: 384px
 $navbar-height: 4rem
 
-nav
-  background-color: #ffffff
-  .search-form
-    margin-left: 1em
-  #search
-    width: 30em
++media-breakpoint-up(xs)
+  .test-size:after
+    content: " xs "
++media-breakpoint-up(sm)
+  .test-size:after
+    content: " sm "
++media-breakpoint-up(md)
+  .test-size:after
+    content: " md "
++media-breakpoint-up(lg)
+  .test-size:after
+    content: " lg "
++media-breakpoint-up(xl)
+  .test-size:after
+    content: " xl "
+
+.test-size
+  margin-top: 3rem
+
+// nav
+//   background-color: #ffffff
+//   .search-form
+//     margin-left: 1em
+//   #search
+//     width: 30em
 
 .container-fluid
   background-color: #f1f1f1
