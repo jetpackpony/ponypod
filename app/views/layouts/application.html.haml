@@ -26,13 +26,13 @@
       %button#collapse-all.navbar-toggler.hidden-sm-up.pull-xs-right &#9776;
       %button#collapse-lg.navbar-toggler.hidden-lg-up.hidden-xs-down.pull-xs-right &#9776;
       #collapsingContentAll.collapse.navbar-toggleable-xs
-        .search-container.pull-xs-left
+        .search-container.pull-lg-left
           %form.form-inline.search-form
             .input-group
               %input#search.form-control{ type: "search", placeholder: "Search" }
               %span.input-group-btn
                 %button.btn.btn-default{ type: "button" } Search
-        #collapsingContent-lg.collapse.navbar-toggleable-md.pull-xs-right
+        #collapsingContent-lg.collapse.navbar-toggleable-md.pull-lg-right
           %ul.nav.navbar-nav
             %li.nav-item.active
               %a.nav-link{ href: "#" }
@@ -44,9 +44,8 @@
             %li.nav-item
               %a.google-login{ href: "#" }
                 %img{ src: asset_path("btn_google_signin_light_normal_web.png") }
-          
-
-      #exCollapsingNavbar2.collapse.navbar-toggleable-md
+          .clearfix
+        .clearfix
 
     .container-fluid.cont
       = yield

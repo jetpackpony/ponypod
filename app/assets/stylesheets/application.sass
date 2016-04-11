@@ -32,6 +32,33 @@ $navbar-height: 4rem
 //   #search
 //     width: 30em
 
+nav
+  background: white
+  #collapsingContentAll
+    background-color: white
+    +media-breakpoint-down(xs)
+      width: 100%
+      .input-group
+        width: 100%
+        padding-top: 0.5rem
+
+    +media-breakpoint-down(sm)
+
+
+    +media-breakpoint-down(md)
+      #collapsingContent-lg
+        width: 100%
+      li
+        width: 100%
+        margin: 0.3rem 0
+
+    +media-breakpoint-down(lg)
+
+    +media-breakpoint-down(xl)
+
+    // #collapsingContent-lg   
+
+
 .container-fluid
   background-color: #f1f1f1
   +make-container
