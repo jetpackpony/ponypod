@@ -6,12 +6,51 @@ $card-width: 384px
 $card-height: 384px
 $navbar-height: 4rem
 
++media-breakpoint-up(xs)
+  .test-size:after
+    content: " xs "
++media-breakpoint-up(sm)
+  .test-size:after
+    content: " sm "
++media-breakpoint-up(md)
+  .test-size:after
+    content: " md "
++media-breakpoint-up(lg)
+  .test-size:after
+    content: " lg "
++media-breakpoint-up(xl)
+  .test-size:after
+    content: " xl "
+
+.test-size
+  margin-top: 3rem
+
 nav
-  background-color: #ffffff
-  .search-form
-    margin-left: 1em
-  #search
-    width: 30em
+  background: white
+  #collapsingContentAll
+    background-color: white
+    +media-breakpoint-down(xs)
+      width: 100%
+      .input-group
+        width: 100%
+        padding-top: 0.5rem
+
+    +media-breakpoint-down(sm)
+
+
+    +media-breakpoint-down(md)
+      #collapsingContent-lg
+        width: 100%
+      li
+        width: 100%
+        margin: 0.3rem 0
+
+    +media-breakpoint-down(lg)
+
+    +media-breakpoint-down(xl)
+
+    // #collapsingContent-lg   
+
 
 .container-fluid
   background-color: #f1f1f1
@@ -39,7 +78,6 @@ nav
     .content-wrapper
       padding-top: $navbar-height
 
-
   .row.podcasts-list
     margin-top: $navbar-height
     +make-row
@@ -47,23 +85,20 @@ nav
 
     .podcast
       +make-col
-      +media-breakpoint-up(sm)
-        +make-col-span(12)
-      +media-breakpoint-up(md)
+      +media-breakpoint-up(xs)
         +make-col-span(6)
-      +media-breakpoint-up(xl)
+      +media-breakpoint-up(sm)
         +make-col-span(4)
+      +media-breakpoint-up(lg)
+        +make-col-span(4)
+      +media-breakpoint-up(xl)
+        +make-col-span(3)
       padding: 0.3rem
       .card
-        max-height: $card-height
-        max-width: $card-width
-        min-height: $card-height
-        min-width: $card-width
-
         img
-          width: $card-width
-          height: $card-height
+          width: 100%
         .podcast-overlay
+          @extend .hidden-md-down
           padding: 0
           bottom: 0
           top: 85%
@@ -79,11 +114,18 @@ nav
 
         .podcast-overlay
           &:hover
-            top: 30%
-            .card-text
-              display: block
+            @extend .expanded
+
+        .expanded
+          top: 30%
+          .card-text
+            display: block
 
         .subscribe-icon
+          @extend .pull-xs-right
+          position: absolute
+          top: 0
+          right: 1rem
           a
             color: #60FA28
             font-size: 3rem
