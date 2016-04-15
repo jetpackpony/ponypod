@@ -135,31 +135,67 @@ nav
         max-height: 138px
 
   .row.podcast
+    margin-top: $navbar-height
     +make-row
-    .col-left
-      height: 500px
-      background-color: red
-      +make-col
-      +media-breakpoint-up(md)
-        +make-col-span(3)
-      +media-breakpoint-up(xs)
-        +make-col-span(12)
-    .col-center
-      background-color: blue
-      +make-col
-      +media-breakpoint-up(xs)
-        +make-col-span(12)
-      +media-breakpoint-up(md)
-        +make-col-span(9)
-      +media-breakpoint-up(xl)
-        +make-col-span(7)
-    .col-right
-      @extend .hidden-lg-down
-      background-color: green
-      +make-col
-      +media-breakpoint-up(xl)
-        +make-col-span(2)
+    padding: 0.3rem
 
-    .content-wrapper
-      padding-top: $navbar-height
+    // .col-left
+    //   background-color: red
+    // .col-center
+    //   background-color: blue
+    // .col-right
+    //   background-color: green
+
+
+    .col-left, .col-center, .col-right
+      +make-col
+
+    // The view for xs and sm devices
+    +media-breakpoint-up(xs)
+      .col-left
+        +make-col-span(12)
+        .podcast-cover
+          @extend .pull-xs-left
+          img
+            height: 5rem
+        .podcast-description
+          display: none
+        .controls-toggle
+          @extend .hidden-md-up
+      .col-center
+        +make-col-span(12)
+        .episode
+          img
+            height: 5rem
+      .col-right
+        display: none
+
+    // The view for md and lg devices
+    +media-breakpoint-up(md)
+      .col-left
+        +make-col-span(3)
+        .podcast-cover
+          img
+            width: 100%
+            height: initial
+        .podcast-description
+          display: block
+        #sortControls
+          display: block
+      .col-center
+        +make-col-span(9)
+      .col-right
+        display: none
+
+    // The view for xl
+    +media-breakpoint-up(xl)
+      .col-left
+        +make-col-span(3)
+        #sortControls
+          display: none
+      .col-center
+        +make-col-span(7)
+      .col-right
+        display: block
+        +make-col-span(2)
 
