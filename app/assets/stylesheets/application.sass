@@ -60,10 +60,10 @@ nav
 .container-fluid
   background-color: #f1f1f1
   +make-container
+  padding-top: 4.5rem
 
   // Goes into podcasts.sass
   .row.podcasts-list
-    margin-top: $navbar-height
     +make-row
     padding: 0.3rem
 
@@ -134,8 +134,7 @@ nav
         padding: 0.3rem
         max-height: 138px
 
-  .row.podcast
-    margin-top: $navbar-height
+  .row.podcast, .row.episode
     +make-row
     padding: 0.3rem
 
@@ -149,6 +148,18 @@ nav
 
     .col-left, .col-center, .col-right
       +make-col
+
+    .col-center
+      .divider
+        margin-top: 1rem
+        hr
+          margin-top: 0
+      .media-text, .media-right
+        @extend .hidden-md-down
+      .date-inline
+        @extend .hidden-lg-up
+        font-size: 0.8rem
+        color: gray
 
     // The view for xs and sm devices
     +media-breakpoint-up(xs)
@@ -165,8 +176,11 @@ nav
       .col-center
         +make-col-span(12)
         .episode
+          .media-right
+            min-width: 2rem
+            text-align: center
           img
-            height: 5rem
+            height: 2rem
       .col-right
         display: none
 
@@ -198,4 +212,9 @@ nav
       .col-right
         display: block
         +make-col-span(2)
+
+  .row.episode
+    +media-breakpoint-up(xl)
+      .col-center
+        +make-col-span(9)
 
