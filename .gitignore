@@ -17,3 +17,9 @@
 ponypod.sublime-project
 ponypod.sublime-workspace
 .byebug_history
+
+# Ignore vim temp and swap files
+*~
+*.swp
+*.swo
+
