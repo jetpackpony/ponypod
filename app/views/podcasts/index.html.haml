@@ -7,10 +7,10 @@
         %span.subscribe-icon 
           - if current_user
             - if @user_podcasts.include? podcast.id
-              %td= link_to raw('&times;'), { controller: "subscriptions", action: "destroy", id: podcast }, :method => :delete, class: "unsubscribe"
+              = link_to raw('&times;'), { controller: "subscriptions", action: "destroy", id: podcast }, :method => :delete, class: "unsubscribe"
               %a.subscribed{ href: "#" } &#10003;
             - else
-              %td= link_to raw('&#10133;'), { controller: "subscriptions", action: "create", id: podcast }, class: "subscribe"
+              = link_to raw('&#10133;'), { controller: "subscriptions", action: "create", id: podcast }, class: "subscribe"
 
         .card-img-overlay.podcast-overlay
           .podcast-info
