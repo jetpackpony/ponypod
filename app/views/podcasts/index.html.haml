@@ -1,27 +1,19 @@
-%h1 Listing podcasts
+.row.podcasts-list
+  - @podcasts.each do |podcast|
+    .podcast
+      .card.center-block
+        = link_to podcast do
+          = image_tag "http://podcasts.howstuffworks.com/hsw/podcasts/sysk/sysk-audio-1600.jpg", class: "card-img"
+        %span.subscribe-icon 
+          - if current_user
+            - if @user_podcasts.include? podcast.id
+              %td= link_to raw('&#10133;'), { controller: "subscriptions", action: "destroy", id: podcast }, :method => :delete, class: "subscribe"
+            - else
+              %td= link_to raw('&times;'), { controller: "subscriptions", action: "create", id: podcast }, class: "unsubscribe"
 
-= form_tag podcasts_path, method: "get" do
-  = label_tag :query, "Search podcasts: "
-  = search_field_tag :query
-  = submit_tag "Search"
-
-%table
-  %thead
-    %tr
-      %th
-      %th
-      %th
-
-  %tbody
-    - @podcasts.each do |podcast|
-      %tr
-        %td= link_to podcast.title, podcast
-        - if current_user
-          - if @user_podcasts.include? podcast.id
-            %td= link_to 'Unsubscribe', { controller: "subscriptions", action: "destroy", id: podcast }, :method => :delete
-          - else
-            %td= link_to 'Subscribe', { controller: "subscriptions", action: "create", id: podcast }
-
-
-%br
-= link_to 'New Podcast', new_podcast_path
+        .card-img-overlay.podcast-overlay
+          .podcast-info
+            %h4.card-title
+              = link_to podcast.title, podcast
+            = link_to podcast do
+              %p.card-text= podcast.description
