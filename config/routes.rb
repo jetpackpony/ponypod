@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'pages/home'
+
+  get 'pages/podcast'
+
+  get 'pages/episode'
+
   get '/subscribe/:id' => 'subscriptions#create'
   get '/subscriptions' => 'subscriptions#index'
   delete '/subscribe/:id' => 'subscriptions#destroy'

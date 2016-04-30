@@ -1,17 +1,49 @@
 !!! 5
-%html
+%html{ lang: "en"}
   %head
-    %title Ponypod - test
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    %meta{ charset: "utf-8" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1, shrink-to-fit=no"   }
+    %meta{ "http-equiv": "x-ua-compatible", content: "ie=edge" }
+    -# The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags
     = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
   %body
-    - flash.each do |key, value|
-      %div.alert= value
-    %div#login
-      - if current_user
-        Hi, #{current_user.name} #{link_to "Logout", "/logout"}
-      - else
-        = link_to "Login with google","/auth/google" 
+    %nav.navbar.navbar-light.navbar-fixed-top
+      =link_to "Pony Pod", "/", class: "navbar-brand"
+      %button#collapse-all.navbar-toggler.hidden-sm-up.pull-xs-right &#9776;
+      %button#collapse-lg.navbar-toggler.hidden-lg-up.hidden-xs-down.pull-xs-right &#9776;
+      #collapsingContentAll.collapse.navbar-toggleable-xs
+        .search-container.pull-lg-left
+          = form_tag podcasts_path, method: "get", class: "form-inline search-form" do
+            .input-group
+              = search_field_tag 'search', params[:search], id: "search", class: "form-control", type: "search", placeholder: "Search"
+              %span.input-group-btn
+                %button.btn.btn-default{ type: "submit" } Search
+        #collapsingContent-lg.collapse.navbar-toggleable-md.pull-lg-right
+          %ul.nav.navbar-nav
+            %li.nav-item.active
+              =link_to("/", class: "nav-link") do
+                All Podcasts
+                %span.sr-only
+                  (current)
+            %li.nav-item
+              =link_to "My Subscriptions", subscriptions_path, class: "nav-link"
+            %li.nav-item
+              -if current_user
+                Hi, #{current_user.name} #{link_to "Logout", "/logout"}
+              -else
+                =link_to image_tag("btn_google_signin_light_normal_web.png"), "/auth/google", class: "google-login"
+          .clearfix
+        .clearfix
 
-    = yield
+    .container-fluid.cont
+      - flash.each do |key, value|
+        .alert.alert-danger.alert-dismissible.fade.in{:role => "alert"}
+          %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+            %span{"aria-hidden" => "true"} &times;
+          = value
+
+      = yield
+
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+

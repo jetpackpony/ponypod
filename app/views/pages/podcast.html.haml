@@ -1,0 +1,118 @@
+.row.podcast
+  .col-left
+    .podcast-cover
+      %img{ src: "http://podcasts.howstuffworks.com/hsw/podcasts/sysk/sysk-audio-1600.jpg" }
+      %span.subscribe-icon 
+        %a.subscribe{ href: "#subscribe" } &#10133;
+    %h4 Hello Internet
+    %p.podcast-description How do landfills work? How do mosquitos work? Join Josh and Chuck as they explore the Stuff You Should Know about everything from genes to the Galapagos in this podcast from HowStuffWorks.com.
+    %p.controls-toggle
+      %a{ "aria-controls": "sortControls", "aria-expanded": "false", "data-toggle": "collapse", href: "#sortControls" }
+        Show and sort
+    #sortControls.collapse
+      .listing-option
+        %label
+          %input{ checked: "", name: "show-radios", type: "radio", value: "unplayed-first"}
+            show unplayed first
+      .listing-option
+        %label
+          %input{ name: "show-radios", type: "radio", value: "all"}
+            show all by date
+
+      %hr
+      .listing-option
+        %label
+          %input{ checked: "", name: "sort-radios", type: "radio", value: "unplayed-first"}
+            show new first
+      .listing-option
+        %label
+          %input{ name: "sort-radios", type: "radio", value: "all"}
+            show old first
+
+  .col-center
+    .divider
+      New Episodes
+      %hr
+    .media.episode
+      .media-left{:href => "#"}
+        %a{:href => "#"}
+          %img{ src: asset_path("play-button.jpg") }
+      .media-body
+        %h5.media-heading
+          %a{:href => "#"} Some Really Interesting Cases of Mass Hysteria
+        .media-text
+          Around the world and across time, people have fallen victim to one of the strongest contagions of all – the power of suggestion. Here are just a few examples of these bizarre cases.
+        .date-inline
+          Jan 12, 2016
+      .media-right
+        Jan 12, 2016
+
+    .media.episode
+      .media-left{:href => "#"}
+        %a{:href => "#"}
+          %img{ src: asset_path("play-button.jpg") }
+      .media-body
+        %h5.media-heading What are ninja?
+        .media-text
+          Ninja, Japanese warriors famous for stealth, deception and sabotage, were inspired by Chinese military philosophy. Join Josh and Chuck as they explore the origins, history, gear and popularity of the ninja in this episode.
+        .date-inline
+          Jan 12, 2016
+      .media-right
+        Jan 12, 2016
+
+    .divider
+      Played Episodes
+      %hr
+    .media.episode
+      .media-left{:href => "#"}
+        %a{:href => "#"}
+          %img{ src: asset_path("play-button.jpg") }
+      .media-body
+        %h5.media-heading Homeschooling: Not Just For Hippies and Religious People Anymore
+        .media-text
+          Back in the 1970s, homeschooling was illegal in the U.S., but after activists of all stripes lobbied lawmakers, schooling kids at home has become a viable option for parents. And as more and more have chosen it, it’s become more mainstream.
+        .date-inline
+          Jan 12, 2016
+      .media-right
+        Jan 12, 2016
+
+    .media.episode
+      .media-left{:href => "#"}
+        %a{:href => "#"}
+          %img{ src: asset_path("play-button.jpg") }
+      .media-body
+        %h5.media-heading Josh and Chuck's Warm and Cozy Christmas Extravaganza 2013
+        .media-text
+          It’s finally here, the best episode of the year! It’s time to settle in by a nice fire, wrap up in a blanket, heat up a toddy and gather your loved ones around the mp3 player to hear Chuck and Josh talk about all of the things that make Christmas so merry and bright.
+        .date-inline
+          Jan 12, 2016
+      .media-right
+        Jan 12, 2016
+
+  .col-right
+    .listing-option
+      %label
+        %input{ checked: "", name: "show-radios", type: "radio", value: "unplayed-first"}
+          show unplayed first
+    .listing-option
+      %label
+        %input{ name: "show-radios", type: "radio", value: "all"}
+          show all by date
+
+    %hr
+    .listing-option
+      %label
+        %input{ checked: "", name: "sort-radios", type: "radio", value: "unplayed-first"}
+          show new first
+    .listing-option
+      %label
+        %input{ name: "sort-radios", type: "radio", value: "all"}
+          show old first
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+.test-size
+  %span Layout:
