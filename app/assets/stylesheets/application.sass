@@ -1,0 +1,220 @@
+@import bootstrap
+@import ie10-viewport-bug-workaround
+
+$enable-flex: true
+$card-width: 384px
+$card-height: 384px
+$navbar-height: 4rem
+
++media-breakpoint-up(xs)
+  .test-size:after
+    content: " xs "
++media-breakpoint-up(sm)
+  .test-size:after
+    content: " sm "
++media-breakpoint-up(md)
+  .test-size:after
+    content: " md "
++media-breakpoint-up(lg)
+  .test-size:after
+    content: " lg "
++media-breakpoint-up(xl)
+  .test-size:after
+    content: " xl "
+
+.test-size
+  margin-top: 3rem
+
+nav
+  background: white
+  #collapsingContentAll
+    background-color: white
+    +media-breakpoint-down(xs)
+      width: 100%
+      .input-group
+        width: 100%
+        padding-top: 0.5rem
+
+    +media-breakpoint-down(sm)
+
+
+    +media-breakpoint-down(md)
+      #collapsingContent-lg
+        width: 100%
+      li
+        width: 100%
+        margin: 0.3rem 0
+
+    +media-breakpoint-down(lg)
+
+    +media-breakpoint-down(xl)
+
+    // #collapsingContent-lg   
+
+.alert
+  position: fixed
+  z-index: 1000
+  width: 100%
+  margin: 0
+
+.container-fluid
+  background-color: #f1f1f1
+  +make-container
+  padding-top: 4.5rem
+
+  // Goes into podcasts.sass
+  .row.podcasts-list
+    +make-row
+    padding: 0.3rem
+
+    .podcast
+      +make-col
+      +media-breakpoint-up(xs)
+        +make-col-span(6)
+      +media-breakpoint-up(sm)
+        +make-col-span(4)
+      +media-breakpoint-up(lg)
+        +make-col-span(4)
+      +media-breakpoint-up(xl)
+        +make-col-span(3)
+      padding: 0.3rem
+      .card
+        img
+          width: 100%
+        .podcast-overlay
+          @extend .hidden-md-down
+          padding: 0
+          bottom: 0
+          top: 85%
+          transition: all 0.3s ease 0s
+          .podcast-info
+            background: white
+            opacity: 0.9
+            height: 100%
+            padding: 10px
+            .card-text
+              display: none
+              transition: all 0.1s ease 0.3s
+
+        .podcast-overlay
+          &:hover
+            @extend .expanded
+
+        .expanded
+          top: 30%
+          .card-text
+            display: block
+
+        .subscribe-icon
+          @extend .pull-xs-right
+          position: absolute
+          top: 0
+          right: 1rem
+          a
+            color: #60FA28
+            font-size: 3rem
+            font-weight: bolder
+            text-decoration: none
+            &:hover
+              color: #A2FA82
+          a.unsubscribe
+            display: none
+          &:hover
+            a.subscribed
+              display: none
+            a.unsubscribe
+              display: block
+
+
+
+
+
+      .media
+        background: #ffffff
+        padding: 0.3rem
+        max-height: 138px
+
+  .row.podcast, .row.episode
+    +make-row
+    padding: 0.3rem
+
+    // .col-left
+    //   background-color: red
+    // .col-center
+    //   background-color: blue
+    // .col-right
+    //   background-color: green
+
+
+    .col-left, .col-center, .col-right
+      +make-col
+
+    .col-center
+      .divider
+        margin-top: 1rem
+        hr
+          margin-top: 0
+      .media-text, .media-right
+        @extend .hidden-md-down
+      .date-inline
+        @extend .hidden-lg-up
+        font-size: 0.8rem
+        color: gray
+
+    // The view for xs and sm devices
+    +media-breakpoint-up(xs)
+      .col-left
+        +make-col-span(12)
+        .podcast-cover
+          @extend .pull-xs-left
+          img
+            height: 5rem
+        .podcast-description
+          display: none
+        .controls-toggle
+          @extend .hidden-md-up
+      .col-center
+        +make-col-span(12)
+        .episode
+          .media-right
+            min-width: 2rem
+            text-align: center
+          img
+            height: 2rem
+      .col-right
+        display: none
+
+    // The view for md and lg devices
+    +media-breakpoint-up(md)
+      .col-left
+        +make-col-span(3)
+        .podcast-cover
+          img
+            width: 100%
+            height: initial
+        .podcast-description
+          display: block
+        #sortControls
+          display: block
+      .col-center
+        +make-col-span(9)
+      .col-right
+        display: none
+
+    // The view for xl
+    +media-breakpoint-up(xl)
+      .col-left
+        +make-col-span(3)
+        #sortControls
+          display: none
+      .col-center
+        +make-col-span(7)
+      .col-right
+        display: block
+        +make-col-span(2)
+
+  .row.episode
+    +media-breakpoint-up(xl)
+      .col-center
+        +make-col-span(9)
+

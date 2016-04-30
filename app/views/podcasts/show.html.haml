@@ -1,27 +1,95 @@
-%p#notice= notice
+.row.podcast
+  .col-left
+    .podcast-cover
+      %img{ src: "http://podcasts.howstuffworks.com/hsw/podcasts/sysk/sysk-audio-1600.jpg" }
+    - if current_user
+      - if @user_podcasts.include? @podcast.id
+        = link_to raw('&times;'), { controller: "subscriptions", action: "destroy", id: @podcast }, :method => :delete, class: "unsubscribe"
+        %a.subscribed{ href: "#" } &#10003;
+      - else
+        = link_to raw('&#10133;'), { controller: "subscriptions", action: "create", id: @podcast }, class: "subscribe"
 
-%h1= @podcast.title
-- if current_user
-  - if @user_podcasts.include? @podcast.id
-    %td= link_to 'Unsubscribe', { controller: "subscriptions", action: "destroy", id: @podcast }, :method => :delete
-  - else
-    %td= link_to 'Subscribe', { controller: "subscriptions", action: "create", id: @podcast }
-\|
-= link_to 'Back', podcasts_path
+    %h4= @podcast.title
+    %p.podcast-description= @podcast.description
+    %p.controls-toggle
+      %a{ "aria-controls": "sortControls", "aria-expanded": "false", "data-toggle": "collapse", href: "#sortControls" }
+        Show and sort
+    #sortControls.collapse
+      .listing-option
+        %label
+          %input{ checked: "", name: "show-radios", type: "radio", value: "unplayed-first"}
+            show unplayed first
+      .listing-option
+        %label
+          %input{ name: "show-radios", type: "radio", value: "all"}
+            show all by date
 
-%p= @podcast.description
+      %hr
+      .listing-option
+        %label
+          %input{ checked: "", name: "sort-radios", type: "radio", value: "unplayed-first"}
+            show new first
+      .listing-option
+        %label
+          %input{ name: "sort-radios", type: "radio", value: "all"}
+            show old first
 
-= form_tag podcast_path(@podcast), method: "get" do
-  = label_tag :query, "Search episodes:"
-  = search_field_tag :query
-  = submit_tag "Search"
+  .col-center
+    .divider
+      New Episodes
+      %hr
+    -@episodes.each do |episode|
+      .media.episode
+        .media-left
+          = link_to episode do
+            %img{ src: asset_path("play-button.jpg") }
+        .media-body
+          %h5.media-heading
+            =link_to episode.title, episode
+          .media-text
+            = episode.summary
+          .date-inline
+            = episode.created_at
+        .media-right
+          = episode.created_at
 
-%ul
-  -@episodes.each do |episode|
-    %li
-      = link_to(episode.title, episode)
-      - if current_user
-        - if @viewed_episodes.include? episode.id
-          = link_to("Mark as new", { controller: "episodes", action: "viewed_status", id: episode, status: "new"}, :method => 'post')
-        - else
-          = link_to("Mark as viewed", { controller: "episodes", action: "viewed_status", id: episode, status: "viewed"}, :method => 'post')
+    .divider
+      Played Episodes
+      %hr
+    -@episodes.each do |episode|
+      .media.episode
+        .media-left
+          = link_to episode do
+            %img{ src: asset_path("play-button.jpg") }
+        .media-body
+          %h5.media-heading
+            =link_to episode.title, episode
+          .media-text
+            = episode.summary
+          .date-inline
+            = episode.created_at
+        .media-right
+          = episode.created_at
+
+
+  .col-right
+    .listing-option
+      %label
+        %input{ checked: "", name: "show-radios", type: "radio", value: "unplayed-first"}
+          show unplayed first
+    .listing-option
+      %label
+        %input{ name: "show-radios", type: "radio", value: "all"}
+          show all by date
+
+    %hr
+    .listing-option
+      %label
+        %input{ checked: "", name: "sort-radios", type: "radio", value: "unplayed-first"}
+          show new first
+    .listing-option
+      %label
+        %input{ name: "sort-radios", type: "radio", value: "all"}
+          show old first
+
+

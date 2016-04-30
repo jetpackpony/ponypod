@@ -2,6 +2,7 @@ class EpisodesController < ApplicationController
   before_action :set_episode, only: [:show, :edit, :update, :destroy, :viewed_status]
   before_action :require_login, only: [:viewed_status]
   before_action :set_is_viewed, only: [:show]
+  before_action :set_is_subscribed, only: [:show]
 
   # GET /episodes
   # GET /episodes.json
@@ -98,5 +99,10 @@ class EpisodesController < ApplicationController
     def set_is_viewed
       @episode_is_viewed = false
       @episode_is_viewed = @episode.is_viewed_by current_user.id if current_user
+    end
+
+    def set_is_subscribed
+      @podcast_is_subscribed = false
+      @podcast_is_subscribed = Subscription.get_for_user(current_user.id).include? @episode.podcast_id if current_user
     end
 end
