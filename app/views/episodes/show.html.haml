@@ -1,17 +1,26 @@
-%p#notice= notice
+.row.episode
+  .col-left
+    .podcast-cover
+      %img{ src: "http://podcasts.howstuffworks.com/hsw/podcasts/sysk/sysk-audio-1600.jpg" }
+    - if current_user
+      - if @podcast_is_subscribed
+        = link_to raw('&times;'), { controller: "subscriptions", action: "destroy", id: @episode.podcast}, :method => :delete, class: "unsubscribe"
+        %a.subscribed{ href: "#" } &#10003;
+      - else
+        = link_to raw('&#10133;'), { controller: "subscriptions", action: "create", id: @episode.podcast}, class: "subscribe"
 
-%h1= @episode.podcast.title
-%h2= @episode.title
+    %h4= @episode.podcast.title
+    %p.podcast-description= @episode.podcast.description
+  .col-center
+    %h4= @episode.title
 
-- if current_user
-  - if @episode_is_viewed
-    = link_to("Mark as new", { controller: "episodes", action: "viewed_status", id: @episode, status: "new"}, :method => 'post')
-  - else
-    = link_to("Mark as viewed", { controller: "episodes", action: "viewed_status", id: @episode, status: "viewed"}, :method => 'post')
-= link_to 'Back', podcast_path(@episode.podcast_id)
+    - if current_user
+      - if @episode_is_viewed
+        = link_to("Mark as new", { controller: "episodes", action: "viewed_status", id: @episode, status: "new"}, :method => 'post')
+      - else
+        = link_to("Mark as viewed", { controller: "episodes", action: "viewed_status", id: @episode, status: "viewed"}, :method => 'post')
+    %p= @episode.summary
 
-%p.description
-  =@episode.summary
-%p
-  %audio{ :controls => 'controls' }
-    %source{ src: @episode.mp3_link }
+    %p
+      %audio{ :controls => 'controls' }
+        %source{ src: @episode.mp3_link }
