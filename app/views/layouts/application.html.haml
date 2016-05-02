@@ -16,7 +16,7 @@
         .search-container.pull-lg-left
           = form_tag podcasts_path, method: "get", class: "form-inline search-form" do
             .input-group
-              = search_field_tag 'search', params[:search], id: "search", class: "form-control", type: "search", placeholder: "Search"
+              = search_field_tag 'search', params[:query], id: "search", name: "query", class: "form-control", type: "search", placeholder: "Search podcasts"
               %span.input-group-btn
                 %button.btn.btn-default{ type: "submit" } Search
         #collapsingContent-lg.collapse.navbar-toggleable-md.pull-lg-right
