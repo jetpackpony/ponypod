@@ -3,6 +3,8 @@ class SubscriptionsController < ApplicationController
 
   def index
     @podcasts = current_user.podcasts
+    @user_podcasts = @podcasts.map do |item| item[:id]; end
+    render 'podcasts/index'
   end
 
   def create
