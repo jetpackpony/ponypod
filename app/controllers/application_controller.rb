@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_filter :setup_search
 
   private
 
@@ -13,6 +14,11 @@ class ApplicationController < ActionController::Base
     if !current_user
       redirect_to podcasts_path, alert: 'You need to login to subscribe to podcasts'
     end
+  end
+
+  def setup_search
+    @search_path = podcasts_path
+    @search_placeholder = "Search podcasts"
   end
 
   helper_method :current_user

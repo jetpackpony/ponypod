@@ -14,9 +14,9 @@
       %button#collapse-lg.navbar-toggler.hidden-lg-up.hidden-xs-down.pull-xs-right &#9776;
       #collapsingContentAll.collapse.navbar-toggleable-xs
         .search-container.pull-lg-left
-          = form_tag podcasts_path, method: "get", class: "form-inline search-form" do
+          = form_tag @search_path, method: "get", class: "form-inline search-form" do
             .input-group
-              = search_field_tag 'search', params[:query], id: "search", name: "query", class: "form-control", type: "search", placeholder: "Search podcasts"
+              = search_field_tag 'search', params[:query], id: "search", name: "query", class: "form-control", type: "search", placeholder: @search_placeholder
               %span.input-group-btn
                 %button.btn.btn-default{ type: "submit" } Search
         #collapsingContent-lg.collapse.navbar-toggleable-md.pull-lg-right
