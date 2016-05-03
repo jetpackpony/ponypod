@@ -22,13 +22,16 @@
                 %button.btn.btn-default{ type: "submit" } Search
         #collapsingContent-lg.collapse.navbar-toggleable-md.pull-lg-right
           %ul.nav.navbar-nav
-            %li.nav-item.active
+            %li.nav-item{class: ("active" if current_page? controller: "podcasts", action: "index")}
               =link_to("/", class: "nav-link") do
                 All Podcasts
-                %span.sr-only
-                  (current)
-            %li.nav-item
-              =link_to "My Subscriptions", subscriptions_path, class: "nav-link"
+                - if current_page? controller: "podcasts", action: "index"
+                  %span.sr-only (current)
+            %li.nav-item{class: ("active" if current_page? controller: "subscriptions", action: "index")}
+              =link_to(subscriptions_path, class: "nav-link") do
+                My Subscriptions
+                - if current_page? controller: "podcasts", action: "index"
+                  %span.sr-only (current)
             %li.nav-item
               -if current_user
                 Hi, #{current_user.name} #{link_to "Logout", "/logout"}
