@@ -5,6 +5,7 @@
     %meta{ name: "viewport", content: "width=device-width, initial-scale=1, shrink-to-fit=no"   }
     %meta{ "http-equiv": "x-ua-compatible", content: "ie=edge" }
     -# The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags
+    %title= content_for :page_title || "PonyPod"
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
   %body
@@ -14,20 +15,23 @@
       %button#collapse-lg.navbar-toggler.hidden-lg-up.hidden-xs-down.pull-xs-right &#9776;
       #collapsingContentAll.collapse.navbar-toggleable-xs
         .search-container.pull-lg-left
-          = form_tag podcasts_path, method: "get", class: "form-inline search-form" do
+          = form_tag @search_path, method: "get", class: "form-inline search-form" do
             .input-group
-              = search_field_tag 'search', params[:search], id: "search", class: "form-control", type: "search", placeholder: "Search"
+              = search_field_tag 'search', params[:query], id: "search", name: "query", class: "form-control", type: "search", placeholder: @search_placeholder
               %span.input-group-btn
                 %button.btn.btn-default{ type: "submit" } Search
         #collapsingContent-lg.collapse.navbar-toggleable-md.pull-lg-right
           %ul.nav.navbar-nav
-            %li.nav-item.active
+            %li.nav-item{class: ("active" if current_page? controller: "podcasts", action: "index")}
               =link_to("/", class: "nav-link") do
                 All Podcasts
-                %span.sr-only
-                  (current)
-            %li.nav-item
-              =link_to "My Subscriptions", subscriptions_path, class: "nav-link"
+                - if current_page? controller: "podcasts", action: "index"
+                  %span.sr-only (current)
+            %li.nav-item{class: ("active" if current_page? controller: "subscriptions", action: "index")}
+              =link_to(subscriptions_path, class: "nav-link") do
+                My Subscriptions
+                - if current_page? controller: "podcasts", action: "index"
+                  %span.sr-only (current)
             %li.nav-item
               -if current_user
                 Hi, #{current_user.name} #{link_to "Logout", "/logout"}

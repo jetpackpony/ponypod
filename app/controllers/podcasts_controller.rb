@@ -12,6 +12,8 @@ class PodcastsController < ApplicationController
   # GET /podcasts/1
   # GET /podcasts/1.json
   def show
+    @search_path = podcast_path(@podcast)
+    @search_placeholder = 'Search episodes'
     @episodes = @podcast.search_episodes params[:query]
   end
 
