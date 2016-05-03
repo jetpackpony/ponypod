@@ -1,3 +1,5 @@
+- content_for :page_title do
+  - (current_page? controller: "subscriptions", action: "index") ? "My Podcasts - PonyPod" : "Podcasts - PonyPod" 
 .row.podcasts-list
   - @podcasts.each do |podcast|
     .podcast
