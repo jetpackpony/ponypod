@@ -10,11 +10,13 @@ class Podcast < ActiveRecord::Base
   end
 
   def search_episodes(query)
-    if query
-      episodes.where "LOWER(title) LIKE LOWER(:query) OR LOWER(summary) LIKE LOWER(:query)", query: "%#{query}%"
+    (if query
+      episodes
+        .where("LOWER(title) LIKE LOWER(:query) OR LOWER(summary) LIKE LOWER(:query)", query: "%#{query}%")
     else
       episodes
-    end    
+    end)
+      .order(published_at: :desc)
   end
 
 
