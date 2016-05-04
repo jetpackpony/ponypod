@@ -27,7 +27,7 @@ class Podcast < ActiveRecord::Base
       podcast.rss_link.to_s != ""
     end
     .each do |podcast|
-      feed = Feedjira::Feed.fetch_and_parse podcast.rss_link
+      feed = Feedjira::Feed.parse_with(Feedjira::Parser::ITunesRSS, Faraday.get(podcast.rss_link).body)
       podcast.sync feed
     end
   end
@@ -38,7 +38,7 @@ class Podcast < ActiveRecord::Base
     feed.entries.each do |entry|
       episode = self.episodes.find_or_create_by(guid: entry.entry_id)
       episode.title = entry.title
-      episode.mp3_link = Podcast.get_mp3_url entry
+      episode.mp3_link = entry.enclosure_url
       episode.full_description = entry.summary
       episode.summary = Podcast.extract_summary entry.summary
       episode.published_at = Podcast.convert_date entry.published
@@ -53,14 +53,6 @@ class Podcast < ActiveRecord::Base
 
   def self.cleanup_text(text)
     HTMLEntities.new.decode(Sanitize.fragment(text)).strip
-  end
-
-  def self.get_mp3_url(entry)
-    entry[ 
-      [:image, :enclosure_url].find do |method|
-        entry.respond_to? method
-      end
-    ]
   end
 
   def self.convert_date(xml_date)
