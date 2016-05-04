@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321000811) do
+ActiveRecord::Schema.define(version: 20160504004509) do
 
   create_table "episodes", force: :cascade do |t|
     t.string   "title",            limit: 255
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160321000811) do
     t.string   "guid",             limit: 255
     t.text     "full_description", limit: 65535
     t.text     "summary",          limit: 65535
+    t.datetime "published_at"
   end
 
   add_index "episodes", ["guid"], name: "index_episodes_on_guid", unique: true, using: :btree

@@ -41,6 +41,7 @@ class Podcast < ActiveRecord::Base
       episode.mp3_link = Podcast.get_mp3_url entry
       episode.full_description = entry.summary
       episode.summary = Podcast.extract_summary entry.summary
+      episode.published_at = Podcast.convert_date entry.published
       episode.save!
     end
     self.save!
@@ -60,5 +61,9 @@ class Podcast < ActiveRecord::Base
         entry.respond_to? method
       end
     ]
+  end
+
+  def self.convert_date(xml_date)
+    DateTime.parse xml_date.to_s
   end
 end
