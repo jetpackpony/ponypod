@@ -35,6 +35,7 @@ class Podcast < ActiveRecord::Base
   def sync(feed)
     self.title = feed.title
     self.description = feed.description
+    self.image = feed.itunes_image
     feed.entries.each do |entry|
       episode = self.episodes.find_or_create_by(guid: entry.entry_id)
       episode.title = entry.title

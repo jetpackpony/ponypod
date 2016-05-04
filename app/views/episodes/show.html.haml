@@ -2,7 +2,7 @@
 .row.episode
   .col-left
     .podcast-cover
-      %img{ src: "http://podcasts.howstuffworks.com/hsw/podcasts/sysk/sysk-audio-1600.jpg" }
+      %img{ src: @episode.podcast.image }
     - if current_user
       - if @podcast_is_subscribed
         = link_to raw('&times;'), { controller: "subscriptions", action: "destroy", id: @episode.podcast}, :method => :delete, class: "unsubscribe"
