@@ -5,7 +5,7 @@
     .podcast
       .card.center-block
         = link_to podcast do
-          = image_tag "http://podcasts.howstuffworks.com/hsw/podcasts/sysk/sysk-audio-1600.jpg", class: "card-img"
+          = image_tag podcast.image, class: "card-img"
         %span.subscribe-icon 
           - if current_user
             - if @user_podcasts.include? podcast.id
