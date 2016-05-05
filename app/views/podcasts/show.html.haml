@@ -48,7 +48,7 @@
           %h5.media-heading
             =link_to episode.title, episode
           .media-text
-            = episode.summary
+            = episode.summary.truncate_words 20
           .date-inline
             = episode.published_at
         .media-right

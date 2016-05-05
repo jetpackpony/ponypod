@@ -19,4 +19,4 @@
             %h4.card-title
               = link_to podcast.title, podcast
             = link_to podcast do
-              %p.card-text= podcast.description
+              %p.card-text= podcast.description.truncate_words 25
