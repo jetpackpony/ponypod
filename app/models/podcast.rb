@@ -22,21 +22,17 @@ class Podcast < ActiveRecord::Base
   def search_episodes_segmented(query, sort, viewed_ids)
     request = episodes
     if query
-      request = request
-        .where("LOWER(title) LIKE LOWER(:query) OR LOWER(summary) LIKE LOWER(:query)", query: "%#{query}%")
+      request = request.where(
+        "LOWER(title) LIKE LOWER(:query) OR LOWER(summary) LIKE LOWER(:query)",
+        query: "%#{query}%"
+      )
     end
-    request = request
-      .order(published_at: sort == 'old-first' ? :asc : :desc)
+    request = request.order(published_at: sort == 'old-first' ? :asc : :desc)
 
-    result = {}
-    result[:new] =
-      request
-      .where.not(id: viewed_ids)
-    result[:old] =
-      request
-      .where(id: viewed_ids)
-
-    result
+    {
+      new: request.where.not(id: viewed_ids),
+      old: request.where(id: viewed_ids)
+    }
   end
 
   # The feed syncronization stuff

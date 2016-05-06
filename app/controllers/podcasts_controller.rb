@@ -15,22 +15,8 @@ class PodcastsController < ApplicationController
     @search_path = podcast_path(@podcast)
     @search_placeholder = 'Search episodes'
 
-    case params[:sort]
-    when "old-first"
-      @sort = "old-first"
-    else
-      @sort = "new-first"
-    end
-
-    @segment = "all"
-    if current_user
-      case params[:segment]
-      when "all"
-        @segment = "all"
-      else
-        @segment = "unplayed-first"
-      end
-    end
+    @sort = params[:sort] == 'old-first' ? 'old-first' : 'new-first'
+    @segment = current_user && (params[:segment] == 'unplayed-first') ? 'unplayed-first' : 'all'
 
     if @segment == "all"
       @episodes = @podcast.search_episodes params[:query], @sort

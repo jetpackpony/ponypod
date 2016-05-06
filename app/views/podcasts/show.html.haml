@@ -47,20 +47,7 @@
       - if @episodes[:new].length == 0
         No new episodes
       - else
-        -@episodes[:new].each do |episode|
-          .media.episode
-            .media-left
-              = link_to episode do
-                %img{ src: asset_path("play-button.jpg") }
-            .media-body
-              %h5.media-heading
-                =link_to episode.title, episode
-              .media-text
-                = episode.summary.truncate_words 20
-              .date-inline
-                = episode.published_at
-            .media-right
-              = episode.published_at
+        = render partial: "episode", locals: { episodes: @episodes[:new] }
 
       .divider
         Played Episodes
@@ -68,36 +55,11 @@
       - if @episodes[:old].length == 0
         No new episodes
       - else
-        -@episodes[:old].each do |episode|
-          .media.episode
-            .media-left
-              = link_to episode do
-                %img{ src: asset_path("play-button.jpg") }
-            .media-body
-              %h5.media-heading
-                =link_to episode.title, episode
-              .media-text
-                = episode.summary
-              .date-inline
-                = episode.published_at
-            .media-right
-              = episode.published_at
+        = render partial: "episode", locals: { episodes: @episodes[:old] }
 
     - else
       -@episodes.each do |episode|
-        .media.episode
-          .media-left
-            = link_to episode do
-              %img{ src: asset_path("play-button.jpg") }
-          .media-body
-            %h5.media-heading
-              =link_to episode.title, episode
-            .media-text
-              = episode.summary
-            .date-inline
-              = episode.published_at
-          .media-right
-            = episode.published_at
+        = render partial: "episode", locals: { episodes: @episodes }
 
 
 
