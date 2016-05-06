@@ -18,79 +18,110 @@
     #sortControls.collapse
       .listing-option
         %label
-          %input{ checked: "", name: "show-radios", type: "radio", value: "unplayed-first"}
+          %input{ checked: ("checked" if @segment != "all"), name: "show-radios", type: "radio", value: "unplayed-first",
+            "data-href": podcast_url(@podcast, segment: "unplayed-first", sort: @sort)}
             show unplayed first
       .listing-option
         %label
-          %input{ name: "show-radios", type: "radio", value: "all"}
+          %input{ checked: ("checked" if @segment == "all"), name: "show-radios", type: "radio", value: "all",
+            "data-href": podcast_url(@podcast, segment: "all", sort: @sort)}
             show all by date
 
       %hr
       .listing-option
         %label
-          %input{ checked: "", name: "sort-radios", type: "radio", value: "unplayed-first"}
+          %input{ checked: ("checked" if @sort != 'old-first'), name: "sort-radios", type: "radio", value: "new-first",
+            "data-href": podcast_url(@podcast, sort: "new-first", segment: @segment)}
             show new first
       .listing-option
         %label
-          %input{ name: "sort-radios", type: "radio", value: "all"}
+          %input{ checked: ("checked" if @sort == 'old-first'), name: "sort-radios", type: "radio", value: "old-first",
+            "data-href": podcast_url(@podcast, sort: "old-first", segment: @segment)}
             show old first
 
   .col-center
-    .divider
-      New Episodes
-      %hr
-    -@episodes.each do |episode|
-      .media.episode
-        .media-left
-          = link_to episode do
-            %img{ src: asset_path("play-button.jpg") }
-        .media-body
-          %h5.media-heading
-            =link_to episode.title, episode
-          .media-text
-            = episode.summary.truncate_words 20
-          .date-inline
-            = episode.published_at
-        .media-right
-          = episode.published_at
+    - if @segment != "all"
+      .divider
+        New Episodes
+        %hr
+      - if @episodes[:new].length == 0
+        No new episodes
+      - else
+        -@episodes[:new].each do |episode|
+          .media.episode
+            .media-left
+              = link_to episode do
+                %img{ src: asset_path("play-button.jpg") }
+            .media-body
+              %h5.media-heading
+                =link_to episode.title, episode
+              .media-text
+                = episode.summary.truncate_words 20
+              .date-inline
+                = episode.published_at
+            .media-right
+              = episode.published_at
 
-    .divider
-      Played Episodes
-      %hr
-    -@episodes.each do |episode|
-      .media.episode
-        .media-left
-          = link_to episode do
-            %img{ src: asset_path("play-button.jpg") }
-        .media-body
-          %h5.media-heading
-            =link_to episode.title, episode
-          .media-text
-            = episode.summary
-          .date-inline
+      .divider
+        Played Episodes
+        %hr
+      - if @episodes[:old].length == 0
+        No new episodes
+      - else
+        -@episodes[:old].each do |episode|
+          .media.episode
+            .media-left
+              = link_to episode do
+                %img{ src: asset_path("play-button.jpg") }
+            .media-body
+              %h5.media-heading
+                =link_to episode.title, episode
+              .media-text
+                = episode.summary
+              .date-inline
+                = episode.published_at
+            .media-right
+              = episode.published_at
+
+    - else
+      -@episodes.each do |episode|
+        .media.episode
+          .media-left
+            = link_to episode do
+              %img{ src: asset_path("play-button.jpg") }
+          .media-body
+            %h5.media-heading
+              =link_to episode.title, episode
+            .media-text
+              = episode.summary
+            .date-inline
+              = episode.published_at
+          .media-right
             = episode.published_at
-        .media-right
-          = episode.published_at
+
 
 
   .col-right
     .listing-option
       %label
-        %input{ checked: "", name: "show-radios", type: "radio", value: "unplayed-first"}
+        %input{ checked: ("checked" if @segment != "all"), name: "show-radios", type: "radio", value: "unplayed-first",
+          "data-href": podcast_url(@podcast, segment: "unplayed-first", sort: @sort)}
           show unplayed first
     .listing-option
       %label
-        %input{ name: "show-radios", type: "radio", value: "all"}
+        %input{ checked: ("checked" if @segment == "all"), name: "show-radios", type: "radio", value: "all",
+          "data-href": podcast_url(@podcast, segment: "all", sort: @sort)}
           show all by date
 
     %hr
     .listing-option
       %label
-        %input{ checked: "", name: "sort-radios", type: "radio", value: "unplayed-first"}
+        %input{ checked: ("checked" if @sort != 'old-first'), name: "sort-radios", type: "radio", value: "new-first",
+          "data-href": podcast_url(@podcast, sort: "new-first", segment: @segment)}
           show new first
     .listing-option
       %label
-        %input{ name: "sort-radios", type: "radio", value: "all"}
+        %input{ checked: ("checked" if @sort == 'old-first'), name: "sort-radios", type: "radio", value: "old-first",
+          "data-href": podcast_url(@podcast, sort: "old-first", segment: @segment)}
           show old first
-
 
