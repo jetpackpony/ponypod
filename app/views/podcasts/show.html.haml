@@ -47,7 +47,7 @@
       - if @episodes[:new].length == 0
         No new episodes
       - else
-        = render partial: "episode", locals: { episodes: @episodes[:new] }
+        = render partial: "episodes", locals: { episodes: @episodes[:new] }
 
       .divider
         Played Episodes
@@ -55,11 +55,11 @@
       - if @episodes[:old].length == 0
         No new episodes
       - else
-        = render partial: "episode", locals: { episodes: @episodes[:old] }
+        = render partial: "episodes", locals: { episodes: @episodes[:old] }
 
     - else
       -@episodes.each do |episode|
-        = render partial: "episode", locals: { episodes: @episodes }
+        = render partial: "episodes", locals: { episodes: @episodes }
 
 
 
