@@ -14,7 +14,17 @@ class PodcastsController < ApplicationController
   def show
     @search_path = podcast_path(@podcast)
     @search_placeholder = 'Search episodes'
-    @episodes = @podcast.search_episodes params[:query]
+
+    @sort = params[:sort] == 'old-first' ? 'old-first' : 'new-first'
+    @segment = current_user && (params[:segment] == 'unplayed-first') ? 'unplayed-first' : 'all'
+
+    if @segment == "all"
+      @episodes = @podcast.search_episodes params[:query], @sort
+    end
+
+    if @segment == "unplayed-first"
+      @episodes = @podcast.search_episodes_segmented params[:query], @sort, get_viewed_episodes
+    end
   end
 
   # GET /podcasts/new
