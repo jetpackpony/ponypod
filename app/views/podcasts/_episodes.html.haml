@@ -1,0 +1,14 @@
+- episodes.each do |episode|
+  .media.episode
+    .media-left
+      = link_to episode do
+        %img{ src: asset_path("play-button.jpg") }
+    .media-body
+      %h5.media-heading
+        =link_to episode.title, episode
+      .media-text
+        = episode.summary
+      .date-inline
+        = episode.published_at
+    .media-right
+      = episode.published_at
