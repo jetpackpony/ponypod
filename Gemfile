@@ -80,7 +80,6 @@ group :development do
   gem 'spring'
 end
 
-group :production do 
-  # Support for PostgreSQL
-  gem "pg"
-end
+# Support for PostgreSQL
+gem "pg"
+
