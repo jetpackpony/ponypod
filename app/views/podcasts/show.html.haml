@@ -58,8 +58,7 @@
         = render partial: "episodes", locals: { episodes: @episodes[:old] }
 
     - else
-      -@episodes.each do |episode|
-        = render partial: "episodes", locals: { episodes: @episodes }
+      = render partial: "episodes", locals: { episodes: @episodes }
 
 
 
