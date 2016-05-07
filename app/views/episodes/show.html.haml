@@ -20,8 +20,10 @@
         = link_to("Mark as new", { controller: "episodes", action: "viewed_status", id: @episode, status: "new"}, :method => 'post')
       - else
         = link_to("Mark as viewed", { controller: "episodes", action: "viewed_status", id: @episode, status: "viewed"}, :method => 'post')
-    %p= @episode.summary
 
     %p
       %audio{ :controls => 'controls' }
         %source{ src: @episode.mp3_link }
+
+    .full_desc
+      = raw @episode.full_description
