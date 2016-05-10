@@ -1,23 +1,4 @@
 Rails.application.routes.draw do
-
-  get 'pages/home'
-
-  get 'pages/podcast'
-
-  get 'pages/episode'
-
-  get '/subscribe/:id' => 'subscriptions#create'
-  get '/subscriptions' => 'subscriptions#index'
-  delete '/subscribe/:id' => 'subscriptions#destroy'
-
-  post '/episodes/:id/viewed_status' => 'episodes#viewed_status'
-
-  get '/auth/:provider/callback' => 'sessions#create'
-  get '/auth/failure' => 'sessions#failure'
-  get '/logout' => 'sessions#destroy'
-
-  resources :episodes
-  resources :episodes
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -73,4 +54,15 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   resources :episodes, :podcasts
+
+  get '/subscribe/:id' => 'subscriptions#create'
+  get '/subscriptions' => 'subscriptions#index'
+  delete '/subscribe/:id' => 'subscriptions#destroy'
+
+  post '/episodes/:id/viewed_status' => 'episodes#viewed_status'
+
+  get '/auth/:provider/callback' => 'sessions#create'
+  get '/auth/failure' => 'sessions#failure'
+  get '/logout' => 'sessions#destroy'
+
 end
