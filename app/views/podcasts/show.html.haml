@@ -10,7 +10,7 @@
       - else
         = link_to raw('&#10133;'), { controller: "subscriptions", action: "create", id: @podcast }, class: "subscribe"
 
-    %h4= @podcast.title
+    %h4.podcast-title= @podcast.title
     %p.podcast-description= @podcast.description
     %p.controls-toggle
       %a{ "aria-controls": "sortControls", "aria-expanded": "false", "data-toggle": "collapse", href: "#sortControls" }
