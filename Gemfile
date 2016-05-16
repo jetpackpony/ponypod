@@ -46,9 +46,6 @@ gem 'feedjira'
 gem "sanitize"
 gem "htmlentities"
 
-# Some gem for Heroku platform logs stuff
-gem 'rails_12factor'
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -83,3 +80,7 @@ end
 # Support for PostgreSQL
 gem "pg"
 
+group :production do
+  # Some gem for Heroku platform logs stuff
+  gem 'rails_12factor'
+end
