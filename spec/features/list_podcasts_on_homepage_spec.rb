@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "User visits homepage" do
+feature "List podcasts on a home page" do
   scenario "successfully" do
     create :podcast, title: "Hello Internet"
     create :podcast, title: "Stuff You Should Know"
