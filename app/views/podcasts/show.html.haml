@@ -16,6 +16,7 @@
       %a{ "aria-controls": "sortControls", "aria-expanded": "false", "data-toggle": "collapse", href: "#sortControls" }
         Show and sort
     #sortControls.collapse
+    /
       .listing-option
         %label
           %input{ checked: ("checked" if @segment != "all"), name: "show-radios", type: "radio", value: "unplayed-first",

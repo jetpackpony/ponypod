@@ -52,7 +52,7 @@ class Podcast < ActiveRecord::Base
     self.description = feed.description
     self.image = feed.itunes_image
     feed.entries.each do |entry|
-      episode = self.episodes.find_or_create_by(guid: entry.entry_id)
+      episode = self.episodes.create_with(published_at: Time.now).find_or_create_by(guid: entry.entry_id)
       episode.title = entry.title
       episode.mp3_link = entry.enclosure_url
       episode.full_description = entry.summary
