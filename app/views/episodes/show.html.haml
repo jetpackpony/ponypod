@@ -10,10 +10,10 @@
       - else
         = link_to raw('&#10133;'), { controller: "subscriptions", action: "create", id: @episode.podcast}, class: "subscribe"
 
-    %h4= @episode.podcast.title
+    %h4.podcast-title= @episode.podcast.title
     %p.podcast-description= @episode.podcast.description
   .col-center
-    %h4= @episode.title
+    %h4.episode-title= @episode.title
 
     - if current_user
       - if @episode_is_viewed

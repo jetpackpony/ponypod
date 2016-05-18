@@ -6,7 +6,8 @@ feature "List episodes |" do
     create :episode, title: "Nerds Talk", podcast: hi_podcast
     create :episode, title: "IPad Talk", podcast: hi_podcast
 
-    visit podcast_path hi_podcast
+    visit root_path
+    click_on hi_podcast.title
 
     expect(page).to have_css ".podcast-title", text: "Hello Internet"
     expect(page).to have_css ".episode-title", text: "Nerds Talk"
@@ -25,24 +26,30 @@ feature "List episodes |" do
 
   scenario "User sees newest episodes first" do
     hi_podcast = create :podcast, title: "Hello Internet"
-    create :episode, title: "Today episode", podcast: hi_podcast, published_at: Time.now
-    create :episode, title: "Yesterday episode", podcast: hi_podcast, published_at: 1.day.ago
+    create :episode, title: "Last", podcast: hi_podcast, published_at: Time.now
+    create :episode, title: "First", podcast: hi_podcast, published_at: 2.days.ago
+    create :episode, title: "Middle", podcast: hi_podcast, published_at: 1.day.ago
 
     visit podcast_path hi_podcast
 
-    expect(page.body.index("Today episode")).to be < page.body.index("Yesterday episode")
+    expect(page.body.index("Last")).to be < page.body.index("First")
+    expect(page.body.index("Last")).to be < page.body.index("Middle")
+    expect(page.body.index("Middle")).to be < page.body.index("First")
   end
 
   context "Using browser |", js: true do
     scenario "User sees old episodes first when sorted" do
       hi_podcast = create :podcast, title: "Hello Internet"
-      create :episode, title: "Today episode", podcast: hi_podcast, published_at: Time.now
-      create :episode, title: "Yesterday episode", podcast: hi_podcast, published_at: 1.day.ago
+      create :episode, title: "Last", podcast: hi_podcast, published_at: Time.now
+      create :episode, title: "First", podcast: hi_podcast, published_at: 2.days.ago
+      create :episode, title: "Middle", podcast: hi_podcast, published_at: 1.day.ago
 
       visit podcast_path hi_podcast
       choose "show old first"
 
-      expect(page.body.index("Today episode")).to be > page.body.index("Yesterday episode")
+      expect(page.body.index("Last")).to be > page.body.index("First")
+      expect(page.body.index("Last")).to be > page.body.index("Middle")
+      expect(page.body.index("Middle")).to be > page.body.index("First")
     end
   end
 end
