@@ -2,7 +2,7 @@
   - (current_page? controller: "subscriptions", action: "index") ? "My Podcasts - PonyPod" : "Podcasts - PonyPod" 
 .row.podcasts-list
   - @podcasts.each do |podcast|
-    .podcast
+    .podcast{ "data-podcast": podcast.title }
       .card.center-block
         = link_to podcast do
           = image_tag podcast.image, class: "card-img"
