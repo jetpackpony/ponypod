@@ -72,4 +72,21 @@ feature "Subscribe to podcasts |" do
 
     expect(page).to have_css "a.subscribe"
   end
+
+  scenario "List podcasts user subscribed to" do
+    create :podcast, title: "Hello Internet"
+    create :podcast, title: "Cortex"
+    create :podcast, title: "Stuff You Should Know"
+
+    sign_in
+    subscribe_to "Hello Internet"
+    subscribe_to "Stuff You Should Know"
+
+    visit root_path
+    click_on "My Subscriptions"
+
+    expect(page).to have_css ".podcast h4", text: "Hello Internet"
+    expect(page).to have_css ".podcast h4", text: "Stuff You Should Know"
+    expect(page).not_to have_css ".podcast h4", text: "Cortex"
+  end
 end
