@@ -1,5 +1,5 @@
 - content_for :page_title, "#{@podcast.title} - PonyPod"
-.row.podcast
+.row.podcast{ "data-podcast": @podcast.title }
   .col-left
     .podcast-cover
       %img{ src: @podcast.image }

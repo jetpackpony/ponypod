@@ -8,8 +8,8 @@ feature "Subscribe to podcasts |" do
     sign_in
     subscribe_to "Hello Internet"
 
-    expect(page).to have_css "[data-podcast='Hello Internet'] a.unsubscribe"
-    expect(page).not_to have_css "[data-podcast='Cortex'] a.unsubscribe"
+    expect(page).to have_user_subscribed_to "Hello Internet"
+    expect(page).not_to have_user_subscribed_to "Cortex"
   end
 
   scenario "Subscribe from a podcast page" do
@@ -17,9 +17,9 @@ feature "Subscribe to podcasts |" do
 
     sign_in
     visit podcast_path hi_podcast
-    find("a.subscribe").click
+    click_subscribe
 
-    expect(page).to have_css "a.unsubscribe"
+    expect(page).to have_user_subscribed_to "Hello Internet"
   end
 
   scenario "Subscribe from an episode page" do 
@@ -28,9 +28,9 @@ feature "Subscribe to podcasts |" do
 
     sign_in
     visit episode_path episode
-    find("a.subscribe").click
+    click_subscribe
 
-    expect(page).to have_css "a.unsubscribe"
+    expect(page).to have_user_subscribed_to "Hello Internet"
   end
 
   scenario "Unsubscribe from home page" do
@@ -42,10 +42,10 @@ feature "Subscribe to podcasts |" do
     subscribe_to "Cortex"
 
     visit root_path
-    find("[data-podcast='Hello Internet'] a.unsubscribe").click
+    click_unsubscribe "Hello Internet"
 
-    expect(page).to have_css "[data-podcast='Hello Internet'] a.subscribe"
-    expect(page).not_to have_css "[data-podcast='Cortex'] a.subscribe"
+    expect(page).not_to have_user_subscribed_to "Hello Internet"
+    expect(page).to have_user_subscribed_to "Cortex"
   end
 
   scenario "Unsubscribe from a podcast page" do
@@ -55,9 +55,9 @@ feature "Subscribe to podcasts |" do
     subscribe_to "Hello Internet"
 
     visit podcast_path hi_podcast
-    find("a.unsubscribe").click
+    click_unsubscribe
 
-    expect(page).to have_css "a.subscribe"
+    expect(page).not_to have_user_subscribed_to "Hello Internet"
   end
 
   scenario "Unsubscribe from an episode page" do
@@ -68,9 +68,9 @@ feature "Subscribe to podcasts |" do
     subscribe_to "Hello Internet"
 
     visit episode_path episode
-    find("a.unsubscribe").click
+    click_unsubscribe
 
-    expect(page).to have_css "a.subscribe"
+    expect(page).not_to have_user_subscribed_to "Hello Internet"
   end
 
   scenario "List podcasts user subscribed to" do
@@ -85,8 +85,8 @@ feature "Subscribe to podcasts |" do
     visit root_path
     click_on "My Subscriptions"
 
-    expect(page).to have_css ".podcast h4", text: "Hello Internet"
-    expect(page).to have_css ".podcast h4", text: "Stuff You Should Know"
-    expect(page).not_to have_css ".podcast h4", text: "Cortex"
+    expect(page).to have_podcast "Hello Internet"
+    expect(page).to have_podcast "Stuff You Should Know"
+    expect(page).not_to have_podcast "Cortex"
   end
 end

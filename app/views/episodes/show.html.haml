@@ -1,6 +1,6 @@
 - content_for :page_title, "#{@episode.podcast.title} - #{@episode.title} - PonyPod"
 .row.episode
-  .col-left
+  .col-left{ "data-podcast": @episode.podcast.title }
     .podcast-cover
       %img{ src: @episode.podcast.image }
     - if current_user

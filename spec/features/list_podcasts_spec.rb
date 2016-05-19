@@ -7,7 +7,7 @@ feature "List podcasts" do
 
     visit root_path
 
-    expect(page).to have_css ".podcast h4", text: "Hello Internet"
-    expect(page).to have_css ".podcast h4", text: "Stuff You Should Know"
+    expect(page).to have_podcast "Hello Internet"
+    expect(page).to have_podcast "Stuff You Should Know"
   end
 end

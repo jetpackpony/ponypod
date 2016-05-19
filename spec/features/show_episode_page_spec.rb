@@ -10,8 +10,8 @@ feature "Show episode page |" do
     click_on "Hello Internet"
     click_on "Nerds Talk" 
 
-    expect(page).to have_css ".podcast-title", text: "Hello Internet"
-    expect(page).to have_css ".episode-title", text: "Nerds Talk"
-    expect(page).to have_css "audio source[src='http://test.com/1.mp3']"
+    expect(page).to have_podcast "Hello Internet"
+    expect(page).to have_episode "Nerds Talk"
+    expect(page).to have_audio_player_for "http://test.com/1.mp3"
   end
 end

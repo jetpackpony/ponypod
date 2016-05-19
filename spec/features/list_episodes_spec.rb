@@ -9,9 +9,9 @@ feature "List episodes |" do
     visit root_path
     click_on hi_podcast.title
 
-    expect(page).to have_css ".podcast-title", text: "Hello Internet"
-    expect(page).to have_css ".episode-title", text: "Nerds Talk"
-    expect(page).to have_css ".episode-title", text: "IPad Talk"
+    expect(page).to have_podcast "Hello Internet"
+    expect(page).to have_episode "Nerds Talk"
+    expect(page).to have_episode "IPad Talk"
   end
 
   scenario "User doesn't see other podcast episodes on a podcast page" do
@@ -21,7 +21,7 @@ feature "List episodes |" do
 
     visit podcast_path hi_podcast
 
-    expect(page).not_to have_css ".episode-title", text: "Other Nerds Talk"
+    expect(page).not_to have_episode "Other Nerds Talk"
   end
 
   scenario "User sees newest episodes first" do

@@ -9,8 +9,8 @@ feature "Search episodes and podcasts |" do
     fill_in "search", with: "hello"
     click_on "Search"
 
-    expect(page).to have_css ".podcast h4", text: "Hello Internet"
-    expect(page).not_to have_css ".podcast h4", text: "Cortex"
+    expect(page).to have_podcast "Hello Internet"
+    expect(page).not_to have_podcast "Cortex"
   end
 
   scenario "User sees matching episodes" do
@@ -25,8 +25,8 @@ feature "Search episodes and podcasts |" do
     fill_in "search", with: "First"
     click_on "Search"
 
-    expect(page).to have_css ".episode-title", text: "First"
-    expect(page).not_to have_css ".episode-title", text: "Second"
-    expect(page).not_to have_css ".episode-title", text: "Other Podcast"
+    expect(page).to have_episode "First"
+    expect(page).not_to have_episode "Second"
+    expect(page).not_to have_episode "Other Podcast"
   end
 end

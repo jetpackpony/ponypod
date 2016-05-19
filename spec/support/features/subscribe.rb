@@ -1,8 +1,8 @@
 module Features
   def subscribe_to(title)
     visit root_path
-    find("[data-podcast='#{title}'] a.subscribe").click
+    click_subscribe title
 
-    expect(page).to have_css "[data-podcast='#{title}'] a.unsubscribe"
+    expect(page).to have_user_subscribed_to title
   end
 end
