@@ -10,4 +10,10 @@ FactoryGirl.define do
     sequence(:guid) { |n| "http://episode-#{n}" }
     published_at Time.now
   end
+
+  factory :user do
+    provider "google"
+    uid "123545"
+    name "mockuser"
+  end
 end
