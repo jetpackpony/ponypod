@@ -12,14 +12,14 @@
 
     %h4.podcast-title= @episode.podcast.title
     %p.podcast-description= @episode.podcast.description
-  .col-center
+  .col-center{ "data-episode": @episode.title }
     %h4.episode-title= @episode.title
 
     - if current_user
       - if @episode_is_viewed
-        = link_to("Mark as new", { controller: "episodes", action: "viewed_status", id: @episode, status: "new"}, :method => 'post')
+        = link_to("Mark as new", { controller: "episodes", action: "viewed_status", id: @episode, status: "new"}, :method => 'post', class: "mark-as-new")
       - else
-        = link_to("Mark as viewed", { controller: "episodes", action: "viewed_status", id: @episode, status: "viewed"}, :method => 'post')
+        = link_to("Mark as viewed", { controller: "episodes", action: "viewed_status", id: @episode, status: "viewed"}, :method => 'post', class: "mark-as-viewed")
 
     %p
       %audio{ :controls => 'controls' }

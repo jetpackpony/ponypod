@@ -51,5 +51,18 @@ feature "List episodes |" do
       expect(page.body.index("Last")).to be > page.body.index("Middle")
       expect(page.body.index("Middle")).to be > page.body.index("First")
     end
+
+    scenario "User sees viewed episodes in a separate section when segmented" do
+      hi_podcast = create :podcast, title: "Hello Internet"
+      new_episode = create :episode, title: "Nerds Talk", podcast: hi_podcast
+      viewed_episode = create :episode, title: "IPad Talk", podcast: hi_podcast
+      mark_episode_as_viewed viewed_episode
+
+      visit podcast_path hi_podcast
+      choose "show unplayed first"
+
+      expect(page).to have_viewed_episode "IPad Talk"
+      expect(page).to have_new_episode "Nerds Talk"
+    end
   end
 end

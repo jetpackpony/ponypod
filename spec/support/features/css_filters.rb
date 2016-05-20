@@ -35,4 +35,19 @@ module Features
     have_css "[data-podcast='#{podcast_title}'] a.unsubscribe"
   end
 
+  def display_viewed_episode(episode_title)
+    have_css "[data-episode='#{episode_title}'] a.mark-as-new"
+  end
+
+  def display_new_episode(episode_title)
+    have_css "[data-episode='#{episode_title}'] a.mark-as-viewed"
+  end
+
+  def have_viewed_episode(episode_title)
+    have_css ".viewed-episodes [data-episode='#{episode_title}']"
+  end
+
+  def have_new_episode(episode_title)
+    have_css ".new-episodes [data-episode='#{episode_title}']"
+  end
 end

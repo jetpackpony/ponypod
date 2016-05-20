@@ -45,18 +45,20 @@
       .divider
         New Episodes
         %hr
-      - if @episodes[:new].length == 0
-        No new episodes
-      - else
-        = render partial: "episodes", locals: { episodes: @episodes[:new] }
+      .new-episodes
+        - if @episodes[:new].length == 0
+          No new episodes
+        - else
+          = render partial: "episodes", locals: { episodes: @episodes[:new] }
 
       .divider
         Played Episodes
         %hr
-      - if @episodes[:old].length == 0
-        No new episodes
-      - else
-        = render partial: "episodes", locals: { episodes: @episodes[:old] }
+      .viewed-episodes
+        - if @episodes[:old].length == 0
+          No new episodes
+        - else
+          = render partial: "episodes", locals: { episodes: @episodes[:old] }
 
     - else
       = render partial: "episodes", locals: { episodes: @episodes }
