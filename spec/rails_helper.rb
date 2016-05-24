@@ -101,3 +101,5 @@ end
 
 OmniAuth.config.test_mode = true
 
+Capybara.javascript_driver = :webkit
+
