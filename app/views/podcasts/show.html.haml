@@ -69,23 +69,23 @@
     .listing-option
       %label
         %input{ checked: ("checked" if @segment != "all"), name: "show-radios", type: "radio", value: "unplayed-first",
-          "data-href": podcast_url(@podcast, segment: "unplayed-first", sort: @sort)}
+          "data-href": podcast_url(@podcast, update_query_params(segment: "unplayed-first"))}
           show unplayed first
     .listing-option
       %label
         %input{ checked: ("checked" if @segment == "all"), name: "show-radios", type: "radio", value: "all",
-          "data-href": podcast_url(@podcast, segment: "all", sort: @sort)}
+          "data-href": podcast_url(@podcast, update_query_params(segment: "all"))}
           show all by date
 
     %hr
     .listing-option
       %label
         %input{ checked: ("checked" if @sort != 'old-first'), name: "sort-radios", type: "radio", value: "new-first",
-          "data-href": podcast_url(@podcast, sort: "new-first", segment: @segment)}
+          "data-href": podcast_url(@podcast, update_query_params(sort: "new-first"))}
           show new first
     .listing-option
       %label
         %input{ checked: ("checked" if @sort == 'old-first'), name: "sort-radios", type: "radio", value: "old-first",
-          "data-href": podcast_url(@podcast, sort: "old-first", segment: @segment)}
+          "data-href": podcast_url(@podcast, update_query_params(sort: "old-first"))}
           show old first
 

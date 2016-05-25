@@ -12,11 +12,11 @@ class PodcastsController < ApplicationController
   # GET /podcasts/1
   # GET /podcasts/1.json
   def show
-    @search_path = podcast_path(@podcast)
-    @search_placeholder = 'Search episodes'
-
     @sort = params[:sort] == 'old-first' ? 'old-first' : 'new-first'
     @segment = current_user && (params[:segment] == 'unplayed-first') ? 'unplayed-first' : 'all'
+
+    @search_path = podcast_path(@podcast)
+    @search_placeholder = 'Search episodes'
 
     if @segment == "all"
       @episodes = @podcast.search_episodes params[:query], @sort

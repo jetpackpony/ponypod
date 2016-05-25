@@ -89,4 +89,13 @@ feature "Subscribe to podcasts |" do
     expect(page).to have_podcast "Stuff You Should Know"
     expect(page).not_to have_podcast "Cortex"
   end
+
+  scenario "Try to subscribe when not logged in" do
+    create :podcast, title: "Hello Internet"
+    create :podcast, title: "Cortex"
+
+    subscribe_to "Hello Internet"
+
+    expect(page).to have_notification "You need to login to subscribe to podcasts"
+  end
 end
