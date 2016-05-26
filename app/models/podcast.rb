@@ -36,23 +36,16 @@ class Podcast < ActiveRecord::Base
   end
 
   # The feed syncronization stuff
-  def self.syncronize
-    self.all
-    .select do |podcast|
-      podcast.rss_link.to_s != ""
-    end
-    .each do |podcast|
-      feed = Feedjira::Feed.parse_with(Feedjira::Parser::ITunesRSS, Faraday.get(podcast.rss_link).body)
-      podcast.sync feed
-    end
-  end
 
-  def sync(feed)
+  def syncronize
+    feed = Feedjira::Feed.parse_with(Feedjira::Parser::ITunesRSS, Faraday.get(rss_link).body)
     self.title = feed.title
     self.description = feed.description
     self.image = feed.itunes_image
     feed.entries.each do |entry|
-      episode = self.episodes.create_with(published_at: Time.now).find_or_create_by(guid: entry.entry_id)
+      episode = self.episodes.find_or_create_by(guid: entry.entry_id) do |ep|
+        ep.published_at = Time.now
+      end
       episode.title = entry.title
       episode.mp3_link = entry.enclosure_url
       episode.full_description = entry.summary
@@ -60,9 +53,20 @@ class Podcast < ActiveRecord::Base
       episode.published_at = Podcast.convert_date entry.published
       episode.save!
     end
-    self.save!
+    save!
+    self
   end
-
+#  def self.syncronize
+#    self.all
+#    .select do |podcast|
+#      podcast.rss_link.to_s != ""
+#    end
+#    .each do |podcast|
+#      feed = Feedjira::Feed.parse_with(Feedjira::Parser::ITunesRSS, Faraday.get(podcast.rss_link).body)
+#      podcast.sync feed
+#    end
+#  end
+#
   def self.extract_summary(summary)
     Podcast.cleanup_text (summary.scan(/<p>(.+)<\/p>/).first || [summary]).first
   end
