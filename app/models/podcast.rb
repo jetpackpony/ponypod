@@ -50,32 +50,22 @@ class Podcast < ActiveRecord::Base
       episode.mp3_link = entry.enclosure_url
       episode.full_description = entry.summary
       episode.summary = Podcast.extract_summary entry.summary
-      episode.published_at = Podcast.convert_date entry.published
+      episode.published_at = DateTime.parse entry.published.to_s
       episode.save!
     end
     save!
     self
   end
-#  def self.syncronize
-#    self.all
-#    .select do |podcast|
-#      podcast.rss_link.to_s != ""
-#    end
-#    .each do |podcast|
-#      feed = Feedjira::Feed.parse_with(Feedjira::Parser::ITunesRSS, Faraday.get(podcast.rss_link).body)
-#      podcast.sync feed
-#    end
-#  end
-#
+
+  def self.sync
+    Podcast.all.each &:syncronize
+  end
+
   def self.extract_summary(summary)
     Podcast.cleanup_text (summary.scan(/<p>(.+)<\/p>/).first || [summary]).first
   end
 
   def self.cleanup_text(text)
     HTMLEntities.new.decode(Sanitize.fragment(text)).strip
-  end
-
-  def self.convert_date(xml_date)
-    DateTime.parse xml_date.to_s
   end
 end
