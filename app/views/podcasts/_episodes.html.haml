@@ -1,10 +1,10 @@
 - episodes.each do |episode|
-  .media.episode
+  .media.episode{ "data-episode": episode.title }
     .media-left
       = link_to episode do
         %img{ src: asset_path("play-button.jpg") }
     .media-body
-      %h5.media-heading
+      %h5.media-heading.episode-title
         =link_to episode.title, episode
       .media-text
         = episode.summary

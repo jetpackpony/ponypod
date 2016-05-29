@@ -31,8 +31,6 @@ class EpisodesController < ApplicationController
         'viewed'
       when 'new'
         'new'
-      else
-        raise "Wrong argument format of viewed_status: " + params[:viewed_status]
       end
     end
 
