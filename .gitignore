@@ -23,3 +23,8 @@ ponypod.sublime-workspace
 *.swp
 *.swo
 
+# Ignore local secret stuff
+.dev_secrets
+
+# Simplecov coverage reports
+/coverage

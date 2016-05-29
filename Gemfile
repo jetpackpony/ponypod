@@ -30,25 +30,21 @@ gem "omniauth-google-oauth2"
 
 # Use HAML
 gem 'haml'
-
 gem "haml-rails", "~> 0.9"
 
-# Use Bootstrap for HTML template
+# Use Bootstrap for HTML templates
 gem 'bootstrap', '~> 4.0.0.alpha3'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
 
-# Use feedjira for RSS parsing and fetching
+# Use feedjira for RSS parsing
 gem 'feedjira'
 
 # Use sanitize gem for cleaning up HTML in the models
 gem "sanitize"
 gem "htmlentities"
-
-# Some gem for Heroku platform logs stuff
-gem 'rails_12factor'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -62,14 +58,18 @@ gem 'rails_12factor'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'rspec-rails'
-  gem 'capybara'
-  gem 'database_cleaner'
+  gem 'rspec-rails', '~> 3.5.0.beta2'
+  gem "factory_girl_rails", "~> 4.0"
   gem 'launchy'
 end
 
 group :test do
-  gem 'cucumber-rails', :require => false
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
+  gem 'simplecov'
+  gem 'webmock'
 end
 
 group :development do
@@ -83,3 +83,7 @@ end
 # Support for PostgreSQL
 gem "pg"
 
+group :production do
+  # Some gem for Heroku platform logs stuff
+  gem 'rails_12factor'
+end

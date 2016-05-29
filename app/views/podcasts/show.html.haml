@@ -1,5 +1,5 @@
 - content_for :page_title, "#{@podcast.title} - PonyPod"
-.row.podcast
+.row.podcast{ "data-podcast": @podcast.title }
   .col-left
     .podcast-cover
       %img{ src: @podcast.image }
@@ -10,12 +10,13 @@
       - else
         = link_to raw('&#10133;'), { controller: "subscriptions", action: "create", id: @podcast }, class: "subscribe"
 
-    %h4= @podcast.title
+    %h4.podcast-title= @podcast.title
     %p.podcast-description= @podcast.description
     %p.controls-toggle
       %a{ "aria-controls": "sortControls", "aria-expanded": "false", "data-toggle": "collapse", href: "#sortControls" }
         Show and sort
     #sortControls.collapse
+    /
       .listing-option
         %label
           %input{ checked: ("checked" if @segment != "all"), name: "show-radios", type: "radio", value: "unplayed-first",
@@ -44,18 +45,20 @@
       .divider
         New Episodes
         %hr
-      - if @episodes[:new].length == 0
-        No new episodes
-      - else
-        = render partial: "episodes", locals: { episodes: @episodes[:new] }
+      .new-episodes
+        - if @episodes[:new].length == 0
+          No new episodes
+        - else
+          = render partial: "episodes", locals: { episodes: @episodes[:new] }
 
       .divider
         Played Episodes
         %hr
-      - if @episodes[:old].length == 0
-        No new episodes
-      - else
-        = render partial: "episodes", locals: { episodes: @episodes[:old] }
+      .viewed-episodes
+        - if @episodes[:old].length == 0
+          No new episodes
+        - else
+          = render partial: "episodes", locals: { episodes: @episodes[:old] }
 
     - else
       = render partial: "episodes", locals: { episodes: @episodes }
@@ -66,23 +69,23 @@
     .listing-option
       %label
         %input{ checked: ("checked" if @segment != "all"), name: "show-radios", type: "radio", value: "unplayed-first",
-          "data-href": podcast_url(@podcast, segment: "unplayed-first", sort: @sort)}
+          "data-href": podcast_url(@podcast, update_query_params(segment: "unplayed-first"))}
           show unplayed first
     .listing-option
       %label
         %input{ checked: ("checked" if @segment == "all"), name: "show-radios", type: "radio", value: "all",
-          "data-href": podcast_url(@podcast, segment: "all", sort: @sort)}
+          "data-href": podcast_url(@podcast, update_query_params(segment: "all"))}
           show all by date
 
     %hr
     .listing-option
       %label
         %input{ checked: ("checked" if @sort != 'old-first'), name: "sort-radios", type: "radio", value: "new-first",
-          "data-href": podcast_url(@podcast, sort: "new-first", segment: @segment)}
+          "data-href": podcast_url(@podcast, update_query_params(sort: "new-first"))}
           show new first
     .listing-option
       %label
         %input{ checked: ("checked" if @sort == 'old-first'), name: "sort-radios", type: "radio", value: "old-first",
-          "data-href": podcast_url(@podcast, sort: "old-first", segment: @segment)}
+          "data-href": podcast_url(@podcast, update_query_params(sort: "old-first"))}
           show old first
 

@@ -1,6 +1,6 @@
 - content_for :page_title, "#{@episode.podcast.title} - #{@episode.title} - PonyPod"
 .row.episode
-  .col-left
+  .col-left{ "data-podcast": @episode.podcast.title }
     .podcast-cover
       %img{ src: @episode.podcast.image }
     - if current_user
@@ -10,18 +10,20 @@
       - else
         = link_to raw('&#10133;'), { controller: "subscriptions", action: "create", id: @episode.podcast}, class: "subscribe"
 
-    %h4= @episode.podcast.title
+    %h4.podcast-title= @episode.podcast.title
     %p.podcast-description= @episode.podcast.description
-  .col-center
-    %h4= @episode.title
+  .col-center{ "data-episode": @episode.title }
+    %h4.episode-title= @episode.title
 
     - if current_user
       - if @episode_is_viewed
-        = link_to("Mark as new", { controller: "episodes", action: "viewed_status", id: @episode, status: "new"}, :method => 'post')
+        = link_to("Mark as new", { controller: "episodes", action: "viewed_status", id: @episode, status: "new"}, :method => 'post', class: "mark-as-new")
       - else
-        = link_to("Mark as viewed", { controller: "episodes", action: "viewed_status", id: @episode, status: "viewed"}, :method => 'post')
-    %p= @episode.summary
+        = link_to("Mark as viewed", { controller: "episodes", action: "viewed_status", id: @episode, status: "viewed"}, :method => 'post', class: "mark-as-viewed")
 
     %p
       %audio{ :controls => 'controls' }
         %source{ src: @episode.mp3_link }
+
+    .full_desc
+      = raw @episode.full_description
