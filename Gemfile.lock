@@ -132,7 +132,6 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.3.20)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     nokogumbo (1.4.7)
@@ -286,7 +285,6 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   launchy
-  mysql2 (~> 0.3.20)
   omniauth
   omniauth-google-oauth2
   pg
