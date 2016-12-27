@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Podcast.create([
+  {
+    title: "Hello Internet",
+    description: "Such podcast! Much hello! Wow!",
+    image: "http://test.png",
+    rss_link: "http://www.hellointernet.fm/podcast?format=rss"
+  }
+])
