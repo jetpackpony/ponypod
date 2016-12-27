@@ -7,24 +7,18 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
 # Ignore all logfiles and tempfiles.
 /log/*
+/tmp/*
 !/log/.keep
-/tmp
-/stuff
+!/tmp/.keep
 
-# Ignore the sublime project files
-ponypod.sublime-project
-ponypod.sublime-workspace
+# Ignore Byebug command history file.
 .byebug_history
 
-# Ignore vim temp and swap files
-*~
-*.swp
-*.swo
-
-# Ignore local secret stuff
+# Ignore secrets
 .dev_secrets
-
-# Simplecov coverage reports
-/coverage
