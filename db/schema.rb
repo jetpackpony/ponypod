@@ -10,19 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161227183436) do
+ActiveRecord::Schema.define(version: 20161227203242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "episodes", force: :cascade do |t|
+    t.string   "title",            default: ""
+    t.integer  "podcast_id"
+    t.string   "mp3_link",         default: ""
+    t.string   "guid",             default: ""
+    t.text     "full_description", default: ""
+    t.text     "summary",          default: ""
+    t.datetime "published_at"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["guid"], name: "index_episodes_on_guid", unique: true, using: :btree
+    t.index ["podcast_id"], name: "index_episodes_on_podcast_id", using: :btree
+  end
+
   create_table "podcasts", force: :cascade do |t|
-    t.string   "title"
-    t.string   "rss_link"
-    t.text     "description"
-    t.string   "image"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "title",       default: ""
+    t.string   "rss_link",    default: ""
+    t.text     "description", default: ""
+    t.string   "image",       default: ""
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.index ["rss_link"], name: "index_podcasts_on_rss_link", unique: true, using: :btree
   end
 
+  add_foreign_key "episodes", "podcasts"
 end
