@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :podcast do
-    title "MyString"
-    rss_link "MyString"
-    description "MyString"
-    image "MyString"
+    title "Test podcast"
+    rss_link "http://test.feed/feed.xml"
+    description "Test podcast description"
+    image "http://img.png/"
   end
 end

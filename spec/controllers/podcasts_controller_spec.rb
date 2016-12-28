@@ -19,26 +19,11 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe PodcastsController, type: :controller do
-
-  # This should return the minimal set of attributes required to create a valid
-  # Podcast. As you add validations to Podcast, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # PodcastsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET #index" do
     it "assigns all podcasts as @podcasts" do
-      podcast = Podcast.create! valid_attributes
+      podcast = create :podcast
       get :index, params: {}, session: valid_session
       expect(assigns(:podcasts)).to eq([podcast])
     end
@@ -46,114 +31,9 @@ RSpec.describe PodcastsController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested podcast as @podcast" do
-      podcast = Podcast.create! valid_attributes
+      podcast = create :podcast
       get :show, params: {id: podcast.to_param}, session: valid_session
       expect(assigns(:podcast)).to eq(podcast)
     end
   end
-
-  describe "GET #new" do
-    it "assigns a new podcast as @podcast" do
-      get :new, params: {}, session: valid_session
-      expect(assigns(:podcast)).to be_a_new(Podcast)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested podcast as @podcast" do
-      podcast = Podcast.create! valid_attributes
-      get :edit, params: {id: podcast.to_param}, session: valid_session
-      expect(assigns(:podcast)).to eq(podcast)
-    end
-  end
-
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Podcast" do
-        expect {
-          post :create, params: {podcast: valid_attributes}, session: valid_session
-        }.to change(Podcast, :count).by(1)
-      end
-
-      it "assigns a newly created podcast as @podcast" do
-        post :create, params: {podcast: valid_attributes}, session: valid_session
-        expect(assigns(:podcast)).to be_a(Podcast)
-        expect(assigns(:podcast)).to be_persisted
-      end
-
-      it "redirects to the created podcast" do
-        post :create, params: {podcast: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Podcast.last)
-      end
-    end
-
-    context "with invalid params" do
-      it "assigns a newly created but unsaved podcast as @podcast" do
-        post :create, params: {podcast: invalid_attributes}, session: valid_session
-        expect(assigns(:podcast)).to be_a_new(Podcast)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, params: {podcast: invalid_attributes}, session: valid_session
-        expect(response).to render_template("new")
-      end
-    end
-  end
-
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested podcast" do
-        podcast = Podcast.create! valid_attributes
-        put :update, params: {id: podcast.to_param, podcast: new_attributes}, session: valid_session
-        podcast.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "assigns the requested podcast as @podcast" do
-        podcast = Podcast.create! valid_attributes
-        put :update, params: {id: podcast.to_param, podcast: valid_attributes}, session: valid_session
-        expect(assigns(:podcast)).to eq(podcast)
-      end
-
-      it "redirects to the podcast" do
-        podcast = Podcast.create! valid_attributes
-        put :update, params: {id: podcast.to_param, podcast: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(podcast)
-      end
-    end
-
-    context "with invalid params" do
-      it "assigns the podcast as @podcast" do
-        podcast = Podcast.create! valid_attributes
-        put :update, params: {id: podcast.to_param, podcast: invalid_attributes}, session: valid_session
-        expect(assigns(:podcast)).to eq(podcast)
-      end
-
-      it "re-renders the 'edit' template" do
-        podcast = Podcast.create! valid_attributes
-        put :update, params: {id: podcast.to_param, podcast: invalid_attributes}, session: valid_session
-        expect(response).to render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE #destroy" do
-    it "destroys the requested podcast" do
-      podcast = Podcast.create! valid_attributes
-      expect {
-        delete :destroy, params: {id: podcast.to_param}, session: valid_session
-      }.to change(Podcast, :count).by(-1)
-    end
-
-    it "redirects to the podcasts list" do
-      podcast = Podcast.create! valid_attributes
-      delete :destroy, params: {id: podcast.to_param}, session: valid_session
-      expect(response).to redirect_to(podcasts_url)
-    end
-  end
-
 end
