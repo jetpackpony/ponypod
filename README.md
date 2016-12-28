@@ -1,24 +1,22 @@
-# README
+# Ponypod [![Build Status](https://travis-ci.org/jetpackpony/ponypod.svg?branch=master)](https://travis-ci.org/jetpackpony/ponypod)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ponypod is a web app for tracking and listening to podcasts. This repo is for backend api. For web single-page application to to [PonyPod-Web](https://github.com/jetpackpony/ponypod-web).
 
-Things you may want to cover:
+## Installation
+## Running
+Start up the rails dev server
+```bash
+rails s
+```
+Visit your app at [http://localhost:3000](http://localhost:3000).
 
-* Ruby version
+### Running Tests
+```bash
+bundle exec rspec
+```
 
-* System dependencies
+## Rake tasks
 
-* Configuration
 
-* Database creation
+## API reference
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
