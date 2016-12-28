@@ -31,11 +31,11 @@ $ rake update_episodes
 ## API reference
 This app exposes a RESTful api to communicate with clients. The api format follows [JSON API](http://jsonapi.org/format/ "JSON API") specification. Here is a list of endpoints:
 ### Get All Podcasts (and Search)
-Returns a list of all the podcasts in no particular order. If `query` parameter is present, returns podcasts filtered by query on name and description.
+Returns a list of all the podcasts in no particular order. If `filter` parameter is present, returns podcasts filtered by this string on name and description.
 #### Request format
 `GET /podcasts`
 #### Query params
-* `query=[string]` - if present, podcast list will be filtered by this query
+* `filter=[string]` - if present, podcast list will be filtered by this string
 
 #### Success response
 ```json
@@ -71,4 +71,31 @@ Returns a single podcast specified by and id in the request.
   "created_at":"2016-12-28T12:26:28.683Z",
   "updated_at":"2016-12-28T12:27:41.717Z"
 }
+```
+
+### Get All Episodes for a Podcast(and Search)
+Returns a list of all podcast's episodes ordered by a release date (newer first). If `filter` parameter is present, returns episodes filtered by the string on name or description. The info about every episode is everything except full description.
+#### Request format
+`GET /podcasts/<ID>/episodes`
+#### URL params
+* `ID=[number]` - an id of the podcast
+
+#### Query params
+* `filter=[string]` - if present, episode list will be filtered by this string
+
+#### Success response
+```json
+[]
+```
+
+### Get a Specific Episode
+Returns a single episode and a full information about it. Also includes the podcast the episode belongs to.
+#### Request format
+`GET /episodes/<ID>`
+#### URL params
+* `ID=[number]` - an id of the episode to return
+
+#### Success response
+```json
+{}
 ```
