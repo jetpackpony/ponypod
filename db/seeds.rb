@@ -5,20 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-pod = Podcast.create(
-  {
-    title: "Hello Internet",
-    description: "Such podcast! Much hello! Wow!",
-    image: "http://test.png",
-    rss_link: "http://www.hellointernet.fm/podcast?format=rss"
-  }
-)
-Episode.create({
-  podcast: pod,
-  title: "testme",
-  mp3_link: "http://dfasdf.com/",
-  guid: "this is such guid",
-  full_description: "This is such a full description",
-  summary: "Small description",
-  published_at: DateTime.parse("2015-05-19 23:01:01")
-})
+Podcast.create([
+  { rss_link: 'http://www.hellointernet.fm/podcast?format=rss' },
+  { rss_link: 'http://www.howstuffworks.com/podcasts/stuff-you-should-know.rss' },
+  { rss_link: 'http://feeds.feedburner.com/freakonomicsradio' },
+  { rss_link: 'http://podster.fm/rss.xml?pid=313' },
+  { rss_link: 'http://atp.fm/episodes?format=rss' },
+  { rss_link: 'http://golangshow.com/index.xml' }
+])
