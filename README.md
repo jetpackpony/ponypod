@@ -3,6 +3,7 @@
 Ponypod is a web app for tracking and listening to podcasts. This repo is for backend api. For web single-page application to to [PonyPod Web](https://github.com/jetpackpony/ponypod-web "PonyPod Web").
 
 ## Installation
+This app is based on Rails 5 API which requires ruby version 2.2.3 or higher.
 ```bash
 git clone git@github.com:jetpackpony/ponypod.git
 cd ponypod
