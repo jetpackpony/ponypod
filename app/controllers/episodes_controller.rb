@@ -3,7 +3,7 @@ class EpisodesController < ApplicationController
 
   # GET /episodes
   def index
-    @episodes = Episode.all
+    @episodes = Episode.where podcast_id: params[:podcast_id]
 
     render json: @episodes
   end
