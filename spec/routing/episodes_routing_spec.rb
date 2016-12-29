@@ -4,7 +4,7 @@ RSpec.describe EpisodesController, type: :routing do
   describe "routing" do
 
     it "routes to #index" do
-      expect(:get => "/episodes").to route_to("episodes#index")
+      expect(:get => "/podcasts/1/episodes").to route_to("episodes#index", :podcast_id => "1")
     end
 
     it "routes to #show" do

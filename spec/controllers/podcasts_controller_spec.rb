@@ -19,21 +19,4 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe PodcastsController, type: :controller do
-  let(:valid_session) { {} }
-
-  describe "GET #index" do
-    it "assigns all podcasts as @podcasts" do
-      podcast = create :podcast
-      get :index, params: {}, session: valid_session
-      expect(assigns(:podcasts)).to eq([podcast])
-    end
-  end
-
-  describe "GET #show" do
-    it "assigns the requested podcast as @podcast" do
-      podcast = create :podcast
-      get :show, params: {id: podcast.to_param}, session: valid_session
-      expect(assigns(:podcast)).to eq(podcast)
-    end
-  end
 end
