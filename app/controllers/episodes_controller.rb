@@ -5,12 +5,12 @@ class EpisodesController < ApplicationController
   def index
     @episodes = Episode.where podcast_id: params[:podcast_id]
 
-    render json: @episodes
+    render json: @episodes, include: 'podcast'
   end
 
   # GET /episodes/1
   def show
-    render json: @episode
+    render json: @episode, include: 'podcast'
   end
 
   private
