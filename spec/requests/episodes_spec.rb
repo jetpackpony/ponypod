@@ -12,7 +12,7 @@ RSpec.describe "Episodes", type: :request do
       json = JSON.parse response.body
       expect(json['data'].length).to eq 4
       expect(json['data'][0]['type']).to eq 'episodes'
-      expect(json['data'][0]['attributes']['podcast-id']).to eq podcast.id
+      expect(json['data'][0]['relationships']['podcast']['data']['id']).to eq podcast.id.to_s
     end
   end
 
