@@ -12,7 +12,20 @@ RSpec.describe "Episodes", type: :request do
       json = JSON.parse response.body
       expect(json['data'].length).to eq 4
       expect(json['data'][0]['type']).to eq 'episodes'
-      expect(json['data'][0]['relationships']['podcast']['data']['id']).to eq podcast.id.to_s
+    end
+
+    it "includes a podcast into payload" do
+      podcast = create :podcast
+      episode = create_list :episode, 4, podcast: podcast
+      get podcast_episodes_path podcast
+
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/vnd.api+json'
+      json = JSON.parse response.body
+      pod_id = json['data'][0]['relationships']['podcast']['data']['id']
+      expect(pod_id).to eq podcast.id.to_s
+      expect(json['included'][0]['id']).to eq podcast.id.to_s
+      expect(json['included'][0]['type']).to eq "podcasts"
     end
   end
 
@@ -26,6 +39,20 @@ RSpec.describe "Episodes", type: :request do
       json = JSON.parse(response.body)['data']
       expect(json['id']).to eq episode.id.to_s
       expect(json['attributes']['title']).to eq episode.title
+    end
+
+    it "includes a podcast into payload" do
+      podcast = create :podcast
+      episode = create :episode, podcast: podcast
+      get episode_path episode
+
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/vnd.api+json'
+      json = JSON.parse response.body
+      pod_id = json['data']['relationships']['podcast']['data']['id']
+      expect(pod_id).to eq podcast.id.to_s
+      expect(json['included'][0]['id']).to eq podcast.id.to_s
+      expect(json['included'][0]['type']).to eq "podcasts"
     end
   end
 end
