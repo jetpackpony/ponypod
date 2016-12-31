@@ -14,6 +14,7 @@ class Podcast < ApplicationRecord
     feed = Feedjira::Feed.parse_with(Feedjira::Parser::ITunesRSS, Faraday.get(rss_link).body)
     self.title = feed.title
     self.description = feed.description
+    self.summary = feed.description.slice 0, 200
     self.image = feed.itunes_image
     feed.entries.each do |entry|
       episode = self.episodes.find_or_create_by(guid: entry.entry_id) do |ep|

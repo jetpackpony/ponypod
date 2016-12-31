@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161227203242) do
+ActiveRecord::Schema.define(version: 20161231164214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20161227203242) do
     t.string   "image",       default: ""
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.text     "summary"
     t.index ["rss_link"], name: "index_podcasts_on_rss_link", unique: true, using: :btree
   end
 

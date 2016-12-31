@@ -6,6 +6,7 @@ FactoryGirl.define do
     title "Test podcast"
     rss_link
     description "Test podcast description"
+    summary "Test podast summary"
     image "http://img.png/"
   end
 end
