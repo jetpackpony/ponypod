@@ -37,6 +37,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   # Use assigns for testing controllers
   gem 'rails-controller-testing'
+  # Use dotenv to load environment variables
+  gem 'dotenv-rails'
 end
 
 group :development do

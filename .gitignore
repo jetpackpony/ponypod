@@ -25,3 +25,6 @@
 
 # Ignore db backups
 .backups
+
+# Ignore .env file
+.env
