@@ -12,6 +12,13 @@ RSpec.describe "Episodes", type: :request do
       json = JSON.parse response.body
       expect(json['data'].length).to eq 4
       expect(json['data'][0]['type']).to eq 'episodes'
+      attr = json['data'][0]['attributes']
+      expect(attr['title']).not_to be_empty
+      expect(attr['published-at']).not_to be_empty
+      expect(attr['summary']).not_to be_empty
+      expect(attr['full-description']).not_to be_empty
+      expect(attr['duration']).not_to be_nil
+      expect(attr['mp3-link']).not_to be_empty
     end
 
     it "includes a podcast into payload" do
@@ -39,6 +46,13 @@ RSpec.describe "Episodes", type: :request do
       json = JSON.parse(response.body)['data']
       expect(json['id']).to eq episode.id.to_s
       expect(json['attributes']['title']).to eq episode.title
+      attr = json['attributes']
+      expect(attr['title']).not_to be_empty
+      expect(attr['published-at']).not_to be_empty
+      expect(attr['summary']).not_to be_empty
+      expect(attr['full-description']).not_to be_empty
+      expect(attr['duration']).not_to be_nil
+      expect(attr['mp3-link']).not_to be_empty
     end
 
     it "includes a podcast into payload" do

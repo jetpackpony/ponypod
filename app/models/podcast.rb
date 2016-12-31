@@ -25,6 +25,7 @@ class Podcast < ApplicationRecord
       episode.full_description = entry.summary
       episode.summary = Podcast.extract_summary entry.summary
       episode.published_at = DateTime.parse entry.published.to_s
+      episode.duration = Podcast.convert_duration entry.itunes_duration
       begin
         episode.save!
       rescue Exception => e
@@ -45,5 +46,14 @@ class Podcast < ApplicationRecord
 
   def self.cleanup_text(text)
     HTMLEntities.new.decode(Sanitize.fragment(text)).strip
+  end
+
+  def self.convert_duration(duration)
+    m = /^(?:(\d{2}):)?(\d{2}):(\d{2})$/.match duration
+    if m
+      m[1].to_i * 3600 + m[2].to_i * 60 + m[3].to_i
+    else
+      0
+    end
   end
 end

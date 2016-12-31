@@ -9,6 +9,7 @@ FactoryGirl.define do
     mp3_link "http://test.com/mp3.mp3"
     full_description "Such episode description"
     summary "Test"
-    published_at "Test"
+    published_at DateTime.parse "2016-11-11 11:11:11"
+    duration 150
   end
 end
