@@ -30,3 +30,5 @@ module Backend
     config.api_only = true
   end
 end
+
+Rails.application.routes.default_url_options[:host] = ENV['APIHOSTNAME']

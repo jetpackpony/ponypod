@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Podcasts", type: :request do
+  before(:each) do
+    host! ENV['APIHOSTNAME']
+  end
+
   describe "GET /podcasts" do
     it "returns all podcasts" do
       podcast = create_list :podcast, 3
@@ -24,6 +28,8 @@ RSpec.describe "Podcasts", type: :request do
       json = JSON.parse(response.body)['data']
       expect(json['id']).to eq podcast.id.to_s
       expect(json['attributes']['title']).to eq podcast.title
+      url = podcast_episodes_url podcast
+      expect(json['relationships']['episodes']['links']['related']).to eq url
     end
   end
 end
