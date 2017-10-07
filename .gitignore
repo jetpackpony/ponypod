@@ -25,6 +25,7 @@ ponypod.sublime-workspace
 
 # Ignore local secret stuff
 .dev_secrets
+.env
 
 # Simplecov coverage reports
 /coverage
