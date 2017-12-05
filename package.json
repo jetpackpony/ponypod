@@ -1,0 +1,19 @@
+{
+  "name": "pony-pod",
+  "version": "0.0.1",
+  "description": "Ponypod is a web app for tracking and listening to podcasts.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jetpackpony/ponypod.git"
+  },
+  "author": "jetpackpony",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jetpackpony/ponypod/issues"
+  },
+  "homepage": "https://github.com/jetpackpony/ponypod#readme"
+}
