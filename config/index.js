@@ -8,7 +8,12 @@ nconf
     'MONGO_URL',
     'PORT'
   ])
-  .file({ file: path.join(__dirname, 'config.json') })
+  .file({
+    file: path.join(
+      __dirname,
+      `${process.env.NODE_ENV || 'development'}.config.json`
+    )
+  })
   .defaults({
     PORT: 8080
   });
