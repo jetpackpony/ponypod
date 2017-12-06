@@ -4,8 +4,8 @@
   "description": "Ponypod is a web app for tracking and listening to podcasts.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
+    "test": "nodemon --exec 'mocha -R min' test",
+    "start": "SET NODE_ENV=dev && nodemon app.js",
     "deploy": "gcloud app deploy"
   },
   "repository": {
@@ -23,5 +23,10 @@
     "mongodb": "^2.2.33",
     "mongoose": "^4.13.6",
     "nconf": "^0.9.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^4.0.1"
   }
 }

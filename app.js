@@ -28,7 +28,7 @@ mongoose
   .catch(console.error.bind(console, 'DB connection error:'));
 
 // Expose
-module.exports = { app };
+module.exports = app;
 
 function listen (db) {
   if (module === require.main) {
