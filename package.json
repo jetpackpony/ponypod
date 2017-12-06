@@ -20,6 +20,8 @@
   "homepage": "https://github.com/jetpackpony/ponypod#readme",
   "dependencies": {
     "express": "^4.16.2",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.13.6",
     "nconf": "^0.9.1"
   }
 }
