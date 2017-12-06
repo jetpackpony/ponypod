@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/jetpackpony/ponypod#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "nconf": "^0.9.1"
   }
 }

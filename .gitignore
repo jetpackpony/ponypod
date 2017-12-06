@@ -42,3 +42,4 @@ typings/
 # Local secret stuff
 .dev_secrets
 .env
+config.json
