@@ -4,7 +4,7 @@ const posdcasts = require('./controllers/podcasts');
 
 module.exports = function (app, passport) {
 
-  app.get('/', posdcasts.index);
+  app.use('/podcasts', posdcasts);
 
   app.use(function (err, req, res, next) {
     // treat as 404

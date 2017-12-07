@@ -10,44 +10,63 @@ const testData = require('./podcastsTestData');
 
 chai.use(chaiHttp);
 
-describe('/podcasts', () => {
-  before((done) => {
-    Podcast.remove({}, (err) => {
-      done();
-    });
+describe('GET /podcasts', () => {
+  before(() => Podcast.remove({}));
+  beforeEach(() => Podcast.create(testData));
+  afterEach(() => Podcast.remove({}));
+
+  it('should return first page when page is not specified', (done) => {
+    chai.request(app)
+      .get('/podcasts')
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('array');
+        expect(
+          res.body[0].title,
+          'first returned item should be "1-First"'
+        ).to.eql("1-First");
+        done();
+      });
   });
-  before((done) => {
-    Podcast.create(testData, (err) => {
-      done();
-    });
+  it('should return the first page of podcasts', (done) => {
+    chai.request(app)
+      .get('/podcasts')
+      .query({ 'page[number]':'0', 'page[size]':'3' })
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('array');
+        expect(res.body.length, 'should return 3 items').to.eql(3);
+        expect(
+          res.body[0].title,
+          'first returned item should be "1-First"'
+        ).to.eql("1-First");
+        done();
+      });
   });
-  after((done) => {
-    Podcast.remove({}, (err) => {
-      done();
-    });
+  it('should return the second page of podcasts', (done) => {
+    chai.request(app)
+      .get('/podcasts')
+      .query({ 'page[number]':'1', 'page[size]':'3' })
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('array');
+        expect(res.body.length, 'should return 2 items').to.eql(2);
+        expect(
+          res.body[0].title,
+          'first returned item should be "4-Forth"'
+        ).to.eql("4-Forth");
+        done();
+      });
   });
 
-  describe('GET /podcasts', () => {
-    it('should return the first page of podcasts', (done) => {
-      chai.request(app)
-        .get('/podcasts')
-        .query({ 'page[number]':'0', 'page[size]':'3' })
-        .end((err, res) => {
-          expect(err).to.be.null;
-          expect(res).to.have.status(200);
-          expect(res).to.be.json;
-          expect(res.body).to.be.an('array');
-          expect(res.body.length).to.eql(3);
-          expect(res.body.first.title).to.eql("First");
-          done();
-        });
-    });
-    it('should return the second page of podcasts');
+  it('should filter podcasts by search term');
 
-    it('should return first page when page is not specified');
-    it('should filter podcasts by search term');
-
-    it('should return a podcast by id');
-    it('should error if podcast doesn\'t exist');
-  });
+  it('should return a podcast by id');
+  it('should error if podcast doesn\'t exist');
 });
