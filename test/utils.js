@@ -3,7 +3,7 @@ const { parsePageParams } = require('../app/utils');
 const chai = require('chai');
 const expect = chai.expect;
 
-describe.only('utils', () => {
+describe('utils', () => {
   describe('parsePageParams', () => {
     const defaults = { pageNum: 0, pageSize: 30 };
     it('returns defaults when nothing specified', () => {
