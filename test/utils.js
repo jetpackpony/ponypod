@@ -1,4 +1,7 @@
-const { parsePageParams } = require('../app/utils');
+const {
+  parsePageParams,
+  buildSearchObject
+} = require('../app/utils');
 
 const chai = require('chai');
 const expect = chai.expect;
@@ -20,6 +23,28 @@ describe('utils', () => {
       expect(
         parsePageParams({ number: 'test', size: 'me' }, defaults.pageSize)
       ).to.eql(defaults);
+    });
+  });
+
+  describe('buildSearchObject', () => {
+    it('returns search object for every param', () => {
+      expect(
+        buildSearchObject('SEArch', ['title', 'desc'])
+      ).to.eql({
+        "$or": [
+          { "title": /search/i },
+          { "desc":/search/i }
+        ]
+      });
+    });
+    it('returns null if search term is empty', () => {
+      expect(buildSearchObject('', ['title'])).to.eql(null);
+    });
+    it('returns null if search term is undefined', () => {
+      expect(buildSearchObject(undefined, ['title'])).to.eql(null);
+    });
+    it('returns null if search term is too short', () => {
+      expect(buildSearchObject('se', ['title'])).to.eql(null);
     });
   });
 });

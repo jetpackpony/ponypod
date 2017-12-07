@@ -7,8 +7,17 @@ const parsePageParams = (pageParams, defaultPerPage) => ({
 
 const parseIntDecimal = R.flip(parseInt)(10);
 
+const buildSearchObject =
+  (searchTerm, params, minTermLength = 3) => (
+    (!searchTerm || searchTerm.length < minTermLength)
+    ? null
+    : buildParamsWithTerm(makeTerm(searchTerm), params)
+  );
+
 module.exports = {
-  parsePageParams, parseIntDecimal
+  parsePageParams,
+  parseIntDecimal,
+  buildSearchObject
 };
 
 const parseProperty =
@@ -21,3 +30,10 @@ const parseProperty =
 const replaceNanWithDefault = R.curry(
   (def, value) => ((!value) ? def : value)
 );
+
+const buildParamsWithTerm = (term, params) => ({
+  "$or": params.map((p) => ({ [p]: term }))
+});
+
+const makeTerm =
+  (term) => new RegExp(term.toLowerCase(), "i");
