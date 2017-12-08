@@ -1,10 +1,12 @@
 const {
   parsePageParams,
-  buildSearchObject
+  buildSearchObject,
+  recordToJSON
 } = require('../app/utils');
 
 const chai = require('chai');
 const expect = chai.expect;
+const Podcast = require('../models/podcast').model;
 
 describe('utils', () => {
   describe('parsePageParams', () => {
@@ -45,6 +47,15 @@ describe('utils', () => {
     });
     it('returns null if search term is too short', () => {
       expect(buildSearchObject('se', ['title'])).to.eql(null);
+    });
+  });
+
+  describe('recordToJSON', () => {
+    it('returns a correct object', () => {
+      let rec = new Podcast({ title: "test" });
+      expect(
+        recordToJSON(rec)
+      ).to.eql({ title: "test", id: rec._id.toString() });
     });
   });
 });
