@@ -1,11 +1,13 @@
 'use strict';
 
 const posdcasts = require('./controllers/podcasts');
+const episodes = require('./controllers/episodes');
 const config = require('../config');
 
-module.exports = function (app, passport) {
+module.exports = function (app) {
 
   app.use(`${config.get('API_ENDPOINT')}/podcasts`, posdcasts);
+  app.use(`${config.get('API_ENDPOINT')}/episodes`, episodes);
 
   app.use(function (err, req, res, next) {
     // treat as 404

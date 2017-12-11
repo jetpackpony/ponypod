@@ -1,4 +1,5 @@
 const R = require('ramda');
+const dasherize = require('dasherize')
 
 const parsePageParams = (pageParams, defaultPerPage) => ({
   pageNum: parseProperty(0)('number', pageParams),
@@ -16,6 +17,7 @@ const buildSearchObject =
 
 const recordToJSON =
   (record) => (R.compose(
+    dasherize,
     R.dissoc('_id'),
     R.assoc('id', record.toJSON()._id.toString())
   )(record.toJSON()));
