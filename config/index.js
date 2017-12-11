@@ -6,7 +6,9 @@ nconf
   .argv()
   .env([
     'MONGO_URL',
-    'PORT'
+    'PORT',
+    'API_ENDPOINT',
+    'CORS_DOMAIN'
   ])
   .file({
     file: path.join(
@@ -15,7 +17,8 @@ nconf
     )
   })
   .defaults({
-    PORT: 8080
+    PORT: 8080,
+    API_ENDPOINT: '/api'
   });
 
 // Check for required settings

@@ -55,7 +55,7 @@ describe('utils', () => {
       let rec = new Podcast({ title: "test" });
       expect(
         recordToJSON(rec)
-      ).to.eql({ title: "test", id: rec._id.toString() });
+      ).to.include({ title: "test", id: rec._id.toString() });
     });
   });
 });
