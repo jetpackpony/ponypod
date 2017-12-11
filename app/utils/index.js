@@ -14,10 +14,26 @@ const buildSearchObject =
     : buildParamsWithTerm(makeTerm(searchTerm), params)
   );
 
+const recordToJSON =
+  (record) => (R.compose(
+    R.dissoc('_id'),
+    R.assoc('id', record.toJSON()._id.toString())
+  )(record.toJSON()));
+
+const renderRecords =
+  (presenter, records, totalPages) => (
+    presenter.render(
+      records.map(recordToJSON),
+      { meta: { totalPages } }
+    )
+  );
+
 module.exports = {
   parsePageParams,
   parseIntDecimal,
-  buildSearchObject
+  buildSearchObject,
+  recordToJSON,
+  renderRecords
 };
 
 const parseProperty =
@@ -27,13 +43,13 @@ const parseProperty =
     R.prop
   );
 
-const replaceNanWithDefault = R.curry(
-  (def, value) => ((!value) ? def : value)
-);
+const replaceNanWithDefault =
+  R.curry((def, value) => ((!value) ? def : value));
 
-const buildParamsWithTerm = (term, params) => ({
-  "$or": params.map((p) => ({ [p]: term }))
-});
+const buildParamsWithTerm =
+  (term, params) => ({
+    "$or": params.map((p) => ({ [p]: term }))
+  });
 
 const makeTerm =
   (term) => new RegExp(term.toLowerCase(), "i");

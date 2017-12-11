@@ -5,13 +5,15 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const app = require('../app.js');
-const Podcast = require('../models/podcast');
+const Podcast = require('../models/podcast').model;
 const {
   paginationTestData,
   searchTestData
 } = require('./podcastsTestData');
 
 chai.use(chaiHttp);
+
+const getItems = (res) => res.body.data;
 
 describe('GET /podcasts', () => {
   before(() => Podcast.remove({}));
@@ -28,9 +30,9 @@ describe('GET /podcasts', () => {
           expect(err).to.be.null;
           expect(res).to.have.status(200);
           expect(res).to.be.json;
-          expect(res.body).to.be.an('array');
+          expect(getItems(res)).to.be.an('array');
           expect(
-            res.body[0].title,
+            getItems(res)[0].attributes.title,
             'first returned item should be "1-First"'
           ).to.eql("1-First");
           done();
@@ -44,10 +46,10 @@ describe('GET /podcasts', () => {
           expect(err).to.be.null;
           expect(res).to.have.status(200);
           expect(res).to.be.json;
-          expect(res.body).to.be.an('array');
-          expect(res.body.length, 'should return 3 items').to.eql(3);
+          expect(getItems(res)).to.be.an('array');
+          expect(getItems(res).length, 'should return 3 items').to.eql(3);
           expect(
-            res.body[0].title,
+            getItems(res)[0].attributes.title,
             'first returned item should be "1-First"'
           ).to.eql("1-First");
           done();
@@ -61,12 +63,24 @@ describe('GET /podcasts', () => {
           expect(err).to.be.null;
           expect(res).to.have.status(200);
           expect(res).to.be.json;
-          expect(res.body).to.be.an('array');
-          expect(res.body.length, 'should return 2 items').to.eql(2);
+          expect(getItems(res)).to.be.an('array');
+          expect(getItems(res).length, 'should return 2 items').to.eql(2);
           expect(
-            res.body[0].title,
+            getItems(res)[0].attributes.title,
             'first returned item should be "4-Forth"'
           ).to.eql("4-Forth");
+          done();
+        });
+    });
+    it('returns the correct number of total pages', (done) => {
+      let perPage = 3;
+      let totalPages = Math.ceil(paginationTestData.length / perPage);
+      chai.request(app)
+        .get('/podcasts')
+        .query({ 'page[number]':'0', 'page[size]':perPage })
+        .end((err, res) => {
+          expect(err).to.be.null;
+          expect(res.body.meta.totalPages).to.eql(totalPages);
           done();
         });
     });
@@ -82,9 +96,9 @@ describe('GET /podcasts', () => {
         .query({ search: 'search me' })
         .end((err, res) => {
           expect(err).to.be.null;
-          expect(res.body).to.be.an('array');
+          expect(getItems(res)).to.be.an('array');
           expect(
-            res.body.length,
+            getItems(res).length,
             'should return 3 items'
           ).to.eql(3);
           done();
@@ -96,9 +110,9 @@ describe('GET /podcasts', () => {
         .query({ search: 'abcdef' })
         .end((err, res) => {
           expect(err).to.be.null;
-          expect(res.body).to.be.an('array');
+          expect(getItems(res)).to.be.an('array');
           expect(
-            res.body.length,
+            getItems(res).length,
             'should return 0 items'
           ).to.eql(0);
           done();
@@ -110,9 +124,9 @@ describe('GET /podcasts', () => {
         .query({ search: 'se' })
         .end((err, res) => {
           expect(err).to.be.null;
-          expect(res.body).to.be.an('array');
+          expect(getItems(res)).to.be.an('array');
           expect(
-            res.body.length,
+            getItems(res).length,
             'should return all 4 items'
           ).to.eql(4);
           done();
