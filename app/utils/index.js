@@ -43,13 +43,13 @@ const parseProperty =
     R.prop
   );
 
-const replaceNanWithDefault = R.curry(
-  (def, value) => ((!value) ? def : value)
-);
+const replaceNanWithDefault =
+  R.curry((def, value) => ((!value) ? def : value));
 
-const buildParamsWithTerm = (term, params) => ({
-  "$or": params.map((p) => ({ [p]: term }))
-});
+const buildParamsWithTerm =
+  (term, params) => ({
+    "$or": params.map((p) => ({ [p]: term }))
+  });
 
 const makeTerm =
   (term) => new RegExp(term.toLowerCase(), "i");
