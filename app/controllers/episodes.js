@@ -9,7 +9,8 @@ const { presenter } = require('../../models/episode');
 const {
   parsePageParams,
   buildSearchObject,
-  renderRecords
+  renderRecords,
+  renderRecord
 } = require('../utils');
 
 const episodesPerPage = 10;
@@ -62,6 +63,18 @@ router.get('/', (req, res) => {
     .catch((err) => {
       console.error(err);
     })
+});
+
+router.get('/:episodeId', (req, res) => {
+  Episode
+    .find({ _id: req.params.episodeId })
+    .exec()
+    .then(([record]) => {
+      res.json(renderRecord(presenter, record));
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 });
 
 module.exports = router;
