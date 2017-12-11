@@ -1,28 +1,17 @@
 const R = require('ramda');
-const fs = require('fs');
-const path = require('path');
 const faker = require('faker');
 const seeder = require('mongoose-seed');
 const config = require('./config');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+const { getModelsFiles } = require('./app/utils');
 
-const models = path.join(__dirname, 'models');
-fs.readdirSync(models)
-  .filter(file => ~file.indexOf('.js'))
-  .forEach(file => require(path.join(models, file)));
+getModelsFiles().map(require);
 const Podcast = mongoose.model('Podcast');
 
 console.log(`Connecting to ${config.get('MONGO_URL')}`);
 seeder.connect(config.get('MONGO_URL'), () => {
-  console.log('Connected');
-  const models = path.join(__dirname, 'models');
-  seeder.loadModels(
-    fs.readdirSync(models)
-      .filter((file) => ~file.indexOf('.js'))
-      .map((file) => path.join(models, file))
-  );
-
+  seeder.loadModels(getModelsFiles());
   seeder.clearModels(['Podcast', 'Episode'], () => {
     seeder.populateModels([
       {

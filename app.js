@@ -1,19 +1,16 @@
 'use strict';
 
 const fs = require('fs');
-const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const config = require('./config');
+const { getModelsFiles } = require('./app/utils');
 
 const app = express();
 
 // Bootstrap models
-const models = path.join(__dirname, 'models');
-fs.readdirSync(models)
-  .filter(file => ~file.indexOf('.js'))
-  .forEach(file => require(path.join(models, file)));
+getModelsFiles().map(require);
 
 // Bootstrap routes
 require('./app/setupExpress')(app);
