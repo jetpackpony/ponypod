@@ -1,5 +1,7 @@
 'use strict';
 
+const R = require('ramda');
+const faker = require('faker');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.ObjectId;
 const Presenter = require('yayson')({adapter:'default'}).Presenter;
@@ -18,8 +20,21 @@ const EpisodeSchema = new mongoose.Schema({
 class EpisodesPresenter extends Presenter {};
 EpisodesPresenter.prototype.type = 'episodes';
 
+const makeEpisode = (podcast) => ({
+  podcast,
+  title: faker.company.companyName(),
+  publishedAt: faker.date.past(),
+  duration: faker.random.number(),
+  summary: faker.lorem.paragraph(),
+  fullDescription: faker.lorem.paragraphs(),
+  mp3Link: faker.internet.url()
+});
+const generateEpisodes =
+  R.curry((pod, num) => R.times(makeEpisode.bind(null, pod), num));
+
 module.exports = {
   schema: EpisodeSchema,
   model: mongoose.model('Episode', EpisodeSchema),
-  presenter: EpisodesPresenter
+  presenter: EpisodesPresenter,
+  generator: generateEpisodes
 };
