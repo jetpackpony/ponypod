@@ -8,6 +8,7 @@ nconf
     'MONGO_URL',
     'PORT',
     'API_ENDPOINT',
+    'CORS_DOMAIN'
   ])
   .file({
     file: path.join(
