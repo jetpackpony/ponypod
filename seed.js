@@ -21,6 +21,9 @@ const numPodcasts = 70;
 const minEpisodes = 1;
 const maxEpisodes = 50;
 
+const randEpisodeCount =
+  getRandomInt.bind(null, minEpisodes, maxEpisodes);
+
 console.log(`Connecting to ${config.get('MONGO_URL')}`);
 seeder.connect(config.get('MONGO_URL'), () => {
   seeder.loadModels(getModelsFiles());
@@ -34,15 +37,12 @@ seeder.connect(config.get('MONGO_URL'), () => {
           console.err(err);
           return;
         }
-        seeder.populateModels(
-          [{
-            model: 'Episode',
-            documents: R.flatten(
-              podcasts.map((pod) => generateEpisodes(pod, getRandomInt(minEpisodes, maxEpisodes)))
-            )
-          }],
-          seeder.disconnect
-        );
+        seeder.populateModels([{
+          model: 'Episode',
+          documents: R.flatten(podcasts.map(
+            generateEpisodes(randEpisodeCount())
+          ))
+        }], seeder.disconnect);
       });
     });
   });

@@ -30,7 +30,7 @@ const makeEpisode = (podcast) => ({
   mp3Link: faker.internet.url()
 });
 const generateEpisodes =
-  R.curry((pod, num) => R.times(makeEpisode.bind(null, pod), num));
+  R.curry((num, pod) => R.times(makeEpisode.bind(null, pod), num));
 
 module.exports = {
   schema: EpisodeSchema,
