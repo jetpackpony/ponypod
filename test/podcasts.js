@@ -5,6 +5,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const app = require('../app.js');
+const config = require('../config');
 const Podcast = require('../models/podcast').model;
 const {
   paginationTestData,
@@ -13,7 +14,7 @@ const {
 
 chai.use(chaiHttp);
 
-const apiEndpoint = '/api';
+const apiEndpoint = config.get('API_ENDPOINT');
 const getItems = (res) => res.body.data;
 
 describe('GET /podcasts', () => {
