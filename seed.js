@@ -4,7 +4,10 @@ const seeder = require('mongoose-seed');
 const config = require('./config');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-const { getModelsFiles } = require('./app/utils');
+const {
+  getModelsFiles,
+  getRandomInt
+} = require('./app/utils');
 const {
   model: Podcast,
   generator: generatePodcasts
@@ -14,28 +17,32 @@ const {
   generator: generateEpisodes
 } = require('./models/episode');
 
+const numPodcasts = 70;
+const minEpisodes = 1;
+const maxEpisodes = 50;
+
 console.log(`Connecting to ${config.get('MONGO_URL')}`);
 seeder.connect(config.get('MONGO_URL'), () => {
   seeder.loadModels(getModelsFiles());
   seeder.clearModels(['Podcast', 'Episode'], () => {
-    seeder.populateModels([
-      {
-        model: 'Podcast',
-        documents: generatePodcasts(3)
-      }
-    ], () => {
+    seeder.populateModels([{
+      model: 'Podcast',
+      documents: generatePodcasts(numPodcasts)
+    }], () => {
       Podcast.find({}).exec((err, podcasts) => {
-        const episodes = R.flatten(
-          podcasts.map((pod) => generateEpisodes(pod, 3))
-        );
-        seeder.populateModels([
-          {
+        if (err) {
+          console.err(err);
+          return;
+        }
+        seeder.populateModels(
+          [{
             model: 'Episode',
-            documents: episodes
-          }
-        ], (...args) => {
-          seeder.disconnect();
-        });
+            documents: R.flatten(
+              podcasts.map((pod) => generateEpisodes(pod, getRandomInt(minEpisodes, maxEpisodes)))
+            )
+          }],
+          seeder.disconnect
+        );
       });
     });
   });

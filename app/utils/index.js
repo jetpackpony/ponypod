@@ -39,13 +39,21 @@ const getModelsFiles = () => (
   )
 )(path.join(appRoot.toString(), '/models'));
 
+const getRandomInt =
+  (min, max) => (
+    (min, max) => (
+      Math.floor(Math.random() * (max - min)) + min
+    )
+  )(Math.ceil(min), Math.floor(max));
+
 module.exports = {
   parsePageParams,
   parseIntDecimal,
   buildSearchObject,
   recordToJSON,
   renderRecords,
-  getModelsFiles
+  getModelsFiles,
+  getRandomInt
 };
 
 const parseProperty =
