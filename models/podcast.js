@@ -15,6 +15,7 @@ class PodcastsPresenter extends Presenter {};
 PodcastsPresenter.prototype.type = 'podcasts';
 
 module.exports = {
+  schema: PodcastSchema,
   model: mongoose.model('Podcast', PodcastSchema),
   presenter: PodcastsPresenter
 }
