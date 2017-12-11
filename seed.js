@@ -5,7 +5,9 @@ const faker = require('faker');
 const seeder = require('mongoose-seed');
 const config = require('./config');
 
+console.log(`Connecting to ${config.get('MONGO_URL')}`);
 seeder.connect(config.get('MONGO_URL'), () => {
+  console.log('Connected');
   const models = path.join(__dirname, 'models');
   seeder.loadModels(
     fs.readdirSync(models)
