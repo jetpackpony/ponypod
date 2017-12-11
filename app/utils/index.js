@@ -30,6 +30,11 @@ const renderRecords =
     )
   );
 
+const renderRecord =
+  (presenter, record) => (
+    presenter.render(recordToJSON(record))
+  );
+
 const fs = require('fs');
 const path = require('path');
 const appRoot = require('app-root-path');
@@ -54,6 +59,7 @@ module.exports = {
   buildSearchObject,
   recordToJSON,
   renderRecords,
+  renderRecord,
   getModelsFiles,
   getRandomInt
 };
