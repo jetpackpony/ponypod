@@ -4,6 +4,14 @@ const path = require('path');
 const faker = require('faker');
 const seeder = require('mongoose-seed');
 const config = require('./config');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
+const models = path.join(__dirname, 'models');
+fs.readdirSync(models)
+  .filter(file => ~file.indexOf('.js'))
+  .forEach(file => require(path.join(models, file)));
+const Podcast = mongoose.model('Podcast');
 
 console.log(`Connecting to ${config.get('MONGO_URL')}`);
 seeder.connect(config.get('MONGO_URL'), () => {
@@ -15,16 +23,29 @@ seeder.connect(config.get('MONGO_URL'), () => {
       .map((file) => path.join(models, file))
   );
 
-  seeder.clearModels(['Podcast'], () => (
-    seeder.populateModels([{
-      model: 'Podcast',
-      documents: generatePodcasts(70)
-    }], seeder.disconnect)
-  ));
+  seeder.clearModels(['Podcast', 'Episode'], () => {
+    seeder.populateModels([
+      {
+        model: 'Podcast',
+        documents: generatePodcasts(3)
+      }
+    ], () => {
+      Podcast.find({}).exec((err, podcasts) => {
+        const episodes = R.flatten(
+          podcasts.map((pod) => generateEpisodes(pod, 3))
+        );
+        seeder.populateModels([
+          {
+            model: 'Episode',
+            documents: episodes
+          }
+        ], (...args) => {
+          seeder.disconnect();
+        });
+      });
+    });
+  });
 });
-
-const generateModels =
-  R.curry((generator, num) => R.times(generator, num));
 
 const makePodcast = () => ({
   title: faker.company.companyName(),
@@ -34,4 +55,16 @@ const makePodcast = () => ({
   rssLink: faker.internet.url()
 });
 
-const generatePodcasts = generateModels(makePodcast);
+const makeEpisode = (podcast) => ({
+  podcast,
+  title: faker.company.companyName(),
+  publishedAt: faker.date.past(),
+  duration: faker.random.number(),
+  summary: faker.lorem.paragraph(),
+  fullDescription: faker.lorem.paragraphs(),
+  mp3Link: faker.internet.url()
+});
+
+const generatePodcasts = R.times(makePodcast);
+const generateEpisodes =
+  R.curry((pod, num) => R.times(makeEpisode.bind(null, pod), num));
