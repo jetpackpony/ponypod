@@ -13,6 +13,7 @@ const {
 
 chai.use(chaiHttp);
 
+const apiEndpoint = '/api';
 const getItems = (res) => res.body.data;
 
 describe('GET /podcasts', () => {
@@ -25,7 +26,7 @@ describe('GET /podcasts', () => {
 
     it('should return first page when page is not specified', (done) => {
       chai.request(app)
-        .get('/podcasts')
+        .get(`${apiEndpoint}/podcasts`)
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(200);
@@ -40,7 +41,7 @@ describe('GET /podcasts', () => {
     });
     it('should return the first page of podcasts', (done) => {
       chai.request(app)
-        .get('/podcasts')
+        .get(`${apiEndpoint}/podcasts`)
         .query({ 'page[number]':'0', 'page[size]':'3' })
         .end((err, res) => {
           expect(err).to.be.null;
@@ -57,7 +58,7 @@ describe('GET /podcasts', () => {
     });
     it('should return the second page of podcasts', (done) => {
       chai.request(app)
-        .get('/podcasts')
+        .get(`${apiEndpoint}/podcasts`)
         .query({ 'page[number]':'1', 'page[size]':'3' })
         .end((err, res) => {
           expect(err).to.be.null;
@@ -76,7 +77,7 @@ describe('GET /podcasts', () => {
       let perPage = 3;
       let totalPages = Math.ceil(paginationTestData.length / perPage);
       chai.request(app)
-        .get('/podcasts')
+        .get(`${apiEndpoint}/podcasts`)
         .query({ 'page[number]':'0', 'page[size]':perPage })
         .end((err, res) => {
           expect(err).to.be.null;
@@ -92,7 +93,7 @@ describe('GET /podcasts', () => {
 
     it('should filter podcasts by search term', (done) => {
       chai.request(app)
-        .get('/podcasts')
+        .get(`${apiEndpoint}/podcasts`)
         .query({ search: 'search me' })
         .end((err, res) => {
           expect(err).to.be.null;
@@ -106,7 +107,7 @@ describe('GET /podcasts', () => {
     });
     it('should return zero results when nothing is found', (done) => {
       chai.request(app)
-        .get('/podcasts')
+        .get(`${apiEndpoint}/podcasts`)
         .query({ search: 'abcdef' })
         .end((err, res) => {
           expect(err).to.be.null;
@@ -120,7 +121,7 @@ describe('GET /podcasts', () => {
     });
     it('should return unfiltered results when search term is too short', (done) => {
       chai.request(app)
-        .get('/podcasts')
+        .get(`${apiEndpoint}/podcasts`)
         .query({ search: 'se' })
         .end((err, res) => {
           expect(err).to.be.null;
