@@ -4,7 +4,7 @@
   "description": "Ponypod is a web app for tracking and listening to podcasts.",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon --exec 'mocha -R min' test",
+    "test": "nodemon --exec 'mocha -R min --recursive' test",
     "start": "node app.js",
     "deploy": "gcloud app deploy",
     "seed": "NODE_ENV=development node seed.js"
