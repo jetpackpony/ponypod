@@ -249,6 +249,8 @@ describe('GET /podcasts', () => {
             expect(getItems(res)).to.be.an('object');
             expect(getItems(res).attributes.title)
               .to.eql(paginationEpisodes[0].title);
+            expect(getItems(res).attributes['published-at'])
+              .to.eql(paginationEpisodes[0].publishedAt.format());
             done();
           });
       }

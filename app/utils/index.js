@@ -1,5 +1,6 @@
 const R = require('ramda');
 const dasherize = require('dasherize')
+const moment = require('moment');
 
 const parsePageParams = (pageParams, defaultPerPage) => ({
   pageNum: parseProperty(0)('number', pageParams),
@@ -26,6 +27,22 @@ const convertIds =
       : R.assoc(key, rec[key], newObj)
     ), {});
 
+const momentsToStrings =
+  (rec) => R.keys(rec).reduce(
+    (newObj, key) => (
+      (moment.isMoment(rec[key]))
+      ? R.assoc(key, rec[key].format(), newObj)
+      : R.assoc(key, rec[key], newObj)
+    ), {});
+
+const datesToMoments =
+  (rec) => R.keys(rec).reduce(
+    (newObj, key) => (
+      (moment.isDate(rec[key]))
+      ? R.assoc(key, moment(rec[key]), newObj)
+      : R.assoc(key, rec[key], newObj)
+    ), {});
+
 const traverseObjects =
   (rec) => R.keys(rec).reduce(
     (newObj, key) => (
@@ -36,7 +53,13 @@ const traverseObjects =
 
 
 const processRecord =
-  R.compose(dasherize, traverseObjects, convertIds);
+  R.compose(
+    dasherize,
+    traverseObjects,
+    momentsToStrings,
+    datesToMoments,
+    convertIds
+  );
 
 const renderRecords =
   (presenter, records, totalPages) => (
