@@ -17,7 +17,7 @@ const episodesPerPage = 10;
 const paramsToSearch = ['title', 'summary', 'fullDescription'];
 const minSearchLength = 3;
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   const {
     pageNum,
     pageSize
@@ -62,11 +62,11 @@ router.get('/', (req, res) => {
       res.json(renderRecords(presenter, records, Math.ceil(count / pageSize)));
     })
     .catch((err) => {
-      console.error(err);
+      next(err);
     })
 });
 
-router.get('/:episodeId', (req, res) => {
+router.get('/:episodeId', (req, res, next) => {
   Episode
     .find({ _id: req.params.episodeId })
     .populate('podcast')
@@ -75,7 +75,7 @@ router.get('/:episodeId', (req, res) => {
       res.json(renderRecord(presenter, record));
     })
     .catch((err) => {
-      console.error(err);
+      next(err);
     });
 });
 

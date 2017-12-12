@@ -224,8 +224,61 @@ describe('GET /podcasts', () => {
   });
 
   describe('get single episode', () => {
-    it('returns an episode by id');
-    it('includes episodes\' podcast in payload');
-    it('returns error if the episode doesn\'t exist');
+    let episodeId;
+    beforeEach(() => (
+      Podcast
+      .create(paginationPodcast)
+      .then((podcast) => (
+        Episode.create(makeTestEpisodes(podcast))
+      ))
+      .then((episodes) => episodeId = episodes[0]._id.toString())
+    ));
+    after(() => Promise.all([
+      Podcast.remove({}),
+      Episode.remove({})
+    ]));
+
+    it('returns an episode by id',
+      (done) => {
+        chai.request(app)
+          .get(`${apiEndpoint}/episodes/${episodeId}`)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res).to.have.status(200);
+            expect(res).to.be.json;
+            expect(getItems(res)).to.be.an('object');
+            expect(getItems(res).attributes.title)
+              .to.eql(paginationEpisodes[0].title);
+            done();
+          });
+      }
+    );
+    it('includes episodes\' podcast in payload',
+      (done) => {
+        chai.request(app)
+          .get(`${apiEndpoint}/episodes/${episodeId}`)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res).to.have.status(200);
+            expect(res).to.be.json;
+            expect(getItems(res).relationships.podcast).to.be.an('object');
+            expect(res.body.included).to.be.an('array');
+            expect(res.body.included[0].attributes.title)
+              .to.eql(paginationPodcast.title);
+            done();
+          });
+      }
+    );
+    it('returns error if the episode doesn\'t exist',
+      (done) => {
+        chai.request(app)
+          .get(`${apiEndpoint}/episodes/asdf`)
+          .end((err, res) => {
+            expect(err).not.to.be.null;
+            expect(err.status).to.eql(404);
+            done();
+          });
+      }
+    );
   });
 });
