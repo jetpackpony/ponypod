@@ -13,7 +13,8 @@ const Episode = require('../models/episode').model;
 const {
   paginationPodcast,
   paginationEpisodes,
-  makeTestEpisodes
+  makeTestEpisodes,
+  makeSearchEpisodes
 } = require('./episodesTestData');
 
 chai.use(chaiHttp);
@@ -149,11 +150,77 @@ describe('GET /podcasts', () => {
   });
 
   describe('search', () => {
-    it('returns episodes filtered by search term')
-    it('returns zero results if nothing is found')
-    it('returns unfiltered results if search term is too short')
+    let podcastId;
+    beforeEach(() => (
+      Podcast
+      .create(paginationPodcast)
+      .then((podcast) => {
+        podcastId = podcast._id.toString();
+        Episode.create(makeSearchEpisodes(podcast))
+      })
+    ));
+    after(() => Promise.all([
+      Podcast.remove({}),
+      Episode.remove({})
+    ]));
 
-
+    it('returns episodes filtered by search term',
+      (done) => {
+        chai.request(app)
+          .get(`${apiEndpoint}/episodes`)
+          .query({
+            'podcast_id': podcastId,
+            search: 'search me'
+          })
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(getItems(res)).to.be.an('array');
+            expect(
+              getItems(res).length,
+              'should return 3 items'
+            ).to.eql(3);
+            done();
+          });
+      }
+    );
+    it('returns zero results if nothing is found',
+      (done) => {
+        chai.request(app)
+          .get(`${apiEndpoint}/episodes`)
+          .query({
+            'podcast_id': podcastId,
+            search: 'asdfasdf'
+          })
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(getItems(res)).to.be.an('array');
+            expect(
+              getItems(res).length,
+              'should return 0 items'
+            ).to.eql(0);
+            done();
+          });
+      }
+    );
+    it('returns unfiltered results if search term is too short',
+      (done) => {
+        chai.request(app)
+          .get(`${apiEndpoint}/episodes`)
+          .query({
+            'podcast_id': podcastId,
+            search: 'as'
+          })
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(getItems(res)).to.be.an('array');
+            expect(
+              getItems(res).length,
+              'should return all 5 items'
+            ).to.eql(5);
+            done();
+          });
+      }
+    );
   });
 
   describe('get single episode', () => {
