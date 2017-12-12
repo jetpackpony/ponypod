@@ -7,6 +7,7 @@ const {
 const chai = require('chai');
 const expect = chai.expect;
 const Podcast = require('../models/podcast').model;
+const Episode = require('../models/episode').model;
 
 describe('utils', () => {
   describe('parsePageParams', () => {
@@ -56,6 +57,13 @@ describe('utils', () => {
       expect(
         recordToJSON(rec)
       ).to.include({ title: "test", id: rec._id.toString() });
+    });
+    it('returns a correct object with populated record', () => {
+      let podcast = new Podcast({ title: "podcast" });
+      let episode = new Episode({ title: "episode", podcast });
+      let json = recordToJSON(episode);
+      expect(json).to.include({ title: "episode" });
+      expect(json.podcast).to.include({ title: "podcast" });
     });
   });
 });

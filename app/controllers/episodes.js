@@ -41,6 +41,7 @@ router.get('/', (req, res) => {
     .skip(pageNum * pageSize)
     .limit(pageSize || episodesPerPage)
     .sort({ publishedAt: -1 })
+    .populate('podcast')
     .exec(),
     Episode
     .count(
@@ -68,6 +69,7 @@ router.get('/', (req, res) => {
 router.get('/:episodeId', (req, res) => {
   Episode
     .find({ _id: req.params.episodeId })
+    .populate('podcast')
     .exec()
     .then(([record]) => {
       res.json(renderRecord(presenter, record));

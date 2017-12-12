@@ -16,11 +16,27 @@ const buildSearchObject =
   );
 
 const recordToJSON =
-  (record) => (R.compose(
-    dasherize,
-    R.dissoc('_id'),
-    R.assoc('id', record.toJSON()._id.toString())
-  )(record.toJSON()));
+  (record) => processRecord(record.toJSON());
+
+const convertIds =
+  (rec) => R.keys(rec).reduce(
+    (newObj, key) => (
+      (key === '_id')
+      ? R.assoc('id', rec['_id'].toString(), newObj)
+      : R.assoc(key, rec[key], newObj)
+    ), {});
+
+const traverseObjects =
+  (rec) => R.keys(rec).reduce(
+    (newObj, key) => (
+      (R.is(Object, rec[key]))
+      ? R.assoc(key, processRecord(rec[key]), newObj)
+      : R.assoc(key, rec[key], newObj)
+    ), {});
+
+
+const processRecord =
+  R.compose(dasherize, traverseObjects, convertIds);
 
 const renderRecords =
   (presenter, records, totalPages) => (
