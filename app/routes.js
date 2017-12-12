@@ -18,14 +18,21 @@ module.exports = function (app) {
     }
     console.error(err.stack);
     // error page
-    res.status(500).json('500', { error: err.stack });
+    res.status(500).json({
+      errors: [{
+        status: '500',
+        title: 'Server error occured'
+      }]
+    });
   });
 
   // assume 404 since no middleware responded
   app.use(function (req, res, next) {
-    res.status(404).json('404', {
-      url: req.originalUrl,
-      error: 'Not found'
+    res.status(404).json({
+      errors: [{
+        status: '404',
+        title: 'Not found'
+      }]
     });
   });
 };

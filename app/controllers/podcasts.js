@@ -16,7 +16,7 @@ const podcastsPerPage = 30;
 const paramsToSearch = ['title', 'summary', 'description'];
 const minSearchLength = 3;
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   const {
     pageNum,
     pageSize
@@ -49,19 +49,21 @@ router.get('/', (req, res) => {
       res.json(renderRecords(presenter, records, Math.ceil(count / pageSize)));
     })
     .catch((err) => {
-      console.error(err);
+      next(err);
     })
 });
 
-router.get('/:podcastId', (req, res) => {
+router.get('/:podcastId', (req, res, next) => {
   Podcast
     .find({ _id: req.params.podcastId })
     .exec()
     .then(([record]) => {
-      res.json(renderRecord(presenter, record));
+      (record)
+        ? res.json(renderRecord(presenter, record))
+        : next({ message: 'not found' })
     })
     .catch((err) => {
-      console.error(err);
+      next(err);
     });
 });
 

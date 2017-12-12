@@ -138,7 +138,37 @@ describe('GET /podcasts', () => {
   });
 
   describe('get single podcast', () => {
-    it('should return a podcast by id');
-    it('should error if podcast doesn\'t exist');
+    let podcastId;
+    beforeEach(() => Podcast
+      .create(paginationTestData[0])
+      .then((podcast) => podcastId = podcast._id.toString()));
+    afterEach(() => Podcast.remove({}));
+
+    it('should return a podcast by id',
+      (done) => {
+        chai.request(app)
+          .get(`${apiEndpoint}/podcasts/${podcastId}`)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res).to.have.status(200);
+            expect(res).to.be.json;
+            expect(getItems(res)).to.be.an('object');
+            expect(getItems(res).attributes.title)
+              .to.eql(paginationTestData[0].title);
+            done();
+          });
+      }
+    );
+    it('should error if podcast doesn\'t exist',
+      (done) => {
+        chai.request(app)
+          .get(`${apiEndpoint}/podcasts/asdf`)
+          .end((err, res) => {
+            expect(err).not.to.be.null;
+            expect(err.status).to.eql(404);
+            done();
+          });
+      }
+    );
   });
 });
