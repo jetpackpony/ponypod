@@ -8,8 +8,8 @@ const paginationTestData = [
 
 const searchTestData = [
   { "title":"Search Me One" },
-  { "title":"Search Me Two" },
-  { "title":"Search Me Three" },
+  { "title":"Two", summary: "Search Me summary" },
+  { "title":"Three", description: "search me description" },
   { "title":"Four" }
 ];
 
