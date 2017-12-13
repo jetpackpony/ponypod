@@ -1,11 +1,4 @@
-const {
-  renderRecords,
-  renderRecord,
-  recordToJSON,
-  updateValue,
-  updateRecordFields,
-  toJSON
-} = require('../../app/utils/renderRecords');
+const { recordToJSON } = require('../../app/utils/renderRecords');
 const expect = require('chai').expect;
 const moment = require('moment');
 const Podcast = require('../../models/podcast').model;

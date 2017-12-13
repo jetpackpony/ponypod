@@ -1,6 +1,5 @@
 process.env.NODE_ENV = 'test';
 
-const mongoose = require('mongoose');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
@@ -132,8 +131,7 @@ describe('GET /podcasts', () => {
             'should return all 4 items'
           ).to.eql(4);
           done();
-        })
-
+        });
     });
   });
 
@@ -163,7 +161,7 @@ describe('GET /podcasts', () => {
       (done) => {
         chai.request(app)
           .get(`${apiEndpoint}/podcasts/asdf`)
-          .end((err, res) => {
+          .end((err) => {
             expect(err).not.to.be.null;
             expect(err.status).to.eql(404);
             done();

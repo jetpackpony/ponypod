@@ -1,4 +1,3 @@
-const R = require('ramda');
 const router = require('express').Router();
 const Podcast = require('mongoose').model('Podcast');
 const { presenter } = require('../../models/podcast');

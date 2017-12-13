@@ -1,5 +1,5 @@
 const R = require('ramda');
-const dasherize = require('dasherize')
+const dasherize = require('dasherize');
 const moment = require('moment');
 
 // BEGIN value updaters

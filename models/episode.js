@@ -3,7 +3,6 @@ const faker = require('faker');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.ObjectId;
 const Presenter = require('yayson')({adapter:'default'}).Presenter;
-const PodcastSchema = require('./podcast').schema;
 const PodcastsPresenter = require('./podcast').presenter;
 const { getRandomInt } = require('../app/utils');
 
@@ -17,7 +16,7 @@ const EpisodeSchema = new mongoose.Schema({
   mp3Link: { type: String, default: '' }
 });
 
-class EpisodesPresenter extends Presenter {};
+class EpisodesPresenter extends Presenter {}
 EpisodesPresenter.prototype.type = 'episodes';
 EpisodesPresenter.prototype.relationships = () => ({
   'podcast': PodcastsPresenter

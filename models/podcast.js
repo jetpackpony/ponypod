@@ -11,7 +11,7 @@ const PodcastSchema = new mongoose.Schema({
   rssLink: { type: String, default: '' }
 });
 
-class PodcastsPresenter extends Presenter {};
+class PodcastsPresenter extends Presenter {}
 PodcastsPresenter.prototype.type = 'podcasts';
 
 const makePodcast = () => ({

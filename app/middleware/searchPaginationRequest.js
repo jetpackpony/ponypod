@@ -61,7 +61,7 @@ const queryModel =
           itemsCount: count,
           totalPages: Math.ceil(count / pageSize)
         };
-      })
+      });
   });
 
 const searchPaginationRequest =
@@ -73,7 +73,7 @@ const searchPaginationRequest =
       })
       .catch((err) => {
         next(err);
-      })
+      });
   });
 
 const sendJSON =

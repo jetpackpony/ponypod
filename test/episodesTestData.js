@@ -21,10 +21,10 @@ const searchEpisodes = [
 ];
 
 const makeTestEpisodes =
-  (pod) => paginationEpisodes.map(R.assoc('podcast', pod))
+  (pod) => paginationEpisodes.map(R.assoc('podcast', pod));
 
 const makeSearchEpisodes =
-  (pod) => searchEpisodes.map(R.assoc('podcast', pod))
+  (pod) => searchEpisodes.map(R.assoc('podcast', pod));
 
 module.exports = {
   paginationPodcast,

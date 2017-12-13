@@ -1,8 +1,5 @@
 process.env.NODE_ENV = 'test';
 
-const R = require('ramda');
-const mongoose = require('mongoose');
-const makeId = mongoose.Types.ObjectId;
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
@@ -39,7 +36,7 @@ describe('GET /episodes', () => {
       .create(paginationPodcast)
       .then((podcast) => {
         podcastId = podcast._id.toString();
-        Episode.create(makeTestEpisodes(podcast))
+        Episode.create(makeTestEpisodes(podcast));
       })
     ));
     after(() => Promise.all([
@@ -156,7 +153,7 @@ describe('GET /episodes', () => {
       .create(paginationPodcast)
       .then((podcast) => {
         podcastId = podcast._id.toString();
-        Episode.create(makeSearchEpisodes(podcast))
+        Episode.create(makeSearchEpisodes(podcast));
       })
     ));
     after(() => Promise.all([
@@ -275,7 +272,7 @@ describe('GET /episodes', () => {
       (done) => {
         chai.request(app)
           .get(`${apiEndpoint}/episodes/asdf`)
-          .end((err, res) => {
+          .end((err) => {
             expect(err).not.to.be.null;
             expect(err.status).to.eql(404);
             done();

@@ -1,5 +1,4 @@
 const R = require('ramda');
-const faker = require('faker');
 const seeder = require('mongoose-seed');
 const config = require('./config');
 const mongoose = require('mongoose');
@@ -13,7 +12,6 @@ const {
   generator: generatePodcasts
 } = require('./models/podcast');
 const {
-  model: Episode,
   generator: generateEpisodes
 } = require('./models/episode');
 

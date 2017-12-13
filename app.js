@@ -1,7 +1,6 @@
 'use strict';
 require('use-strict'); // use strict for all future modules
 
-const fs = require('fs');
 const express = require('express');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -28,9 +27,9 @@ mongoose
 // Expose
 module.exports = app;
 
-function listen (db) {
+function listen () {
   if (module === require.main) {
-    const server = app.listen(config.get('PORT'), () => {
+    app.listen(config.get('PORT'), () => {
       console.log(`App listening on port ${config.get('PORT')}`);
     });
   }

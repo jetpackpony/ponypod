@@ -19,7 +19,7 @@
   "forin": false,
   "immed": true,
   "latedef" : false,
-  "laxbreak": false,
+  "laxbreak": true,
   "multistr": true,
   "newcap": true,
   "noarg": true,
@@ -33,6 +33,7 @@
   "sub": false,
   "trailing" : true,
   "undef": true,
-  "unused": true
+  "unused": true,
+  "esversion": 6
 
 }
