@@ -5,18 +5,29 @@ const router = require('express').Router();
 const Episode = require('mongoose').model('Episode');
 const { presenter } = require('../../models/episode');
 const {
-  renderRecord
-} = require('../utils');
-const {
   queryModel,
   searchPaginationRequest,
   sendJSON
 } = require('../middleware/searchPaginationRequest');
+const {
+  queryRecordByID,
+  recordByIDRequest
+} = require('../middleware/recordByIDRequest');
 
+
+// BEGIN setup middleware
 const extractPodcastID =
   (req, res, next) => {
     req.queryParams = {
       podcast: req.query.podcast_id
+    };
+    next();
+  };
+
+const extractEpisodeID =
+  (req, res, next) => {
+    req.queryParams = {
+      _id: req.params.episodeId
     };
     next();
   };
@@ -31,28 +42,26 @@ const queryEpisodes =
     sortBy: { publishedAt: -1 }
   }));
 
-const sendEpisodesJSON = sendJSON(presenter);
-
-router.get(
-  '/',
-  extractPodcastID,
-  queryEpisodes,
-  sendEpisodesJSON
-);
-
-
-
-router.get('/:episodeId', (req, res, next) => {
-  Episode
-    .find({ _id: req.params.episodeId })
-    .populate('podcast')
-    .exec()
-    .then(([record]) => {
-      res.json(renderRecord(presenter, record));
+const getEpisodeByID =
+  recordByIDRequest(
+    queryRecordByID({
+      Model: Episode,
+      fieldsToPopulate: ['podcast']
     })
-    .catch((err) => {
-      next(err);
-    });
-});
+  );
+
+const sendEpisodesJSON = sendJSON(presenter);
+// END setup middleware
+
+
+router.get('/',
+            extractPodcastID,
+            queryEpisodes,
+            sendEpisodesJSON);
+
+router.get('/:episodeId',
+            extractEpisodeID,
+            getEpisodeByID,
+            sendEpisodesJSON);
 
 module.exports = router;

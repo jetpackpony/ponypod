@@ -79,7 +79,12 @@ const searchPaginationRequest =
 
 const sendJSON =
   R.curry((presenter, req, res, next) => (
-    res.json(renderRecords(presenter, req.modelRecords.records, req.modelRecords.totalPages))
+    (req.modelRecords.totalPages !== null)
+    ? res.json(renderRecords(presenter, req.modelRecords.records, req.modelRecords.totalPages))
+    : ((req.modelRecords.records[0])
+      ? res.json(renderRecord(presenter, req.modelRecords.records[0]))
+      : next({ message: 'not found' })
+    )
   ));
 
 module.exports = {

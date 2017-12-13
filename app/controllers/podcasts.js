@@ -5,14 +5,17 @@ const router = require('express').Router();
 const Podcast = require('mongoose').model('Podcast');
 const { presenter } = require('../../models/podcast');
 const {
-  renderRecord
-} = require('../utils');
-const {
   queryModel,
   searchPaginationRequest,
   sendJSON
 } = require('../middleware/searchPaginationRequest');
+const {
+  queryRecordByID,
+  recordByIDRequest
+} = require('../middleware/recordByIDRequest');
 
+
+// BEGIN setup middleware
 const queryPodcasts =
   searchPaginationRequest(
     queryModel({
@@ -25,28 +28,31 @@ const queryPodcasts =
     })
   );
 
-const sendPodcastsJSON = sendJSON(presenter);
+const extractPodcastID =
+  (req, res, next) => {
+    req.queryParams = {
+      _id: req.params.podcastId
+    };
+    next();
+  };
 
-router.get(
-  '/',
-  queryPodcasts,
-  sendPodcastsJSON
-);
-
-
-
-router.get('/:podcastId', (req, res, next) => {
-  Podcast
-    .find({ _id: req.params.podcastId })
-    .exec()
-    .then(([record]) => {
-      (record)
-        ? res.json(renderRecord(presenter, record))
-        : next({ message: 'not found' })
+const getPodcastByID =
+  recordByIDRequest(
+    queryRecordByID({
+      Model: Podcast
     })
-    .catch((err) => {
-      next(err);
-    });
-});
+  );
+
+const sendPodcastsJSON = sendJSON(presenter);
+// END setup middleware
+
+router.get('/',
+            queryPodcasts,
+            sendPodcastsJSON);
+
+router.get('/:podcastId',
+            extractPodcastID,
+            getPodcastByID,
+            sendPodcastsJSON);
 
 module.exports = router;
