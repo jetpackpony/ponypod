@@ -1,5 +1,3 @@
-'use strict';
-
 const R = require('ramda');
 const mongoose = require('mongoose');
 const Presenter = require('yayson')({adapter:'default'}).Presenter;

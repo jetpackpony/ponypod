@@ -1,5 +1,3 @@
-'use strict';
-
 const R = require('ramda');
 const faker = require('faker');
 const mongoose = require('mongoose');

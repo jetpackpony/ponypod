@@ -1,4 +1,5 @@
 'use strict';
+require('use-strict'); // use strict for all future modules
 
 const fs = require('fs');
 const express = require('express');

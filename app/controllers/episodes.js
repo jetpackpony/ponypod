@@ -1,5 +1,3 @@
-'use strict';
-
 const R = require('ramda');
 const router = require('express').Router();
 const Episode = require('mongoose').model('Episode');

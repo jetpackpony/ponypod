@@ -1,4 +1,3 @@
-'use strict';
 const nconf = module.exports = require('nconf');
 const path = require('path');
 

@@ -1,5 +1,3 @@
-'use strict';
-
 const posdcasts = require('./controllers/podcasts');
 const episodes = require('./controllers/episodes');
 const config = require('../config');
