@@ -22,7 +22,7 @@ chai.use(chaiHttp);
 const apiEndpoint = config.get('API_ENDPOINT');
 const getItems = (res) => res.body.data;
 
-describe('GET /podcasts', () => {
+describe('GET /episodes', () => {
   before(() => Promise.all([
     Podcast.remove({}),
     Episode.remove({})
