@@ -30,6 +30,7 @@
     "mongoose": "^4.13.6",
     "nconf": "^0.9.1",
     "ramda": "^0.25.0",
+    "rss-parser": "^2.11.0",
     "use-strict": "^1.0.1",
     "yayson": "^2.0.8"
   },
