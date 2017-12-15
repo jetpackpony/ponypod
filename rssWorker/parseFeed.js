@@ -37,7 +37,7 @@ const getPodcastDataFromFeed =
 const getEpisodesDataFromFeed =
   R.curry((podcast, feed) => (
     feed.entries.map((ep) => ({
-      podcast,
+      podcast: podcast._id,
       guid: ep.guid,
       title: ep.title,
       publishedAt: ep.pubDate,

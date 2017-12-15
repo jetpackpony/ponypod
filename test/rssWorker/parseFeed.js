@@ -34,7 +34,7 @@ describe('parseFeed', () => {
       parseFeed(podcast, testFeed).episodesData
     ).to.be.eql([
       {
-        podcast,
+        podcast: podcast._id,
         guid: "52d66949e4b0a8cec3bcdd46",
         title: "1-First episode",
         publishedAt: "Thu, 30 Nov 2017 20:33:49 +0000",
@@ -44,7 +44,7 @@ describe('parseFeed', () => {
         mp3Link: "http://hellointernet/HI_93_Export_4.mp3"
       },
       {
-        podcast,
+        podcast: podcast._id,
         guid: "52d66949e4b0a8cec3bcdd46",
         title: "2-Second episode",
         publishedAt: "Fri, 24 Nov 2017 22:20:12 +0000",

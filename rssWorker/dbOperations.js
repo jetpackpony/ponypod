@@ -22,11 +22,11 @@ const writePodcast =
 const writeEpisodes =
   R.curry((episodesData) => {
     let bulkUpdate = Episode.collection.initializeOrderedBulkOp();
-    episodesData.map((ep) => {
+    episodesData.map((ep) => (
       bulkUpdate.find({ guid: ep.guid })
         .upsert()
-        .updateOne(ep)
-    });
+        .updateOne({ $set: ep })
+    ));
     return bulkUpdate.execute();
   });
 
@@ -40,5 +40,7 @@ const writeFeedData =
 
 module.exports = {
   loopThroughPodcasts,
-  writeFeedData
+  writeFeedData,
+  writePodcast,
+  writeEpisodes
 };
