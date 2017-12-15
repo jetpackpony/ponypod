@@ -7,6 +7,7 @@ const PodcastsPresenter = require('./podcast').presenter;
 const { getRandomInt } = require('../app/utils');
 
 const EpisodeSchema = new mongoose.Schema({
+  guid: { type: String },
   podcast: { type: ObjectId, ref: 'Podcast' },
   title: { type: String, default: '' },
   publishedAt: { type: Date, default: Date.now },
