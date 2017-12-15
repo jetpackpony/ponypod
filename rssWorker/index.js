@@ -12,7 +12,7 @@ const {
 } = require('./dbOperations');
 
 const updatePodcast =
-  (podcast) => {
+  (podcast) => (
     parseURL(podcast.rssLink)
       .then(parseFeed(podcast))
       .then(writeFeedData(podcast))
@@ -30,7 +30,7 @@ const updatePodcast =
           err
         );
       })
-  };
+  );
 
 const rssWorker =
   R.partial(loopThroughPodcasts, [
