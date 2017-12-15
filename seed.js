@@ -4,23 +4,11 @@ const config = require('./config');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const {
-  getModelsFiles,
-  getRandomInt
+  getModelsFiles
 } = require('./app/utils');
 const {
-  model: Podcast,
-  generator: generatePodcasts
+  model: Podcast
 } = require('./models/podcast');
-const {
-  generator: generateEpisodes
-} = require('./models/episode');
-
-const numPodcasts = 70;
-const minEpisodes = 1;
-const maxEpisodes = 50;
-
-const randEpisodeCount =
-  getRandomInt.bind(null, minEpisodes, maxEpisodes);
 
 console.log(`Connecting to ${config.get('MONGO_URL')}`);
 seeder.connect(config.get('MONGO_URL'), () => {
@@ -28,21 +16,15 @@ seeder.connect(config.get('MONGO_URL'), () => {
   seeder.clearModels(['Podcast', 'Episode'], () => {
     seeder.populateModels([{
       model: 'Podcast',
-      documents: generatePodcasts(numPodcasts)
-    }], () => {
-      Podcast.find({}).exec((err, podcasts) => {
-        if (err) {
-          console.err(err);
-          return;
-        }
-        seeder.populateModels([{
-          model: 'Episode',
-          documents: R.flatten(podcasts.map(
-            generateEpisodes(randEpisodeCount())
-          ))
-        }], seeder.disconnect);
-      });
-    });
+      documents: [
+        { rssLink: 'http://www.hellointernet.fm/podcast?format=rss' },
+        { rssLink: 'http://www.howstuffworks.com/podcasts/stuff-you-should-know.rss' },
+        { rssLink: 'http://feeds.feedburner.com/freakonomicsradio' },
+        { rssLink: 'http://podster.fm/rss.xml?pid=313' },
+        { rssLink: 'http://atp.fm/episodes?format=rss' },
+        { rssLink: 'http://golangshow.com/index.xml' }
+      ]
+    }], seeder.disconnect);
   });
 });
 
