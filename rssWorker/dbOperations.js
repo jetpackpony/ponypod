@@ -19,16 +19,38 @@ const writePodcast =
     podcast.set(feedData).save()
   ));
 
+const find = R.invoker(1, 'find');
+const upsert = R.invoker(0, 'upsert');
+const updateOne = R.invoker(1, 'updateOne');
+const makeAddEpisode =
+  (ep) => (
+    R.tap(
+      R.compose(
+        updateOne({ $set: ep }),
+        upsert,
+        find({ guid: ep.guid })
+      )
+    )
+  );
+const initBulkOpWithEpisodes =
+  R.curry((eps, bulkOp) => (
+    R.compose(...(eps.map(makeAddEpisode)))(bulkOp)
+  ));
+
 const writeEpisodes =
-  R.curry((episodesData) => {
-    let bulkUpdate = Episode.collection.initializeOrderedBulkOp();
-    episodesData.map((ep) => (
-      bulkUpdate.find({ guid: ep.guid })
-        .upsert()
-        .updateOne({ $set: ep })
-    ));
-    return bulkUpdate.execute();
-  });
+  R.curry((episodesData) => (
+    initBulkOpWithEpisodes(
+      episodesData,
+      Episode.collection.initializeOrderedBulkOp()
+    )
+    .execute()
+    .then((bulkOp) => ({
+      feedEpisodes: episodesData.length,
+      bulkOpIsOk: bulkOp.isOk(),
+      inserted: bulkOp.nUpserted,
+      updated: bulkOp.nModified
+    }))
+  ));
 
 const writeFeedData =
   R.curry((podcast, { podcastData, episodesData }) => (

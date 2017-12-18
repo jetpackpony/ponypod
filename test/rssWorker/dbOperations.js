@@ -40,9 +40,10 @@ describe('writePodcast', () => {
       writeEpisodes([
         { podcast: podcast._id, guid: "1-Frist" },
         { podcast: podcast._id, guid: "2-Second" }
-      ]).then((bulkOp) => {
-        expect(bulkOp.isOk()).to.eql(true);
-        expect(bulkOp.nUpserted).to.eql(2);
+      ]).then((res) => {
+        expect(res.bulkOpIsOk).to.eql(true);
+        expect(res.inserted).to.eql(2);
+        expect(res.feedEpisodes).to.eql(2);
       })
     ));
     it('updates existing episodes', () => (
@@ -54,10 +55,11 @@ describe('writePodcast', () => {
           { podcast: podcast._id, title: "new title", guid: "2-Second" }
         ])
       ))
-      .then((bulkOp) => {
-        expect(bulkOp.isOk()).to.eql(true);
-        expect(bulkOp.nUpserted).to.eql(1);
-        expect(bulkOp.nModified).to.eql(1);
+      .then((res) => {
+        expect(res.bulkOpIsOk).to.eql(true);
+        expect(res.inserted).to.eql(1);
+        expect(res.updated).to.eql(1);
+        expect(res.feedEpisodes).to.eql(2);
       })
     ));
   });

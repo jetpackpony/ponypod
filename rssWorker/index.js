@@ -19,8 +19,9 @@ const updatePodcast =
       .then(([ podcast, bulkEpisodes ]) => {
         console.log(`DONE: ${podcast.title}`);
         console.log(`Link: ${podcast.rssLink}`);
-        console.log(`${bulkEpisodes.nInserted} new episodes inserted`);
-        console.log(`${bulkEpisodes.nModified} episodes updated`);
+        console.log(`${bulkEpisodes.feedEpisodes} episodes found in the feed`);
+        console.log(`${bulkEpisodes.inserted} new episodes inserted`);
+        console.log(`${bulkEpisodes.updated} episodes updated`);
         console.log(`===============`);
       })
       .catch((err) => {
