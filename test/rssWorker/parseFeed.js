@@ -1,5 +1,6 @@
 process.env.NODE_ENV = 'test';
 
+const moment = require('moment');
 const {
   parseFeed,
   parseDuration,
@@ -37,7 +38,7 @@ describe('parseFeed', () => {
         podcast: podcast._id,
         guid: "52d66949e4b0a8cec3bcdd46",
         title: "1-First episode",
-        publishedAt: "Thu, 30 Nov 2017 20:33:49 +0000",
+        publishedAt: moment("Thu, 30 Nov 2017 20:33:49 +0000").toDate(),
         duration: 6692,
         summary: "First episode - First paragraph of description",
         fullDescription: "\n\n\n\n<p>First episode - First paragraph of description</p>\n<h2 id=\"sponsors-\">Sponsors:</h2>\n<p><a href=\"https://www.squarespace.com/hello\">Some link</a></p>\n\n",
@@ -47,7 +48,7 @@ describe('parseFeed', () => {
         podcast: podcast._id,
         guid: "52d66949e4b0a8cec3bcdd46",
         title: "2-Second episode",
-        publishedAt: "Fri, 24 Nov 2017 22:20:12 +0000",
+        publishedAt: moment("Fri, 24 Nov 2017 22:20:12 +0000").toDate(),
         duration: 3222,
         summary: "Second Episode - First paragrhaph of second episode",
         fullDescription: "\n\n\n\n<p>Second Episode - First paragrhaph of <em>second</em> episode</p>\n<h2 id=\"sponsors-\">Sponsors:</h2>\n<p><a href=\"http://backblaze.com/hellointernet\">Some HTML</a></p>\n\n",
