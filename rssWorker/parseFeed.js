@@ -28,31 +28,47 @@ const extractSummary =
   );
 
 const getPodcastDataFromFeed =
-  R.curry((feed) => ({
+  (feed) => ({
     title: feed.title,
     image: feed.itunes.image,
     summary: feed.description,
     description: feed.description
+  });
+
+const parseEpisode =
+  R.curry((podcast, ep) => ({
+    podcast: podcast._id,
+    guid: ep.guid,
+    title: ep.title,
+    publishedAt: moment(ep.pubDate).toDate(),
+    duration: parseDuration(ep.itunes.duration || '00:00'),
+    summary: extractSummary(ep.content),
+    fullDescription: ep.content,
+    mp3Link: ep.enclosure.url
   }));
 
+const failedParsingEpisode =
+  R.curry((podcast, err, ep) => {
+    console.log(`Failed to parse episode: ${JSON.stringify(ep, null, 2)}`);
+    console.log(`error: ${err.toString()}\n${err.stack}`);
+    console.log(`_____________________________`);
+    return null;
+  });
+
 const getEpisodesDataFromFeed =
-  R.curry((podcast, feed) => (
-    feed.entries.map((ep) => ({
-      podcast: podcast._id,
-      guid: ep.guid,
-      title: ep.title,
-      publishedAt: moment(ep.pubDate).toDate(),
-      duration: parseDuration(ep.itunes.duration || '00:00'),
-      summary: extractSummary(ep.content),
-      fullDescription: ep.content,
-      mp3Link: ep.enclosure.url
-    }))
-  ));
+  (podcast) => R.compose(
+    R.reject(R.isNil),
+    R.map(R.tryCatch(
+      parseEpisode(podcast),
+      failedParsingEpisode(podcast)
+    )),
+    R.prop('entries')
+  );
 
 const parseFeed =
   R.curry((podcast, { feed }) => ({
     podcastData: getPodcastDataFromFeed(feed),
-    episodesData: getEpisodesDataFromFeed(podcast, feed)
+    episodesData: getEpisodesDataFromFeed(podcast)(feed)
   }));
 
 module.exports = {
