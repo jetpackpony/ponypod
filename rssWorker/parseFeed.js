@@ -1,4 +1,5 @@
 const R = require('ramda');
+const moment = require('moment');
 const striptags = require('striptags');
 const { parseIntDecimal } = require('../app/utils/numbers');
 
@@ -40,7 +41,7 @@ const getEpisodesDataFromFeed =
       podcast: podcast._id,
       guid: ep.guid,
       title: ep.title,
-      publishedAt: ep.pubDate,
+      publishedAt: moment(ep.pubDate).toDate(),
       duration: parseDuration(ep.itunes.duration || '00:00'),
       summary: extractSummary(ep.content),
       fullDescription: ep.content,
