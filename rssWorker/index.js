@@ -37,7 +37,11 @@ const rssWorker =
   R.partial(loopThroughPodcasts, [
     updatePodcast,
     console.error,
-    () => console.log("closed")
+    R.partial(console.log, ["closed"]),
+    () => {
+      console.log(`Completed all podcasts, closing up`);
+      mongoose.connection.close();
+    }
   ]);
 
 mongoose

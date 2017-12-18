@@ -4,15 +4,26 @@ const Podcast = mongoose.model('Podcast');
 const Episode = mongoose.model('Episode');
 
 const loopThroughPodcasts =
-  (onData, onError, onClose) => (
+  (onData, onError, onClose, onDone) => {
+    let promisePool = [];
     Podcast
-    .find({})
-    .select('title rssLink')
-    .cursor()
-    .on('data', onData)
-    .on('error', onError)
-    .on('close', onClose)
-  );
+      .find({})
+      .select('title rssLink')
+      .cursor()
+      .on('data', (
+        R.compose(
+          promisePool.push.bind(promisePool),
+          onData
+        )
+      ))
+      .on('error', onError)
+      .on('close', (...args) => {
+        Promise.all(promisePool)
+          .then(onDone)
+          .catch(onDone);
+        onClose(...args);
+      });
+  };
 
 const writePodcast =
   R.curry((podcast, feedData) => (
