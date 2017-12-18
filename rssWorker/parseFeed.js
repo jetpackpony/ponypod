@@ -27,13 +27,25 @@ const extractSummary =
     )(str)
   );
 
+const getFirstNotNil = R.compose(R.head, R.reject(R.isNil));
+
+const getPodacstImage =
+  R.converge(
+    R.unapply(getFirstNotNil),
+    [
+      R.path(['itunes', 'image']),
+      R.path(['entries', '0', 'itunes', 'image']),
+    ]
+  );
+
 const getPodcastDataFromFeed =
-  (feed) => ({
-    title: feed.title,
-    image: feed.itunes.image,
-    summary: feed.description,
-    description: feed.description
-  });
+  (feed) => {
+    return {
+      title: feed.title,
+      image: getPodacstImage(feed),
+      summary: feed.description,
+      description: feed.description
+    }};
 
 const parseEpisode =
   R.curry((podcast, ep) => ({
