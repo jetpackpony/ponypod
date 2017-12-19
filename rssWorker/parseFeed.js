@@ -39,13 +39,12 @@ const getPodacstImage =
   );
 
 const getPodcastDataFromFeed =
-  (feed) => {
-    return {
-      title: feed.title,
-      image: getPodacstImage(feed),
-      summary: feed.description,
-      description: feed.description
-    }};
+  (feed) => ({
+    title: feed.title,
+    image: getPodacstImage(feed),
+    summary: feed.description,
+    description: feed.description
+  });
 
 const parseEpisode =
   R.curry((podcast, ep) => ({
