@@ -27,14 +27,16 @@ const extractSummary =
     )(str)
   );
 
-const getFirstNotNil = R.compose(R.head, R.reject(R.isNil));
-
+const getFirstNotNil =
+  R.compose(R.head, R.reject(R.isNil));
 const getPodacstImage =
   R.converge(
     R.unapply(getFirstNotNil),
     [
       R.path(['itunes', 'image']),
       R.path(['entries', '0', 'itunes', 'image']),
+      R.path(['itunes:image', '$', 'href']),
+      R.path(['image', 'url', '0']),
     ]
   );
 
@@ -63,7 +65,8 @@ const failedParsingEpisode =
     log(podcast, 'err', {
       title: `Failed to parse episode: ${ep.guid || "(can't get guid)"}`,
       errMessage: err.toString(),
-      stack: err.stack
+      stack: err.stack,
+      episodeObj: ep
     });
     return null;
   });
