@@ -13,9 +13,9 @@ seeder.connect(config.get('MONGO_URL'), () => {
     seeder.populateModels([{
       model: 'Podcast',
       documents: [
+        { rssLink: 'http://feeds.feedburner.com/freakonomicsradio' },
         { rssLink: 'http://www.hellointernet.fm/podcast?format=rss' },
         { rssLink: 'http://www.howstuffworks.com/podcasts/stuff-you-should-know.rss' },
-        { rssLink: 'http://feeds.feedburner.com/freakonomicsradio' },
         { rssLink: 'http://podster.fm/rss.xml?pid=313' },
         { rssLink: 'http://atp.fm/episodes?format=rss' },
         { rssLink: 'http://golangshow.com/index.xml' },
@@ -26,7 +26,6 @@ seeder.connect(config.get('MONGO_URL'), () => {
         { rssLink: 'https://www.relay.fm/cortex/feed' },
         { rssLink: 'http://feeds.gimletmedia.com/hearstartup' },
         { rssLink: 'http://feed.thisamericanlife.org/talpodcast' },
-        { rssLink: 'https://youarenotsosmart.com/feed/' },
         { rssLink: 'https://feeds.feedburner.com/SoftSkillsEngineering' },
         { rssLink: 'https://www.npr.org/rss/podcast.php?id=510298' },
         { rssLink: 'http://feeds.gimletmedia.com/hearreplyall' },
