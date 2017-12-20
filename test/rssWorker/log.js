@@ -3,7 +3,7 @@ process.env.NODE_ENV = 'test';
 const { createLogger } = require('../../rssWorker/logger');
 const expect = require('chai').expect;
 
-describe.only('log', () => {
+describe('log', () => {
   const logOps = (log) => {
     log({ _id: 1111 }, 'err', { name: "err_1" });
     log({ _id: 1111 }, 'err', { name: "err_2" });
