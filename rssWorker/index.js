@@ -5,41 +5,52 @@ const { getModelsFiles } = require('../app/utils');
 getModelsFiles().map(require);
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+
 const { parseFeed } = require('./parseFeed');
 const {
   loopThroughPodcasts,
   writeFeedData
 } = require('./dbOperations');
 
+const { createLogger } = require('./logger');
+const { getLogs, log } = createLogger();
+const parseFeedWithLog = parseFeed(log);
+
 const updatePodcast =
   (podcast) => (
     parseURL(podcast.rssLink)
-      .then(parseFeed(podcast))
-      .then(writeFeedData(podcast))
-      .then(([ podcast, bulkEpisodes ]) => {
-        console.log(`DONE: ${podcast.title}`);
-        console.log(`Link: ${podcast.rssLink}`);
-        console.log(`${bulkEpisodes.feedEpisodes} episodes found in the feed`);
-        console.log(`${bulkEpisodes.inserted} new episodes inserted`);
-        console.log(`${bulkEpisodes.updated} episodes updated`);
-        console.log(`===============`);
-      })
-      .catch((err) => {
-        console.log(
-          'error: ',
-          { title: podcast.title, link: podcast.rssLink },
-          err
-        );
-      })
+    .then(parseFeedWithLog(podcast))
+    .then(writeFeedData(podcast))
+    .then(([ podcast, bulkEpisodes ]) => {
+      log(podcast, 'info', {
+        title: podcast.title,
+        link: podcast.rssLink,
+      });
+      log(podcast, 'msg', {
+        status: 'DONE',
+        parsedEps: bulkEpisodes.feedEpisodes,
+        inserted: bulkEpisodes.inserted,
+        updated: bulkEpisodes.updated,
+      });
+    })
+    .catch((err) => {
+      log(podcast, 'info', {
+        title: podcast.title,
+        link: podcast.rssLink,
+      });
+      log(podcast, 'err', err);
+    })
   );
 
 const rssWorker =
   R.partial(loopThroughPodcasts, [
     updatePodcast,
-    console.error,
-    R.partial(console.log, ["closed"]),
+    (...args) => log(null, 'err', { err: args }),
+    () => log(null, 'msg', { text: 'DB query completed' }),
     () => {
-      console.log(`Completed all podcasts, closing up`);
+      log(null, 'msg', { text: 'Completed all podcasts, closing up' });
+      let logs = getLogs();
+      console.log(JSON.stringify(logs, null, 2));
       mongoose.connection.close();
     }
   ]);

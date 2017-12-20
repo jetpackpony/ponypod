@@ -39,7 +39,7 @@ const getPodacstImage =
   );
 
 const getPodcastDataFromFeed =
-  (feed) => ({
+  (log, feed) => ({
     title: feed.title,
     image: getPodacstImage(feed),
     summary: feed.description,
@@ -59,27 +59,29 @@ const parseEpisode =
   }));
 
 const failedParsingEpisode =
-  R.curry((podcast, err, ep) => {
-    console.log(`Failed to parse episode: ${JSON.stringify(ep, null, 2)}`);
-    console.log(`error: ${err.toString()}\n${err.stack}`);
-    console.log(`_____________________________`);
+  R.curry((log, podcast, err, ep) => {
+    log(podcast, 'err', {
+      title: `Failed to parse episode: ${ep.guid || "(can't get guid)"}`,
+      errMessage: err.toString(),
+      stack: err.stack
+    });
     return null;
   });
 
 const getEpisodesDataFromFeed =
-  (podcast) => R.compose(
+  (log, podcast) => R.compose(
     R.reject(R.isNil),
     R.map(R.tryCatch(
       parseEpisode(podcast),
-      failedParsingEpisode(podcast)
+      failedParsingEpisode(log, podcast)
     )),
     R.prop('entries')
   );
 
 const parseFeed =
-  R.curry((podcast, { feed }) => ({
-    podcastData: getPodcastDataFromFeed(feed),
-    episodesData: getEpisodesDataFromFeed(podcast)(feed)
+  R.curry((log, podcast, { feed }) => ({
+    podcastData: getPodcastDataFromFeed(log, feed),
+    episodesData: getEpisodesDataFromFeed(log, podcast)(feed)
   }));
 
 module.exports = {
