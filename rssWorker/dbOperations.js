@@ -1,7 +1,6 @@
 const R = require('ramda');
-const mongoose = require('mongoose');
-const Podcast = mongoose.model('Podcast');
-const Episode = mongoose.model('Episode');
+const Podcast = require('../models/podcast').model;
+const Episode = require('../models/episode').model;
 
 const loopThroughPodcasts =
   (onData, onError, onClose, onDone) => {

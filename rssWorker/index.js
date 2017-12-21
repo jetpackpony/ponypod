@@ -1,11 +1,6 @@
 const R = require('ramda');
-const config = require('../config');
+const { setupDB } = require('../dbConnection');
 const { parseURL } = require('./utils');
-const { getModelsFiles } = require('../app/utils');
-getModelsFiles().map(require);
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-
 const { parseFeed } = require('./parseFeed');
 const {
   loopThroughPodcasts,
@@ -43,21 +38,18 @@ const updatePodcast =
   );
 
 const rssWorker =
-  R.partial(loopThroughPodcasts, [
-    updatePodcast,
-    (...args) => log(null, 'err', { err: args }),
-    () => log(null, 'msg', { text: 'DB query completed' }),
-    () => {
-      log(null, 'msg', { text: 'Completed all podcasts, closing up' });
-      let logs = getLogs();
-      console.log(JSON.stringify(logs, null, 2));
-      mongoose.connection.close();
-    }
-  ]);
+  (connection) => (
+    R.apply(loopThroughPodcasts, [
+      updatePodcast,
+      (...args) => log(null, 'err', { err: args }),
+      () => log(null, 'msg', { text: 'DB query completed' }),
+      () => {
+        log(null, 'msg', { text: 'Completed all podcasts, closing up' });
+        console.log(JSON.stringify(getLogs(), null, 2));
+        connection.close();
+      }
+    ])
+  );
 
-mongoose
-  .connect(config.get('MONGO_URL'), { useMongoClient: true })
-  .then(rssWorker)
-  .catch(console.error.bind(console, 'DB connection error:'));
-
+setupDB(rssWorker);
 

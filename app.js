@@ -2,35 +2,26 @@
 require('use-strict'); // use strict for all future modules
 
 const express = require('express');
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const { setupDB } = require('./dbConnection');
 const config = require('./config');
-const { getModelsFiles } = require('./app/utils');
 
 const app = express();
-
-// Bootstrap models
-getModelsFiles().map(require);
 
 // Bootstrap routes
 require('./app/setupExpress')(app);
 require('./app/routes')(app);
 
+const listen =
+  () => {
+    if (module === require.main) {
+      app.listen(config.get('PORT'), () => {
+        console.log(`App listening on port ${config.get('PORT')}`);
+      });
+    }
+  };
+
 // Connect to DB
-mongoose
-  .connect(config.get('MONGO_URL'), {
-    useMongoClient: true,
-  })
-  .then(listen)
-  .catch(console.error.bind(console, 'DB connection error:'));
+setupDB(listen);
 
 // Expose
 module.exports = app;
-
-function listen () {
-  if (module === require.main) {
-    app.listen(config.get('PORT'), () => {
-      console.log(`App listening on port ${config.get('PORT')}`);
-    });
-  }
-}

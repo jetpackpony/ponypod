@@ -1,6 +1,8 @@
 const router = require('express').Router();
-const Episode = require('mongoose').model('Episode');
-const { presenter } = require('../../models/episode');
+const {
+  presenter,
+  model: Episode
+} = require('../../models/episode');
 const {
   queryModel,
   searchPaginationRequest,
