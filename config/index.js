@@ -7,7 +7,8 @@ nconf
     'MONGO_URL',
     'PORT',
     'API_ENDPOINT',
-    'CORS_DOMAIN'
+    'CORS_DOMAIN',
+    'IMAGE_BUCKET_ID'
   ])
   .file({
     file: path.join(
