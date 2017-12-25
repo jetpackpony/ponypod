@@ -1,5 +1,5 @@
 const R = require('ramda');
-const config = require('./config');
+const config = require('../config');
 const Jimp = require('jimp');
 const Storage = require('@google-cloud/storage');
 
@@ -35,11 +35,11 @@ const getImageBuffer =
   );
 
 const prepareToUpload =
-  ({ img, buffer }) => ({
+  R.curry((fileName, { img, buffer }) => ({
     buffer,
     mime: img.getMIME(),
     fileName: `${fileName}.${img.getExtension()}`
-  });
+  }));
 
 const uploadToGoogleCloud =
   ({ mime, fileName, buffer }) => (
@@ -54,27 +54,15 @@ const uploadToGoogleCloud =
     })
   );
 
-const processImage =
+const uploadImage =
   (url, fileName) => (
     loadImage(url)
       .then(resizeImage)
       .then(getImageBuffer)
-      .then(prepareToUpload)
+      .then(prepareToUpload(fileName))
       .then(uploadToGoogleCloud)
   );
 
 module.exports = {
-  processImage
+  uploadImage
 };
-/*
-const fileName = "testmeTest4";
-const url = "https://podcasts.howstuffworks.com/hsw/podcasts/sysk/sysk-audio-1600.jpg";
-
-processImage(url, fileName)
-  .then((url) => {
-    console.log(`All done: ${url}`)
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-  */
