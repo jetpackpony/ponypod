@@ -11,12 +11,15 @@ const { createLogger } = require('./logger');
 const { getLogs, log } = createLogger();
 const parseFeedWithLog = parseFeed(log);
 
+const newOnly = true;
+
 const updatePodcast =
   (podcast) => (
     parseURL(podcast.rssLink)
     .then(parseFeedWithLog(podcast))
     .then(writeFeedData(podcast))
     .then(([ podcast, bulkEpisodes ]) => {
+      console.log(`DONE: ${podcast.rssLink}`);
       log(podcast, 'info', {
         title: podcast.title,
         link: podcast.rssLink,
@@ -29,6 +32,7 @@ const updatePodcast =
       });
     })
     .catch((err) => {
+      console.log(`ERROR: ${podcast.rssLink}: ${err}`);
       log(podcast, 'info', {
         title: podcast.title,
         link: podcast.rssLink,
@@ -40,6 +44,7 @@ const updatePodcast =
 const rssWorker =
   (connection) => (
     R.apply(loopThroughPodcasts, [
+      newOnly,
       updatePodcast,
       (...args) => log(null, 'err', { err: args }),
       () => log(null, 'msg', { text: 'DB query completed' }),

@@ -5,10 +5,10 @@ const { uploadImage } = require('./images');
 const slug = require('slug');
 
 const loopThroughPodcasts =
-  (onData, onError, onClose, onDone) => {
+  (newOnly, onData, onError, onClose, onDone) => {
     let promisePool = [];
     Podcast
-      .find({})
+      .find((newOnly) ? { title: "" } : {})
       .select('title rssLink')
       .cursor()
       .on('data', (
