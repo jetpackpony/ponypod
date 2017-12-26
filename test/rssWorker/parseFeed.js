@@ -71,6 +71,15 @@ describe('parseDuration', () => {
   it('parses ss duration', () => {
     expect(parseDuration('00:44')).to.eql(44);
   });
+  it('parses duration as a number of secords', () => {
+    expect(parseDuration('7388')).to.eql(7388);
+  });
+  it('parses duration as a small number of secords', () => {
+    expect(parseDuration('32')).to.eql(32);
+  });
+  it('parses duration as not a number', () => {
+    expect(parseDuration('abc')).to.eql(0);
+  });
 });
 
 describe('extractSummary', () => {

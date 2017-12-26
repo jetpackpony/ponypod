@@ -3,9 +3,12 @@ const moment = require('moment');
 const striptags = require('striptags');
 const { parseIntDecimal } = require('../app/utils/numbers');
 
-const hmsToSeconds = ([h, m, s]) => h * 3600 + m * 60 + s;
-const nullsToZeros = (i) => i || 0;
-const nullsToEmptyStrings = (str) => str || "";
+const hmsToSeconds =
+  ([h, m, s]) => (h || 0) * 3600 + (m || 0) * 60 + (s || 0);
+const nullsToZeros =
+  (i) => i || 0;
+const nullsToEmptyStrings =
+  (str) => str || "";
 
 const parseDuration =
   R.compose(
@@ -13,7 +16,7 @@ const parseDuration =
     R.map(nullsToZeros),
     R.map(parseIntDecimal),
     R.slice(1, 4),
-    R.match(/(?:(\d{1,2}):)?(\d{1,2}):(\d{1,2})/)
+    R.match(/(?:(?:(\d{1,2}):)?(\d{1,2}):)?(\d+)/)
   );
 
 const extractSummary =
