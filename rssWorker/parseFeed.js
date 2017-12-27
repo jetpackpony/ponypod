@@ -46,7 +46,7 @@ const getPodacstImage =
 const getPodcastDataFromFeed =
   (log, feed) => ({
     title: feed.title,
-    image: getPodacstImage(feed),
+    imageOrig: getPodacstImage(feed),
     summary: feed.description,
     description: feed.description
   });

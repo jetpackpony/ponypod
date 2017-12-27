@@ -3,6 +3,7 @@ const Presenter = require('yayson')({adapter:'default'}).Presenter;
 
 const PodcastSchema = new mongoose.Schema({
   title: { type: String, default: '' },
+  imageOrig: { type: String, default: '' },
   image: { type: String, default: '' },
   summary: { type: String, default: '' },
   description: { type: String, default: '' },
