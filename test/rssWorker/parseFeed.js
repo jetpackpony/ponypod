@@ -29,7 +29,7 @@ describe('parseFeed', () => {
     ).to.be.eql({
       title: "Hello Internet",
       description: "CGP Grey and Brady Haran talk about YouTube, life, work, whatever.",
-      image: "http://static1.squarespace.com/Hello+Internet.003.png",
+      imageOrig: "http://static1.squarespace.com/Hello+Internet.003.png",
       summary: "CGP Grey and Brady Haran talk about YouTube, life, work, whatever.",
     });
   });
