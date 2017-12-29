@@ -2,6 +2,7 @@ const R = require('ramda');
 const moment = require('moment');
 const striptags = require('striptags');
 const { parseIntDecimal } = require('../app/utils/numbers');
+const logger = require('../logger');
 
 const hmsToSeconds =
   ([h, m, s]) => (h || 0) * 3600 + (m || 0) * 60 + (s || 0);
@@ -44,7 +45,7 @@ const getPodacstImage =
   );
 
 const getPodcastDataFromFeed =
-  (log, feed) => ({
+  (feed) => ({
     title: feed.title,
     imageOrig: getPodacstImage(feed),
     summary: feed.description,
@@ -64,30 +65,32 @@ const parseEpisode =
   }));
 
 const failedParsingEpisode =
-  R.curry((log, podcast, err, ep) => {
-    log(podcast, 'err', {
-      title: `Failed to parse episode: ${ep.guid || "(can't get guid)"}`,
-      errMessage: err.toString(),
-      stack: err.stack,
-      episodeObj: ep
-    });
-    return null;
-  });
+  R.curry((podcast, err, ep) => (
+    logger.info(
+      [
+        `Failed to parse podcast ${podcast.rssLink}`,
+        `Episode id: ${ep.guid || "(can't get guid)"}`,
+      ].join("\n"),
+      { err, ep }
+    )
+  ));
 
 const getEpisodesDataFromFeed =
-  (log, podcast) => R.compose(
+  (podcast) => R.compose(
     R.reject(R.isNil),
-    R.map(R.tryCatch(
-      parseEpisode(podcast),
-      failedParsingEpisode(log, podcast)
-    )),
+    R.map(
+      R.tryCatch(
+        parseEpisode(podcast),
+        failedParsingEpisode(podcast)
+      )
+    ),
     R.prop('entries')
   );
 
 const parseFeed =
-  R.curry((log, podcast, { feed }) => ({
-    podcastData: getPodcastDataFromFeed(log, feed),
-    episodesData: getEpisodesDataFromFeed(log, podcast)(feed)
+  R.curry((podcast, { feed }) => ({
+    podcastData: getPodcastDataFromFeed(feed),
+    episodesData: getEpisodesDataFromFeed(podcast)(feed)
   }));
 
 module.exports = {
@@ -95,4 +98,3 @@ module.exports = {
   parseDuration,
   extractSummary
 };
-

@@ -7,54 +7,49 @@ const {
   writeFeedData
 } = require('./dbOperations');
 
-const { createLogger } = require('./logger');
-const { getLogs, log } = createLogger();
-const parseFeedWithLog = parseFeed(log);
+const logger = require('../logger');
 
 const newOnly = true;
 
 const updatePodcast =
   (podcast) => (
     parseURL(podcast.rssLink)
-    .then(parseFeedWithLog(podcast))
+    .then(parseFeed(podcast))
     .then(writeFeedData(podcast))
-    .then(([ podcast, bulkEpisodes ]) => {
-      console.log(`DONE: ${podcast.rssLink}`);
-      log(podcast, 'info', {
-        title: podcast.title,
-        link: podcast.rssLink,
-      });
-      log(podcast, 'msg', {
-        status: 'DONE',
-        parsedEps: bulkEpisodes.feedEpisodes,
-        inserted: bulkEpisodes.inserted,
-        updated: bulkEpisodes.updated,
-      });
-    })
-    .catch((err) => {
-      console.log(`ERROR: ${podcast.rssLink}: ${err}`);
-      log(podcast, 'info', {
-        title: podcast.title,
-        link: podcast.rssLink,
-      });
-      log(podcast, 'err', err);
-    })
+    .then(([ podcast, bulkEpisodes ]) =>
+      logger.info([
+        `DONE: ${podcast.rssLink}`,
+        `Episodes Parsed: ${bulkEpisodes.feedEpisodes}`,
+        `Episodes Inserted: ${bulkEpisodes.inserted}`,
+        `Episodes Updated: ${bulkEpisodes.updated}`
+      ].join("\n"))
+    )
+    .catch((err) =>
+      logger.error(`updatePodcast error: ${podcast.rssLink}`, { err })
+    )
   );
 
+const onError =
+  (...args) => logger.error('loopThroughPodcasts error', { err: args });
+
+const onClose =
+  () => logger.info('Podcast search query completed');
+
+const onDone =
+  (connection) => {
+    logger.info('Completed all podcasts, closing up');
+    connection.close();
+  };
+
 const rssWorker =
-  (connection) => (
-    R.apply(loopThroughPodcasts, [
+  (connection) =>
+    loopThroughPodcasts(
       newOnly,
       updatePodcast,
-      (...args) => log(null, 'err', { err: args }),
-      () => log(null, 'msg', { text: 'DB query completed' }),
-      () => {
-        log(null, 'msg', { text: 'Completed all podcasts, closing up' });
-        console.log(JSON.stringify(getLogs(), null, 2));
-        connection.close();
-      }
-    ])
-  );
+      onError,
+      onClose,
+      R.partial(onDone, [connection])
+    );
 
 setupDB(rssWorker);
 
