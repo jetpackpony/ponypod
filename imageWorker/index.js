@@ -6,38 +6,34 @@ const {
   updatePodcastRecord
 } = require('./dbOperations');
 const uploadImage = require('./images');
-
-const { createLogger } = require('../rssWorker/logger');
-const { getLogs, log } = createLogger();
+const logger = require('../logger');
 
 const updatePodcast =
-  (podcast) => {
-    return uploadImage(makeImageName(podcast), podcast.imageOrig)
+  (podcast) =>
+    uploadImage(makeImageName(podcast), podcast.imageOrig)
       .then(updatePodcastRecord(podcast))
-      .then(() => {
-        console.log(`DONE: ${podcast.imageOrig}`);
-      })
-      .catch((err) => {
-        console.log(`ERROR: ${err}`);
-      });
+      .then(() => logger.info(`DONE: ${podcast.imageOrig}`))
+      .catch((err) => logger.error("updatePodcast error", { err }));
+
+const onError =
+  (err) => logger.error('loopThroughPodcasts error', { err });
+
+const onClose =
+  () => logger.info('Podcast search query completed');
+
+const onDone =
+  (connection) => {
+    logger.info('Completed all podcasts, closing up');
+    connection.close();
   };
 
-
 const imageWorker =
-  (connection) => (
-    R.apply(
-      loopThroughPodcasts,
-      [
-        updatePodcast,
-        (...args) => log(null, 'err', { err: args }),
-        () => log(null, 'msg', { text: 'DB query completed' }),
-        () => {
-          log(null, 'msg', { text: 'Completed all podcasts, closing up' });
-          console.log(JSON.stringify(getLogs(), null, 2));
-          connection.close();
-        }
-      ]
-    )
-  );
+  (connection) =>
+    loopThroughPodcasts(
+      updatePodcast,
+      onError,
+      onClose,
+      R.partial(onDone, [connection])
+    );
 
 setupDB(imageWorker);

@@ -36,6 +36,7 @@
     "slug": "^0.9.1",
     "striptags": "^3.1.1",
     "use-strict": "^1.0.1",
+    "winston": "^3.0.0-rc1",
     "yayson": "^2.0.8"
   },
   "devDependencies": {

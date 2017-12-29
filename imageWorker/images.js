@@ -35,11 +35,13 @@ const getImageBuffer =
   );
 
 const prepareToUpload =
-  R.curry((fileName, { img, buffer }) => ({
-    buffer,
-    mime: img.getMIME(),
-    fileName: `${fileName}.${img.getExtension()}`
-  }));
+  R.curry(
+    (fileName, { img, buffer }) => ({
+      buffer,
+      mime: img.getMIME(),
+      fileName: `${fileName}.${img.getExtension()}`
+    })
+  );
 
 const uploadToGoogleCloud =
   ({ mime, fileName, buffer }) => (
@@ -55,12 +57,13 @@ const uploadToGoogleCloud =
   );
 
 const uploadImage =
-  R.curry((fileName, url) => (
-    loadImage(url)
-      .then(resizeImage)
-      .then(getImageBuffer)
-      .then(prepareToUpload(fileName))
-      .then(uploadToGoogleCloud)
-  ));
+  R.curry(
+    (fileName, url) =>
+      loadImage(url)
+        .then(resizeImage)
+        .then(getImageBuffer)
+        .then(prepareToUpload(fileName))
+        .then(uploadToGoogleCloud)
+  );
 
 module.exports = uploadImage;
