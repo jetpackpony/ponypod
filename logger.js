@@ -16,14 +16,11 @@ const logger = createLogger({
     }),
     new transports.File({
       filename: path.join(logsPath, 'combined.log')
+    }),
+    new transports.Console({
+      format: format.simple()
     })
   ]
 });
-
-if (process.env.NODE_ENV !== 'production') {
-  logger.add(new transports.Console({
-    format: format.simple()
-  }));
-}
 
 module.exports = logger;
