@@ -1,0 +1,49 @@
+{
+  "name": "pony-pod",
+  "version": "0.0.2",
+  "description": "Ponypod is a web app for tracking and listening to podcasts.",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon --exec 'mocha -R min --recursive' test",
+    "start": "node app.js",
+    "deploy": "gcloud app deploy",
+    "seed": "NODE_ENV=development node seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jetpackpony/ponypod.git"
+  },
+  "author": "jetpackpony",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jetpackpony/ponypod/issues"
+  },
+  "homepage": "https://github.com/jetpackpony/ponypod#readme",
+  "dependencies": {
+    "@google-cloud/storage": "^1.5.1",
+    "app-root-path": "^2.0.1",
+    "cors": "^2.8.4",
+    "dasherize": "^2.0.0",
+    "express": "^4.16.2",
+    "faker": "^4.1.0",
+    "jimp": "^0.2.28",
+    "moment": "^2.19.4",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.13.6",
+    "nconf": "^0.9.1",
+    "ramda": "^0.25.0",
+    "rss-parser": "^2.11.0",
+    "slug": "^0.9.1",
+    "striptags": "^3.1.1",
+    "use-strict": "^1.0.1",
+    "winston": "^3.0.0-rc1",
+    "yayson": "^2.0.8"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^4.0.1",
+    "mocha-jshint": "^2.3.1",
+    "mongoose-seed": "^0.4.0"
+  }
+}

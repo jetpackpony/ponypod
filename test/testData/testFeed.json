@@ -1,0 +1,91 @@
+{
+  "entries": [
+    {
+      "creator": "Naked Science",
+      "title": "1-First",
+      "link": "http://pochemu.podster.fm/33",
+      "pubDate": "Tue, 29 Oct 2013 13:30:10 +0400",
+      "enclosure": {
+        "url": "http://mp3-url.mp3?media=rss",
+        "length": "4062831",
+        "type": "audio/mpeg"
+      },
+      "dc:creator": "Naked Science",
+      "content": "1-First description",
+      "contentSnippet": "1-First summary",
+      "guid": "http://pochemu.podster.ru/33",
+      "isoDate": "2013-10-29T09:30:10.000Z",
+      "itunes": {
+        "author": "Naked Science",
+        "subtitle": "1-First description",
+        "summary": "1-First summary",
+        "explicit": "No",
+        "duration": "04:14",
+        "image": "https://i.podster.fm/img/30395/size/large/30395-1.jpg"
+      }
+    },
+    {
+      "creator": "Naked Science",
+      "title": "Почему у персонажей мультфильмов 4 пальца на руке?",
+      "link": "http://pochemu.podster.fm/32",
+      "pubDate": "Tue, 22 Oct 2013 13:00:17 +0400",
+      "enclosure": {
+        "url": "http://pochemu.podster.fm/32/download/audio.mp3?media=rss",
+        "length": "2872296",
+        "type": "audio/mpeg"
+      },
+      "dc:creator": "Naked Science",
+      "content": "Ответы на этот и другие вопросы — в новом выпуске программы «Разгадки вселенной».",
+      "contentSnippet": "Ответы на этот и другие вопросы — в новом выпуске программы «Разгадки вселенной».",
+      "guid": "http://pochemu.podster.ru/32",
+      "isoDate": "2013-10-22T09:00:17.000Z",
+      "itunes": {
+        "author": "Naked Science",
+        "subtitle": "Почему у персонажей мультфильмов 4 пальца на руке?",
+        "summary": "Ответы на этот и другие вопросы — в новом выпуске программы «Разгадки вселенной».",
+        "explicit": "No",
+        "duration": "03:00",
+        "image": "https://i.podster.fm/img/29858/size/large/29858-1.jpg"
+      }
+    },
+    {
+      "creator": "Naked Science",
+      "title": "Почему 14 февраля в Саудовской Аравии нельзя носить и продавать ничего красного? ",
+      "link": "http://pochemu.podster.fm/31",
+      "pubDate": "Tue, 15 Oct 2013 13:30:36 +0400",
+      "enclosure": {
+        "url": "http://pochemu.podster.fm/31/download/audio.mp3?media=rss",
+        "length": "2831430",
+        "type": "audio/mpeg"
+      },
+      "dc:creator": "Naked Science",
+      "content": "Ответы на этот и другие вопросы — в новом выпуске программы «Разгадки вселенной».",
+      "contentSnippet": "Ответы на этот и другие вопросы — в новом выпуске программы «Разгадки вселенной».",
+      "guid": "http://pochemu.podster.ru/31",
+      "isoDate": "2013-10-15T09:30:36.000Z",
+      "itunes": {
+        "author": "Naked Science",
+        "subtitle": "Почему 14 февраля в Саудовской Аравии нельзя носить и продавать ничего красного? ",
+        "summary": "Ответы на этот и другие вопросы — в новом выпуске программы «Разгадки вселенной».",
+        "explicit": "No",
+        "duration": "02:57",
+        "image": "https://i.podster.fm/img/29349/size/large/29349-1.jpg"
+      }
+    }
+  ],
+  "feedUrl": "https://podster.fm/rss.xml?pid=313",
+  "title": "Test Podcast",
+  "description": "Podcast description",
+  "generator": "Podster",
+  "link": "http://pochemu.podster.fm",
+  "itunes": {
+    "image": "https://image-url.jpg",
+    "owner": {
+      "email": "support@podster.ru"
+    },
+    "author": "Podster.ru",
+    "subtitle": "Test Podcast",
+    "summary": "",
+    "explicit": "No"
+  }
+}
