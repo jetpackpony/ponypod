@@ -11,9 +11,6 @@ const expect = chai.expect;
 const Podcast = require('../../models/podcast').model;
 const testFeed = require('../testData/testFeed-hello.json');
 
-const { log } = require('../../rssWorker/logger').createLogger();
-const parseFeedWithLog = parseFeed(log);
-
 describe('parseFeed', () => {
   let podcast;
   beforeEach(() =>
@@ -25,7 +22,7 @@ describe('parseFeed', () => {
 
   it('should return correct podcast data', () => {
     expect(
-      parseFeedWithLog(podcast, testFeed).podcastData
+      parseFeed(podcast, testFeed).podcastData
     ).to.be.eql({
       title: "Hello Internet",
       description: "CGP Grey and Brady Haran talk about YouTube, life, work, whatever.",
@@ -35,7 +32,7 @@ describe('parseFeed', () => {
   });
   it('should return correct episodes data', () => {
     expect(
-      parseFeedWithLog(podcast, testFeed).episodesData
+      parseFeed(podcast, testFeed).episodesData
     ).to.be.eql([
       {
         podcast: podcast._id,
