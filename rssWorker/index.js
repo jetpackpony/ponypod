@@ -9,7 +9,7 @@ const {
 
 const logger = require('../logger');
 
-const newOnly = true;
+const newOnly = false;
 
 const updatePodcast =
   (podcast) => (
