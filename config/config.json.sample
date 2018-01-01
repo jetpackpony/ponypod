@@ -1,4 +1,5 @@
 {
+  "GCLOUD_PROJECT": "the name of your project on gcloud (used by imageWorker)",
   "MONGO_URL": "mongodb connection url (mlabs probably)",
   "CORS_DOMAIN": "http://localhost:4200",
   "IMAGE_BUCKET_ID": "the id of image bucket on gcloud"
