@@ -3,7 +3,7 @@ const config = require('../config');
 
 module.exports = function (app) {
   app.use(cors({
-    origin: config.get('CORS_DOMAIN'),
+    origin: "*",
     optionsSuccessStatus: 200
   }));
 };
